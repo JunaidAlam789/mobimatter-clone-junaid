@@ -8,7 +8,7 @@ import { dropdownMenuData } from ".";
 
 export default function MobileNavbar() {
   return (
-    <div className="flex items-center justify-between w-full h-16 px-2">
+    <div className="flex items-center justify-between w-full h-16 px-2 border-b-2 border-[#F2F6F8]">
       {/* SideMenu */}
       <Sheet>
         <SheetTrigger>
