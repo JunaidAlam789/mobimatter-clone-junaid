@@ -24,6 +24,11 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        bgaqua:"#f2f6f8",
+        btnblue:"#00aeef",
+        txtgrey:"#718096",
+        btndark:"#2d4156",
+        btnlight:"eaeff2",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
