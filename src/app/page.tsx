@@ -1,6 +1,11 @@
-export default function Home() {
-  return <main>
-    
+import { HeroSection } from "@/views/homepage/HeroSection";
+import { PopularCountries } from "@/views/homepage/popularCountries";
 
-  </main>;
+export default function Home() {
+  return (
+    <main className="">
+      <HeroSection />
+      <PopularCountries />
+    </main>
+  );
 }
