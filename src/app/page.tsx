@@ -3,7 +3,7 @@ import { PopularCountries } from "@/views/homepage/popularCountries";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <HeroSection />
       <PopularCountries />
     </main>

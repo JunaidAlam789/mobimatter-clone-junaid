@@ -39,6 +39,7 @@ const config = {
         foreground: "hsl(var(--foreground))",
         bgaqua:"#f2f6f8",
         btnblue:"#00aeef",
+        hoverbtnblu:"0096ce",
         txtgrey:"#718096",
         btndark:"#2d4156",
         btnlight:"eaeff2",
