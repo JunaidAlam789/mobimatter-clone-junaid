@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { simDataT } from "@/views/homepage/esimOffers";
-import fiveG from "/public/homepage/esimCard/5G.svg";
+import fiveG from "/public/homepage/esimCard/fiveg.svg";
 import globe from "/public/homepage/esimCard/globe.svg";
 import snow from "/public/homepage/esimCard/snow.svg";
 import badge from "/public/homepage/esimCard/badge.svg";
