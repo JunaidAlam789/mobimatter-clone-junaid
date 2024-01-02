@@ -78,7 +78,7 @@ export function CustomSelector({
         />
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent side="bottom" avoidCollisions={false}>
         {error ? (
           <p>Error loading countries</p>
         ) : isLoading ? (

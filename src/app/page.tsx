@@ -1,4 +1,4 @@
-import { getCountriesData } from "@/utils/getCountriesdata";
+
 import { HeroSection } from "@/views/homepage/HeroSection";
 import { PromotionCards } from "@/views/homepage/PromotionCards";
 import EsimOffers from "@/views/homepage/esimOffers";

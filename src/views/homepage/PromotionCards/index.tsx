@@ -36,7 +36,7 @@ export const PromotionCards = () => {
         </div>
 
         {/* Cards */}
-        <div className=" grid grid-cols-2 gap-4 mx-3 sm:grid sm:grid-cols-2 sm:gap-8 md:grid md:grid-cols-2 md:gap-x-24 md:gap-y-12 lg:flex lg:flex-row items-center justify-center lg:gap-4 lg:mx-10  xl:mx-0 xl:gap-12 2xl:gap-16 mt-10">
+        <div className=" grid grid-cols-2 gap-4 mx-5 sm:grid sm:grid-cols-2 sm:gap-8 md:grid md:grid-cols-2 md:gap-x-24 md:gap-y-12 lg:flex lg:flex-row items-center justify-center lg:gap-10 lg:mx-5  xl:mx-0 xl:gap-12 xl:max-w-[1200px] 2xl:gap-10  mt-10">
         {images.map((item , index) => (
             <PromotionCard
             key={index}
