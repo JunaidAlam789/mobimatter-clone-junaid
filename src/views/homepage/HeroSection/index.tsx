@@ -4,8 +4,12 @@ import React from 'react'
 import HeroImage from '../../../../public/homepage/heroSection/heroImage.png'
 import Image from 'next/image'
 import { SearchButton } from '@/components/SearchButton'
+import { getCountriesData } from '@/utils/getCountriesdata'
 
-export const HeroSection = () => {
+export const HeroSection = async () => {
+  const data : any = await getCountriesData();
+  // const countriesData = data.map((item : any) => ( item.name ))
+  // console.log("🚀 ~ file: index.tsx:12 ~ HeroSection ~ countriesData:", countriesData)
   return (
    <>
    {/* main div */}
@@ -18,10 +22,11 @@ export const HeroSection = () => {
           <h1>Unleash the power of eSims and stay connected like never before</h1>
         </div>
         {/* text */}
-        <p className=' px-8 mt-3 sm:max-w-[400px] md:max-w-[440px] lg:max-w-[420px] xl:w-[522px] font-light text-[#000000] sm:mt-3 md:mt-3 lg:mt-4  xl:mt-5  text-center'>lorem ipsam maki doka sum dom dim dega saki namo onga bonnga sedes te do sek sa</p>
+        <p className=' px-8 mt-3 sm:max-w-[400px] md:max-w-[440px] lg:max-w-[470px] xl:w-[522px] font-light text-[#000000] sm:mt-3 md:mt-3 lg:mt-4  xl:mt-5  text-center'>lorem ipsam maki doka sum dom dim dega saki namo onga bonnga sedes te do sek sa</p>
 
         {/* Search Button */}
-        <SearchButton />
+        <SearchButton data={data} />
+    
       </div>
 
       {/* Image Div */}

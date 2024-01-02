@@ -69,7 +69,7 @@ export const dropdownMenuData = [
 ];
 export default function Navbar() {
   return (
-    <div className="fixed bg-white w-full">
+    <div className="fixed bg-white w-full z-[100]">
       {/* Navbar for Large Screens */}
       <div className="hidden lg:block">
         <LargescreenNavbar />

@@ -1,11 +1,17 @@
+import { getCountriesData } from "@/utils/getCountriesdata";
 import { HeroSection } from "@/views/homepage/HeroSection";
+import { PromotionCards } from "@/views/homepage/PromotionCards";
+import EsimOffers from "@/views/homepage/esimOffers";
 import { PopularCountries } from "@/views/homepage/popularCountries";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <main>
+    <>
       <HeroSection />
       <PopularCountries />
-    </main>
+      <EsimOffers />
+      <PromotionCards />
+    </>
+  
   );
 }
