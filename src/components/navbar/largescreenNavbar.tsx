@@ -41,7 +41,7 @@ export default function LargescreenNavbar() {
         ))}
         {/* Button */}
         <Link href="/signup">
-          <Button className="bg-[#38BDEF] hover:bg-blue-800">Join Now</Button>
+          <Button className="bg-[#38BDEF]">Join Now</Button>
         </Link>
       </div>
     </div>
