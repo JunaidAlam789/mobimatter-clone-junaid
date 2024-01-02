@@ -19,8 +19,8 @@ export const CountryItem = ({
 } : CountryItemProps) => {
     return (
         <>
-    <Link href={href} className=' flex flex-col items-center hover:scale-110 transition-all duration-500 ease-in-out '>
-        <div className=" rounded-full bg-[#FFFFFF] shadow-md p-2 flex flex-col items-center justify-center w-[70px] h-[70px]">
+    <Link href={href} className=' flex flex-col items-center hover:scale-110 transition-all duration-500 ease-in-out  my-2 '>
+        <div className=" rounded-full bg-[#FFFFFF] shadow-md p-2 flex flex-col items-center justify-center w-[60px] h-[60px]">
             <Image src={Icon} alt={label} />
         </div>
         <div className=" mt-1 font-semibold text-sm">
