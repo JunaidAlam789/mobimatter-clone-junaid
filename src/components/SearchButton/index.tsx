@@ -1,23 +1,25 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import { Input } from '../ui/input'
-import { SearchIcon } from 'lucide-react'
-import { Button } from '../ui/button'
-import { CustomSelector } from './SearchSelect'
-import { getCountriesData } from '@/utils/getCountriesdata'
+import React, { useEffect, useState } from "react";
+import { Input } from "../ui/input";
+import { SearchIcon } from "lucide-react";
+import { Button } from "../ui/button";
+import { CustomSelector } from "./SearchSelect";
+import { getCountriesData } from "@/utils/getCountriesdata";
+import { TypedSearch } from "./typedSearch";
+import { NewSearch } from "./newSearch";
 
-export const SearchButton =  ({data}: any) => {
-    const [mounted, setMounted] = useState(false);
+export const SearchButton = ({ data }: any) => {
+  const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, [])
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
-    if( !mounted ) return null;
+  if (!mounted) return null;
   return (
     <>
-    {/* <div className=" bg-[#FFFFFF] rounded-full p-1 sm:p-2 md:p-2 lg:p-2 xl:p-3 border border-neutral-200 w-auto sm:max-w-[470px] md:w-[350px] lg:w-[350px] xl:w-[460px] flex items-center justify-center shadow-inner mt-4 mb-6 sm:mt-6 sm:mb-6  md:mt-6 md:mb-9 lg:mt-10 lg:mb-4 xl:mt-16 xl:mb-5 ">
+      {/* <div className=" bg-[#FFFFFF] rounded-full p-1 sm:p-2 md:p-2 lg:p-2 xl:p-3 border border-neutral-200 w-auto sm:max-w-[470px] md:w-[350px] lg:w-[350px] xl:w-[460px] flex items-center justify-center shadow-inner mt-4 mb-6 sm:mt-6 sm:mb-6  md:mt-6 md:mb-9 lg:mt-10 lg:mb-4 xl:mt-16 xl:mb-5 ">
         <Input
         type="text"
         placeholder='Search for a destination...'
@@ -31,12 +33,14 @@ export const SearchButton =  ({data}: any) => {
          className=' h-5 w-5' />
         </Button>
     </div> */}
-    <CustomSelector
-        placeholder='Search for a destination!' 
+      {/* <CustomSelector
+        placeholder="Search for a destination!"
         data={data}
-        identifier='Country'
+        identifier="Country"
         onSelect={(value) => console.log(value)}
-    />
+      /> */}
+      <NewSearch data={data} />
+      <TypedSearch countries={data} />
     </>
-  )
-}
+  );
+};
