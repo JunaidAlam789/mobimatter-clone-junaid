@@ -1,5 +1,4 @@
 
-import { getAllProducts } from "@/actions/getDynamicProducts";
 import { HeroSection } from "@/views/homepage/HeroSection";
 import { PromotionCards } from "@/views/homepage/PromotionCards";
 import EsimOffers from "@/views/homepage/esimOffers";
