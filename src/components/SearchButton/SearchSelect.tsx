@@ -40,11 +40,16 @@ export function CustomSelector({
   return (
     <Select
       onValueChange={(value : any) => {
-        onSelect(value);
-        selectedVal(value);
+        // onSelect(value);
+        // selectedVal(value);
+
+        // Replace spaces with hyphens in the country name
+        const formattedValue = value.name.trim().replace(/\s+/g, '-');
+        onSelect(formattedValue);
+        selectedVal(formattedValue);
 
         // redirect
-        router.push(`/travel-esim/${value.name}`)
+        router.push(`/travel-esim/${formattedValue}`)
       }}
     >
       <SelectTrigger
