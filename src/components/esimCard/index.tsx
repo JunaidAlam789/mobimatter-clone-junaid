@@ -50,7 +50,7 @@ const tags  = data?.productDetails?.product_tags.map((item : any) => ({tag : ite
           {/* Package and Company */}
           <div>
             <p className="text-[#1A202C] text-sm font-medium">{data?.productDetails?.product_Title}</p>
-            <p className="text-[#8A8D92] text-[10px]">{''}</p>
+            <p className="text-[#8A8D92] text-[10px]">{data?.providerName}</p>
           </div>
         </div>
         {/* Tag */}
@@ -126,9 +126,9 @@ const tags  = data?.productDetails?.product_tags.map((item : any) => ({tag : ite
           </p>
         </div>
         {/* Data */}
-        <div>
+        <div className="">
           <p className="text-[#1A202C] text-xs">Data:</p>
-          <p className="text-[15px] font-medium text-[#38BDEF]">{data?.productDetails?.product_data_unit}</p>
+          <p className="text-[15px] font-medium text-[#38BDEF]">{data?.productDetails?.product_data_limit} {data?.productDetails?.product_data_unit}</p>
         </div>
         {/* Price */}
         <div>
@@ -150,7 +150,7 @@ const tags  = data?.productDetails?.product_tags.map((item : any) => ({tag : ite
                 height={15}
                 alt="flag"
                 key={item.name}
-                className="inline rounded-md"
+                className="inline rounded-[2px]"
               />
             ))}{" "}
             and {data?.countries?.length} more destinations

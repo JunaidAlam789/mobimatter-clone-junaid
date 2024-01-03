@@ -58,7 +58,7 @@ const page = async ({
           country: getCountryCode?.cca2,
         });
       }
-    // console.log("🚀 ~ file: page.tsx:26 ~ getSpecificCountryProdcuct:", getSpecificCountryProdcuct)
+
 
     // fetch Product Details
     const fetchProductDetails = getSpecificCountryProduct.map((product : any) => product.productDetails)
@@ -91,11 +91,18 @@ const mergedData = data
       
   return (
     <div className='max-w-[1200px] px-5 mt-10 mx-auto'>
-        <h1 className=' font-bold'>Country Name : {params.countryName}</h1>
+        {/* <h1 className=' font-bold'>Country Name : {params.countryName}</h1> */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4">
-            {mergedData.map((product : IProductsProps , index : number)  => (
-                <EsimCard key={index} data={product} country={countriesData}  />
-            ))}
+            {mergedData.length > 0 ? (
+                <>
+                     {mergedData.map((product : IProductsProps , index : number)  => (
+                         <EsimCard key={index} data={product} country={countriesData}  />
+                         ))}
+                         </>
+            ): (
+                <p className=' text-xl'>No products found</p>
+            )}
+           
         </div>
     </div>
   )
