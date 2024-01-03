@@ -18,6 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
+import { usePathname, useSearchParams } from "next/navigation";
 
 // export type OptionType = {
 //   label: string;
@@ -39,6 +40,8 @@ function MultiSelect({
   className,
   ...props
 }: MultiSelectProps) {
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>(params!);
   onChange = setSelected;
