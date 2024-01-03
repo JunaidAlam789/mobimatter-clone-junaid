@@ -8,7 +8,7 @@ import { dropdownMenuData } from ".";
 
 export default function MobileNavbar() {
   return (
-    <div className="flex items-center justify-between w-full h-16 px-2 border-b-2 border-[#F2F6F8]">
+    <div className="flex items-center justify-between w-full h-16 px-2 border-b-2 border-[#F2F6F8] ">
       {/* SideMenu */}
       <Sheet>
         <SheetTrigger>
@@ -16,7 +16,7 @@ export default function MobileNavbar() {
         </SheetTrigger>
         <SheetContent
           side="left"
-          className="w-full h-screen overflow-y-auto pt-10"
+          className="w-full h-screen overflow-y-auto pt-10 z-[100]"
         >
           {navbarData.map((item, index) => (
             <div key={item.text} className="mb-4">
@@ -29,7 +29,7 @@ export default function MobileNavbar() {
                     </SheetTrigger>
                     <SheetContent
                       side="left"
-                      className="w-full pt-10 h-screen overflow-y-auto"
+                      className="w-full pt-10 h-screen overflow-y-auto z-[100]"
                     >
                       {dropdownMenuData.map((item, index) => (
                         <Link
