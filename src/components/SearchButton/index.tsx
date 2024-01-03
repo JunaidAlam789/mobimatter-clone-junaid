@@ -1,13 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Input } from "../ui/input";
-import { SearchIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { CustomSelector } from "./SearchSelect";
-import { getCountriesData } from "@/utils/getCountriesdata";
+// import { Input } from "../ui/input";
+// import { SearchIcon } from "lucide-react";
+// import { Button } from "../ui/button";
+// import { CustomSelector } from "./SearchSelect";
+// import { getCountriesData } from "@/utils/getCountriesdata";
 import { TypedSearch } from "./typedSearch";
-import { NewSearch } from "./newSearch";
 
 export const SearchButton = ({ data }: any) => {
   const [mounted, setMounted] = useState(false);
@@ -39,7 +38,6 @@ export const SearchButton = ({ data }: any) => {
         identifier="Country"
         onSelect={(value) => console.log(value)}
       /> */}
-      <NewSearch data={data} />
       <TypedSearch countries={data} />
     </>
   );
