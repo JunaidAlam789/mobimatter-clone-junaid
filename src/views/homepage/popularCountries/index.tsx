@@ -1,17 +1,17 @@
 "use client"
 
 import React from 'react'
-import USA from '../../../../public/homepage/popularCountries/USA.svg'
-import Europe from '../../../../public/homepage/popularCountries/europe.svg'
-import Uk from '../../../../public/homepage/popularCountries/UK.svg'
-import MiddleEast from '../../../../public/homepage/popularCountries/middleEast.svg'
-import Japan from '../../../../public/homepage/popularCountries/japan.svg'
-import UAE from '../../../../public/homepage/popularCountries/uae.svg'
-import Saudia from '../../../../public/homepage/popularCountries/saudiaArabia.svg'
-import Asia from '../../../../public/homepage/popularCountries/Asia.svg'
-import Americas from '../../../../public/homepage/popularCountries/Americas.svg'
-import Oceania from '../../../../public/homepage/popularCountries/Oceania.svg'
-import Africa from '../../../../public/homepage/popularCountries/Africa.svg'
+import USA from '/public/homepage/popularCountries/USA.svg'
+import Europe from '/public/homepage/popularCountries/europe.svg'
+import Uk from '/public/homepage/popularCountries/uk-flag.svg'
+import MiddleEast from '/public/homepage/popularCountries/middleEast.svg'
+import Japan from '/public/homepage/popularCountries/japan.svg'
+import UAE from '/public/homepage/popularCountries/uae.svg'
+import Saudia from '/public/homepage/popularCountries/saudiaArabia.svg'
+import Asia from '/public/homepage/popularCountries/Asia.svg'
+import Americas from '/public/homepage/popularCountries/Americas.svg'
+import Oceania from '/public/homepage/popularCountries/Oceania.svg'
+import Africa from '/public/homepage/popularCountries/Africa.svg'
 import { CountryItem } from '@/components/CountryItem'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
