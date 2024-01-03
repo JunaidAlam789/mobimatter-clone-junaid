@@ -24,57 +24,57 @@ export const PopularCountries = () => {
     {
       label: "USA",
       icon: USA,
-      href: `/travel-esim/USA`,
+      href: `/USA`,
     },
     {
       label: "Europe",
       icon: Europe,
-      href: `/travel-esim/Europe`,
+      href: `/Europe`,
     },
     {
       label: "UK",
       icon: Uk,
-      href: `/travel-esim/UK`,
+      href: `/UK`,
     },
     {
       label: "Middle East",
       icon: MiddleEast,
-      href: `/travel-esim/Middle East`,
+      href: `/Middle East`,
     },
     {
       label: "Japan",
       icon: Japan,
-      href: `/travel-esim/Japan`,
+      href: `/Japan`,
     },
     {
       label: "UAE",
       icon: UAE,
-      href: `/travel-esim/UAE`,
+      href: `/UAE`,
     },
     {
       label: "KSA",
       icon: Saudia,
-      href: `/travel-esim/SaudiArabia`,
+      href: `/SaudiArabia`,
     },
     {
       label: "Asia",
       icon: Asia,
-      href: `/travel-esim/Asia`,
+      href: `/Asia`,
     },
     {
       label: "Americas",
       icon: Americas,
-      href: `/travel-esim/Americas`,
+      href: `/Americas`,
     },
     {
       label: "Oceania",
       icon: Oceania,
-      href: `/travel-esim/Oceania`,
+      href: `/Oceania`,
     },
     {
       label: "Africa",
       icon: Africa,
-      href: `/travel-esim/Africa`,
+      href: `/Africa`,
     },
   ];
 

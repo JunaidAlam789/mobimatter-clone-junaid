@@ -39,14 +39,14 @@ export const dropdownMenuData = [
     icon: search,
     label: "Search for a new eSIM",
     description: "Search for best mobile offers at home and when you travel",
-    href: "/travel-esim",
+    href: "/",
   },
   {
     icon: uae,
     label: "eSIM offers for UAE",
     description:
       "Best eSIM deals for the United Arab Emirates from the top providers worldwide",
-    href: "/travel-esim/uae",
+    href: "/uae",
   },
   {
     icon: send,
@@ -58,13 +58,13 @@ export const dropdownMenuData = [
     icon: usa,
     label: "eSIM offers for USA",
     description: "Enjoy the United States with 4G speeds from $1.2/GB",
-    href: "/travel-esim/usa",
+    href: "/america",
   },
   {
     icon: europe,
     label: "eSIM offers for Europe",
     description: "Enjoy the United States with 4G speeds from $1.2/GB",
-    href: "/travel-esim/europe",
+    href: "/europe",
   },
 ];
 export default function Navbar() {

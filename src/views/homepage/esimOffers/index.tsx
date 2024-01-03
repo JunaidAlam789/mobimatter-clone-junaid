@@ -20,7 +20,7 @@ export interface simDataT {
   activeCountries: number;
 }
 
-const simData = [
+export const simData = [
   {
     logo: three,
     package: "Global 13 GB",

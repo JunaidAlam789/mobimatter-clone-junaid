@@ -1,0 +1,137 @@
+"use client";
+import * as React from "react";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+import { Check, X, ChevronsUpDown, SearchIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
+
+// export type OptionType = {
+//   label: string;
+//   value: string;
+// };
+
+interface MultiSelectProps {
+  // options: OptionType[];
+  options: any[];
+  params?: string[];
+  onChange?: React.Dispatch<React.SetStateAction<string[]>>;
+  className?: string;
+}
+
+function MultiSelect({
+  options,
+  params,
+  onChange = () => {},
+  className,
+  ...props
+}: MultiSelectProps) {
+  const [open, setOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState<string[]>(params!);
+  onChange = setSelected;
+  const handleUnselect = (item: string) => {
+    onChange(selected.filter((i) => i !== item));
+  };
+
+  return (
+    <Popover open={open} onOpenChange={setOpen} {...props}>
+      <PopoverTrigger asChild>
+        <Button
+          variant="outline"
+          role="combobox"
+          aria-expanded={open}
+          className={`w-full py-2 justify-between text-gray-500 hover:bg-white ${
+            selected.length > 0 ? "h-full" : "h-16"
+          }`}
+          onClick={() => setOpen(!open)}
+        >
+          <div className="">
+            <div className="flex gap-1 flex-wrap">
+              {selected.map((item) => (
+                <Badge
+                  variant="secondary"
+                  key={item}
+                  className="mr-1 mb-3"
+                  onClick={() => handleUnselect(item)}
+                >
+                  {item}
+                  <div
+                    className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleUnselect(item);
+                      }
+                    }}
+                    onMouseDown={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                    }}
+                    onClick={() => handleUnselect(item)}
+                  >
+                    <X className="h-3 w-3 text-muted-foreground hover:text-foreground" />
+                  </div>
+                </Badge>
+              ))}
+            </div>
+            <p className="font-normal text-left">Select countries ...</p>
+          </div>
+          <div className=" bg-[#38BDEF] rounded-full text-white  hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2  xl:p-2.5 ml-auto">
+            <SearchIcon className="h-5 w-5" />
+          </div>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[80dvw]">
+        <Command className={className}>
+          <CommandInput placeholder="Search ..." />
+          <CommandEmpty>No item found.</CommandEmpty>
+          <CommandGroup className="max-h-64 overflow-auto">
+            {options.map((option) => (
+              <CommandItem
+                key={option.name}
+                onSelect={() => {
+                  onChange(
+                    selected.includes(option.name)
+                      ? selected.filter((item) => item !== option.name)
+                      : [...selected, option.name]
+                  );
+                  setOpen(true);
+                }}
+              >
+                <Check
+                  className={cn(
+                    "mr-2 h-4 w-4",
+                    selected.includes(option.name) ? "opacity-100" : "opacity-0"
+                  )}
+                />
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={option.flag}
+                    alt={option.name}
+                    height={20}
+                    width={20}
+                  />
+                  {option.name}
+                </div>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+export { MultiSelect };

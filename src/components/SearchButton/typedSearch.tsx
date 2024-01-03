@@ -37,10 +37,7 @@ export function TypedSearch({ countries }: { countries: any }) {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger
-        asChild
-        onChange={(value) => router.push(`/travel-esim/${value}`)}
-      >
+      <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
@@ -72,7 +69,7 @@ export function TypedSearch({ countries }: { countries: any }) {
                   const newValue = capitalizeEachWord(currentValue);
                   setValue(newValue);
                   setOpen(false);
-                  router.push(`/travel-esim/${newValue}`);
+                  router.push(`/${newValue}`);
                 }}
               >
                 <Check
