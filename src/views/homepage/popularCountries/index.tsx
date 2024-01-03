@@ -78,10 +78,12 @@ export const PopularCountries = () => {
     },
   ];
 
+
   const settings = {
     ...countriesCarouselSettings,
   };
   //lg:space-x-8 xl:space-x-10 md:max-w-[738px] lg:w-[900px] xl:max-w-[1400px] 2xl:max-w-[1500px] 3xl:max-w-[1600px] 3xl:gap-x-14 mx-auto flex items-center justify-center lg:mt-12
+
 
   //2xl:w-[1500px] 3xl:w-[1536px]
 

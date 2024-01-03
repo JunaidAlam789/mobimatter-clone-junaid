@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    images : {
+        remotePatterns: [
+            {
+                protocol : 'https',
+                hostname : 'mobimatterstorage.blob.core.windows.net',
+            },
+
+        ]
+    }
+}
 
 module.exports = nextConfig
