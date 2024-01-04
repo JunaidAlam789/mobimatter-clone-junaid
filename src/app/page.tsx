@@ -6,7 +6,7 @@ import { PopularCountries } from "@/views/homepage/popularCountries";
 
 export default async function Home() {
   return (
-    <>  
+    <>
       <HeroSection />
       <PopularCountries />
       <EsimOffers />
