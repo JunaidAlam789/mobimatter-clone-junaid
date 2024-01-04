@@ -31,7 +31,6 @@ export default function ProductFilters({
   );
   const [fetchedProducts, setFetchedProducts] = useState<IProductsProps[]>([]);
 
-  const [sortedData, setSortedData] = useState(data);
   const [showSidebar, setShowSidebar] = useState(false);
 
   // Filters state
@@ -69,7 +68,12 @@ export default function ProductFilters({
     (item) => item.productCategory === "esim_realtime"
   );
   console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
-  console.log("Merge ---->", mergedData.length);
+  console.log(
+    "esim_realtimeProducts.length ----->",
+    esim_realtimeProducts.length
+  );
+  const [sortedData, setSortedData] = useState(esim_realtimeProducts);
+  // console.log("Sorted ---->", sortedData.length);
 
   useEffect(() => {
     const countryParams = searchParams.get("selectedCountry");
@@ -97,6 +101,7 @@ export default function ProductFilters({
         });
         // Update the state with the fetched products
         setFetchedProducts(response || []); // Modify this based on the actual structure of your response
+        console.log("fetched products length", fetchedProducts.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
