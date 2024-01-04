@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Badge } from "@/components/ui/badge";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 // export type OptionType = {
 //   label: string;
@@ -31,6 +31,9 @@ interface MultiSelectProps {
   params?: string[];
   onChange?: React.Dispatch<React.SetStateAction<string[]>>;
   className?: string;
+  region ?: any;
+  country ?: any;
+  countryData ?: any;
 }
 
 function MultiSelect({
@@ -38,17 +41,66 @@ function MultiSelect({
   params,
   onChange = () => {},
   className,
+  region,
+  country,
+  countryData,
   ...props
 }: MultiSelectProps) {
+  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>(params!);
+
+  // this useEffect will send the selected values to the URL
+  React.useEffect(() => {
+    
+    const newSearchParams = new URLSearchParams(searchParams);
+
+// const filteredSelected = selected.filter((item) => item !== region && item !== country);
+  // Find the selected country codes in countryData
+  const selectedCountryCodes = countryData?.filter((country : any) =>
+    selected.includes(country.name)
+  );
+
+ 
+   // Extract the country codes from the selectedCountryCodes array
+   const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
+ // Include the country code for the country value if it exists
+//  if (country && countryData?.some((c : any) => c.name === country)) {
+//   const countryObject = countryData.find((c : any) => c.name === country);
+//   if (countryObject) {
+//     countryCodes?.push(countryObject.cca2);
+//   }
+// }
+
+
+  
+
+
+    // Update URL with the filtered selected values
+    if ( countryCodes.length > 0) {
+      // newSearchParams.set("selectedCountry", filteredSelected.join(','));
+      // newSearchParams.set("selectedCountry", (filteredSelected.join('&')));
+      newSearchParams.set("selectedCountry", countryCodes?.join(','));
+
+    } else {
+      newSearchParams.delete("selectedCountry");
+    }
+
+    router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+    // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
+  }, [selected, pathname, searchParams , region , country , countryData , options , router]);
+
+
+  
   onChange = setSelected;
   const handleUnselect = (item: string) => {
     onChange(selected.filter((i) => i !== item));
   };
 
+
+  
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
       <PopoverTrigger asChild>

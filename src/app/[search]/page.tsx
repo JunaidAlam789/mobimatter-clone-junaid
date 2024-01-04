@@ -36,11 +36,12 @@ export default async function Search({ params }: { params: { search: any } }) {
   } else {
     getSpecificCountryProduct = await getDynamicProducts({
       country: getCountryCode?.cca2,
+      category: "esim_realtime",
     });
   }
 
   // fetch Product Details
-  const fetchProductDetails = getSpecificCountryProduct.map(
+  const fetchProductDetails = getSpecificCountryProduct?.map(
     (product: any) => product.productDetails
   );
   // console.log("🚀 ~ file: page.tsx:40 ~ productDetails:", productDetails)
@@ -59,7 +60,7 @@ export default async function Search({ params }: { params: { search: any } }) {
   // console.log("FULL DATA ----->", combinedData);
 
   // Merge productDetails into each element of getSpecificCountryProduct
-  const mergedData = data
+  const mergedData: IProductsProps[] = data
     ? getSpecificCountryProduct.map((product: any, index: any) => ({
         ...product,
         productDetails: product_details[index],
@@ -67,6 +68,12 @@ export default async function Search({ params }: { params: { search: any } }) {
         product_details: product_details[index].product_detail,
       }))
     : [];
+
+  const esim_realtimeProducts = mergedData.filter(
+    (item) => item.productCategory === "esim_realtime"
+  );
+  console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
+  // console.log("Merged Data ----->", mergedData);
 
   return (
     <div>
@@ -77,7 +84,13 @@ export default async function Search({ params }: { params: { search: any } }) {
             Buy Prepaid eSIM Andorra from $1.4 per GB when you visit Andorra
           </h2>
 
-          <MultiSelect options={data1} params={paramCountry} />
+          <MultiSelect
+            options={data1}
+            params={paramCountry}
+            region={region}
+            country={country}
+            countryData={data1}
+          />
         </div>
       </div>
 
@@ -85,14 +98,14 @@ export default async function Search({ params }: { params: { search: any } }) {
       {isRegion ? (
         <ProductFilters
           region={region}
-          data={mergedData}
+          data={esim_realtimeProducts}
           countries={countriesData}
         />
       ) : (
         <ProductFilters
           country={country}
           region={region}
-          data={mergedData}
+          data={esim_realtimeProducts}
           countries={countriesData}
         />
       )}
@@ -103,7 +116,7 @@ export default async function Search({ params }: { params: { search: any } }) {
 // Function to check if the country is actually a region
 function checkIfRegion(country: string, countriesData: any[]): boolean {
   // Search in the array of all countries to determine if it's a valid country name
-  const validCountry = countriesData.find(
+  const validCountry = countriesData?.find(
     (data) => data.name.toLowerCase() === country.toLowerCase()
   );
 
@@ -113,7 +126,7 @@ function checkIfRegion(country: string, countriesData: any[]): boolean {
 
 // Function to get the region name based on the country
 function getRegionName(country: string, countriesData: any[]): string {
-  const countryData = countriesData.find(
+  const countryData = countriesData?.find(
     (data) => data.name.toLowerCase() === country.toLowerCase()
   );
   // console.log("countryData", countryData);

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { simDataT } from "@/views/homepage/esimOffers";
+// import { simDataT } from "@/views/homepage/esimOffers";
 import fiveG from "/public/homepage/esimCard/fiveg.svg";
 import globe from "/public/homepage/esimCard/globe.svg";
 import snow from "/public/homepage/esimCard/snow.svg";
@@ -39,7 +39,7 @@ export default function EsimCard({
   const validityInDays = Math.ceil(validityInHours / 24); // Round up to the nearest day
 
   // product Tags
-  const tags = data?.productDetails?.product_tags.map((item: any) => ({
+  const tags = data?.productDetails?.product_tags?.map((item: any) => ({
     tag: item.item,
   }));
 
