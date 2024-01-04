@@ -31,7 +31,7 @@ const validityInHours : any = data?.productDetails?.product_validity;
 const validityInDays = Math.ceil(validityInHours / 24); // Round up to the nearest day
 
 // product Tags
-const tags  = data?.productDetails?.product_tags.map((item : any) => ({tag : item.item}))
+const tags  = data?.productDetails?.product_tags?.map((item : any) => ({tag : item.item}))
 
 
   return (

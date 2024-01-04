@@ -14,7 +14,7 @@ export default async function Search({ params }: { params: { search: any } }) {
   const country = params.search.replace(/%20/g, " ");
   const paramCountry: string[] = [];
   paramCountry.push(country);
-
+ 
   // Check if the country is actually a region
   const isRegion = checkIfRegion(country, data1);
   const region = isRegion ? country : getRegionName(country, data1);
@@ -39,19 +39,20 @@ export default async function Search({ params }: { params: { search: any } }) {
     } else {
       getSpecificCountryProduct = await getDynamicProducts({
         country: getCountryCode?.cca2,
+        category : "esim_realtime",
       });
     }
 
 
   // fetch Product Details
-  const fetchProductDetails = getSpecificCountryProduct.map((product : any) => product.productDetails)
+  const fetchProductDetails = getSpecificCountryProduct?.map((product : any) => product.productDetails)
   // console.log("🚀 ~ file: page.tsx:40 ~ productDetails:", productDetails)
 
   // get Dynamic Products Details
   const product_details :any  = getProductDetails(fetchProductDetails);
   // console.log("🚀 ~ file: page.tsx:39 ~ product_details:", product_details)
   // console.log("🚀  product_details:", product_details);
-  const allTags = getAllTags(product_details)
+  // const allTags = getAllTags(product_details)
   // console.log("🚀 ~ file: page.tsx:42 ~ allTags:", allTags )
   
     const data = getSpecificCountryProduct && product_details 
@@ -61,7 +62,7 @@ const countriesData = countries?.map((country : any) => country);
 // console.log("FULL DATA ----->", combinedData);
 
 // Merge productDetails into each element of getSpecificCountryProduct
-const mergedData = data
+const mergedData : IProductsProps[] = data
 ? getSpecificCountryProduct.map((product: any, index: any) => ({
     ...product,
     productDetails: product_details[index],
@@ -70,6 +71,9 @@ const mergedData = data
   }))
 : [];
 
+const esim_realtimeProducts  = mergedData.filter((item ) => item.productCategory === "esim_realtime")
+console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
+// console.log("Merged Data ----->", mergedData);
 
 
   return (
@@ -81,15 +85,15 @@ const mergedData = data
             Buy Prepaid eSIM Andorra from $1.4 per GB when you visit Andorra
           </h2>
 
-          <MultiSelect options={data1} params={paramCountry} />
+          <MultiSelect options={data1} params={paramCountry} region={region} country={country} countryData={data1} />
         </div>
       </div>
-
+      
       {/* Use a conditional rendering to render ProductFilters based on whether region is true or false */}
       {isRegion ? (
-        <ProductFilters region={region} data={mergedData} countries={countriesData} />
+        <ProductFilters region={region} data={esim_realtimeProducts} countries={countriesData} />
       ) : (
-        <ProductFilters country={country} region={region} data={mergedData} countries={countriesData} />
+        <ProductFilters country={country} region={region} data={esim_realtimeProducts} countries={countriesData} />
       )}
     </div>
   );
@@ -98,7 +102,7 @@ const mergedData = data
 // Function to check if the country is actually a region
 function checkIfRegion(country: string, countriesData: any[]): boolean {
   // Search in the array of all countries to determine if it's a valid country name
-  const validCountry = countriesData.find(
+  const validCountry = countriesData?.find(
     (data) => data.name.toLowerCase() === country.toLowerCase()
   );
 
@@ -108,7 +112,7 @@ function checkIfRegion(country: string, countriesData: any[]): boolean {
 
 // Function to get the region name based on the country
 function getRegionName(country: string, countriesData: any[]): string {
-  const countryData = countriesData.find(
+  const countryData = countriesData?.find(
     (data) => data.name.toLowerCase() === country.toLowerCase()
   );
   // console.log("countryData", countryData);
