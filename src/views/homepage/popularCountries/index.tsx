@@ -17,73 +17,71 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { countriesCarouselSettings } from "@/utils/generalSettings";
-import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
+// import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
 
 export const PopularCountries = () => {
   const routes = [
     {
       label: "USA",
       icon: USA,
-      href: `/USA`,
+      href: `/esim/USA`,
     },
     {
       label: "Europe",
       icon: Europe,
-      href: `/Europe`,
+      href: `/esim/Europe`,
     },
     {
       label: "UK",
       icon: Uk,
-      href: `/UK`,
+      href: `/esim/UK`,
     },
     {
       label: "Middle East",
       icon: MiddleEast,
-      href: `/Middle East`,
+      href: `/esim/Middle East`,
     },
     {
       label: "Japan",
       icon: Japan,
-      href: `/Japan`,
+      href: `/esim/Japan`,
     },
     {
       label: "UAE",
       icon: UAE,
-      href: `/UAE`,
+      href: `/esim/UAE`,
     },
     {
       label: "KSA",
       icon: Saudia,
-      href: `/SaudiArabia`,
+      href: `/esim/SaudiArabia`,
     },
     {
       label: "Asia",
       icon: Asia,
-      href: `/Asia`,
+      href: `/esim/Asia`,
     },
     {
       label: "Americas",
       icon: Americas,
-      href: `/Americas`,
+      href: `/esim/Americas`,
     },
     {
       label: "Oceania",
       icon: Oceania,
-      href: `/Oceania`,
+      href: `/esim/Oceania`,
     },
     {
       label: "Africa",
       icon: Africa,
-      href: `/Africa`,
+      href: `/esim/Africa`,
     },
   ];
-
 
   const settings = {
     ...countriesCarouselSettings,
   };
   //lg:space-x-8 xl:space-x-10 md:max-w-[738px] lg:w-[900px] xl:max-w-[1400px] 2xl:max-w-[1500px] 3xl:max-w-[1600px] 3xl:gap-x-14 mx-auto flex items-center justify-center lg:mt-12
-
 
   //2xl:w-[1500px] 3xl:w-[1536px]
 

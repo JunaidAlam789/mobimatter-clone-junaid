@@ -23,7 +23,7 @@ export default async function EsimDetailsEsim({
   const productId = searchParams.id;
   const data = await getDynamicProducts({ productId });
   const productDetails = data.map((product: any) => product.productDetails);
-  const formattedData = getProductDetails(productDetails);
+  const formattedData: any = getProductDetails(productDetails);
   const mergedData = data.map((product: any, index: any) => ({
     ...product,
     productDetails: formattedData[index],
@@ -80,14 +80,17 @@ export default async function EsimDetailsEsim({
             </p>
             <Separator className="bg-gray-100" />
             {/* Multiline Details */}
-            {formattedData[0].product_detail.items.map((item, index) => (
-              <div key={index} className="">
-                <p className="text-[15px] leading-6 my-3">{item}</p>
-                {index !== formattedData[0].product_detail.items.length - 1 && (
-                  <Separator className="bg-gray-100" />
-                )}
-              </div>
-            ))}
+            {formattedData[0].product_detail.items.map(
+              (item: any, index: number) => (
+                <div key={index} className="">
+                  <p className="text-[15px] leading-6 my-3">{item}</p>
+                  {index !==
+                    formattedData[0].product_detail.items.length - 1 && (
+                    <Separator className="bg-gray-100" />
+                  )}
+                </div>
+              )
+            )}
           </div>
         </div>
 
