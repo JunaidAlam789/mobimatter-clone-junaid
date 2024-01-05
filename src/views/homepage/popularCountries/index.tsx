@@ -17,64 +17,64 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { countriesCarouselSettings } from "@/utils/generalSettings";
-import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
+// import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
 
 export const PopularCountries = () => {
   const routes = [
     {
       label: "USA",
       icon: USA,
-      href: `/travel-esim/USA`,
+      href: `/esim/USA`,
     },
     {
       label: "Europe",
       icon: Europe,
-      href: `/travel-esim/Europe`,
+      href: `/esim/Europe`,
     },
     {
       label: "UK",
       icon: Uk,
-      href: `/travel-esim/UK`,
+      href: `/esim/UK`,
     },
     {
       label: "Middle East",
       icon: MiddleEast,
-      href: `/travel-esim/Middle East`,
+      href: `/esim/Middle East`,
     },
     {
       label: "Japan",
       icon: Japan,
-      href: `/travel-esim/Japan`,
+      href: `/esim/Japan`,
     },
     {
       label: "UAE",
       icon: UAE,
-      href: `/travel-esim/UAE`,
+      href: `/esim/UAE`,
     },
     {
       label: "KSA",
       icon: Saudia,
-      href: `/travel-esim/SaudiArabia`,
+      href: `/esim/SaudiArabia`,
     },
     {
       label: "Asia",
       icon: Asia,
-      href: `/travel-esim/Asia`,
+      href: `/esim/Asia`,
     },
     {
       label: "Americas",
       icon: Americas,
-      href: `/travel-esim/Americas`,
+      href: `/esim/Americas`,
     },
     {
       label: "Oceania",
       icon: Oceania,
-      href: `/travel-esim/Oceania`,
+      href: `/esim/Oceania`,
     },
     {
       label: "Africa",
       icon: Africa,
-      href: `/travel-esim/Africa`,
+      href: `/esim/Africa`,
     },
   ];
 
