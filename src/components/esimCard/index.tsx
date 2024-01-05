@@ -177,7 +177,13 @@ export default function EsimCard({
 
       {/* View Offer Button */}
       {/* Button */}
-      <Link href="/" className="mt-3 block">
+      <Link
+        href={{
+          pathname: `${data?.productDetails?.product_Title}`,
+          query: { id: `${data?.productId}` },
+        }}
+        className="mt-3 block"
+      >
         <Button className="bg-[#38BDEF] min-w-full" size="sm">
           View Offer
         </Button>
