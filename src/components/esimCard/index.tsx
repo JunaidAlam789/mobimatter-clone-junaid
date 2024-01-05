@@ -13,9 +13,13 @@ import { IProductsProps } from "@/app/esim/[search]/page";
 export default function EsimCard({
   data,
   country,
+  buttonText,
+  buttonLink,
 }: {
   data?: IProductsProps;
   country?: any;
+  buttonText?: string;
+  buttonLink?: any;
 }) {
   // get Three Countries for displaying flags
   const threeCountries = data?.countries
@@ -43,6 +47,7 @@ export default function EsimCard({
     tag: item.item,
   }));
 
+  // console.log("BUTTON LINK", buttonLink);
   return (
     <div className="bg-white w-full xl:h-[186px] rounded-md shadow-sm p-3">
       {/* Logo - Package - tag */}
@@ -177,15 +182,9 @@ export default function EsimCard({
 
       {/* View Offer Button */}
       {/* Button */}
-      <Link
-        href={{
-          pathname: `${data?.productDetails?.product_Title}`,
-          query: { id: `${data?.productId}` },
-        }}
-        className="mt-3 block"
-      >
+      <Link href={buttonLink} className="mt-3 block">
         <Button className="bg-[#38BDEF] min-w-full" size="sm">
-          View Offer
+          {buttonText}
         </Button>
       </Link>
     </div>
