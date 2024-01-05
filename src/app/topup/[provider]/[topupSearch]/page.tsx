@@ -31,9 +31,14 @@ export interface IProductsProps {
   product_details: [];
 }
 
-export default async function Search({ params }: { params: { search: any } }) {
+export default async function Search({
+  params,
+}: {
+  params: { topupSearch: string; provider: string };
+}) {
   const data1: any = await getCountriesData();
-  const country = params.search.replace(/%20/g, " ");
+  // console.log("Params", params);
+  const country = params.topupSearch.replace(/%20/g, " ");
   const paramCountry: string[] = [];
   paramCountry.push(country);
 

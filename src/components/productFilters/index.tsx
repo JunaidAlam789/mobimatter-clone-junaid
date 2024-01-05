@@ -12,7 +12,7 @@ import {
   getDynamicProducts,
 } from "@/actions/getDynamicProducts";
 import { getProductDetails } from "@/actions/getProductDetails";
-import { IProductsProps } from "@/app/[search]/page";
+import { IProductsProps } from "@/app/esim/[search]/page";
 
 export default function ProductFilters({
   country,

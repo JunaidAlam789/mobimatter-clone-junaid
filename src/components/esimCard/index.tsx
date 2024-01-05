@@ -8,8 +8,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { productDetails } from "@/actions/getProductDetails";
 import React from "react";
-import { IProductsProps } from "@/app/[search]/page";
-
+import { IProductsProps } from "@/app/esim/[search]/page";
 
 export default function EsimCard({
   data,

@@ -69,7 +69,7 @@ export function TypedSearch({ countries }: { countries: any }) {
                   const newValue = capitalizeEachWord(currentValue);
                   setValue(newValue);
                   setOpen(false);
-                  router.push(`/${newValue}`);
+                  router.push(`/esim/${newValue}`);
                 }}
               >
                 <Check
