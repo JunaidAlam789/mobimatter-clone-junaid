@@ -3,11 +3,35 @@ import surfer from "/public/surfer.png";
 import { getCountriesData } from "@/utils/getCountriesdata";
 import { MultiSelect } from "@/components/multiSelectSearch";
 import ProductFilters from "@/components/productFilters";
-import { getAllTags, getProductDetails } from "@/actions/getProductDetails";
+import { getAllTags, getProductDetails, productDetails } from "@/actions/getProductDetails";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
-import { IProductsProps } from "../travel-esim/[countryName]/page";
 import EsimCard from "@/components/esimCard";
+
+
+export interface IProductsProps {
+  merchantId : string;
+  uniqueId : string;
+  productId : string;
+  rank : number;
+  productCategoryId : number;
+  productFamilyId : number;
+  productCategory : string;
+  providerId : number;
+  providerName : string;
+  providerLogo : string;
+  retailPrice : number;
+  wholesalePrice : number;
+  currencyCode : string;
+  created : string;
+  updated : string;
+  network : string;
+  regions : string[];
+  countries : string[];
+  productDetails : productDetails;
+  product_tags : [];
+  product_details  : [];
+}
 
 export default async function Search({ params }: { params: { search: any } }) {
   const data1: any = await getCountriesData();
@@ -25,54 +49,53 @@ export default async function Search({ params }: { params: { search: any } }) {
   // const countryName = params.search.split('-').join(' ');
   // console.log("🚀 ~ file: page.tsx:15 ~ countryName:", countryName)
 
-  const getCountryCode = await getSpecificCountryCode(country);
+  // const getCountryCode = await getSpecificCountryCode(country);
   // console.log("🚀 ~ file: page.tsx:22 ~ getCountryCode:", getCountryCode);
 
-  let getSpecificCountryProduct;
-  if (!getCountryCode) {
-    getSpecificCountryProduct = await getDynamicProducts({
-      region: country,
-    });
-  } else {
-    getSpecificCountryProduct = await getDynamicProducts({
-      country: getCountryCode?.cca2,
-      category: "esim_realtime",
-    });
-  }
+  // let getSpecificCountryProduct;
+  // if (!getCountryCode) {
+  //   getSpecificCountryProduct = await getDynamicProducts({
+  //     region: country,
+  //   });
+  // } else {
+  //   getSpecificCountryProduct = await getDynamicProducts({
+  //     country: getCountryCode?.cca2,
+  //     category: "esim_realtime",
+  //   });
+  // }
 
   // fetch Product Details
-  const fetchProductDetails = getSpecificCountryProduct?.map(
-    (product: any) => product.productDetails
-  );
+  // const fetchProductDetails = getSpecificCountryProduct?.map(
+  //   (product: any) => product.productDetails
+  // );
   // console.log("🚀 ~ file: page.tsx:40 ~ productDetails:", productDetails)
 
   // get Dynamic Products Details
-  const product_details: any = getProductDetails(fetchProductDetails);
+  // const product_details: any = getProductDetails(fetchProductDetails);
   // console.log("🚀 ~ file: page.tsx:39 ~ product_details:", product_details)
   // console.log("🚀  product_details:", product_details);
   // const allTags = getAllTags(product_details)
   // console.log("🚀 ~ file: page.tsx:42 ~ allTags:", allTags )
 
-  const data = getSpecificCountryProduct && product_details;
+  // const data = getSpecificCountryProduct && product_details;
 
   const countries = await getCountriesData();
   const countriesData = countries?.map((country: any) => country);
   // console.log("FULL DATA ----->", combinedData);
 
   // Merge productDetails into each element of getSpecificCountryProduct
-  const mergedData: IProductsProps[] = data
-    ? getSpecificCountryProduct.map((product: any, index: any) => ({
-        ...product,
-        productDetails: product_details[index],
-        product_tags: product_details[index].product_tags,
-        product_details: product_details[index].product_detail,
-      }))
-    : [];
+  // const mergedData: IProductsProps[] = data
+  //   ? getSpecificCountryProduct.map((product: any, index: any) => ({
+  //       ...product,
+  //       productDetails: product_details[index],
+  //       product_tags: product_details[index].product_tags,
+  //       product_details: product_details[index].product_detail,
+  //     }))
+  //   : [];
 
-  const esim_realtimeProducts = mergedData.filter(
-    (item) => item.productCategory === "esim_realtime"
-  );
-  console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
+  // const esim_realtimeProducts = mergedData.filter(
+  //   (item) => item.productCategory === "esim_realtime"
+  // );
   // console.log("Merged Data ----->", mergedData);
 
   return (
@@ -98,14 +121,14 @@ export default async function Search({ params }: { params: { search: any } }) {
       {isRegion ? (
         <ProductFilters
           region={region}
-          data={esim_realtimeProducts}
+          // data={esim_realtimeProducts}
           countries={countriesData}
         />
       ) : (
         <ProductFilters
           country={country}
           region={region}
-          data={esim_realtimeProducts}
+          // data={esim_realtimeProducts}
           countries={countriesData}
         />
       )}

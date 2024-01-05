@@ -3,7 +3,6 @@ import { ChevronRight, ListFilter } from "lucide-react";
 import Link from "next/link";
 import EsimCard from "@/components/esimCard";
 // import { simData } from "@/views/homepage/esimOffers";
-import { IProductsProps } from "@/app/travel-esim/[countryName]/page";
 import { SortbyDropdown } from "./sortbyDropdown";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -13,6 +12,7 @@ import {
   getDynamicProducts,
 } from "@/actions/getDynamicProducts";
 import { getProductDetails } from "@/actions/getProductDetails";
+import { IProductsProps } from "@/app/[search]/page";
 
 export default function ProductFilters({
   country,
@@ -22,7 +22,7 @@ export default function ProductFilters({
 }: {
   country?: any;
   region?: any;
-  data: IProductsProps[];
+  data?: IProductsProps[];
   countries: any;
 }) {
   const searchParams = useSearchParams();
@@ -40,10 +40,11 @@ export default function ProductFilters({
     undefined
   );
 
-  // trigger apply filters on first button click
-  useEffect(() => {
-    applyFilters();
-  }, [maxPrice, minValidity, minDataAllowance]);
+   
+       // trigger apply filters on first button click
+       useEffect(() => {
+        applyFilters();
+      }, [maxPrice, minValidity, minDataAllowance]);
 
   const fetchProductDetails = fetchedProducts?.map(
     (product: any) => product.productDetails
@@ -55,7 +56,7 @@ export default function ProductFilters({
   const data2 = fetchedProducts && product_details;
 
   // Merge productDetails into each element of getSpecificCountryProduct
-  const mergedData = data
+  const mergedData = data2
     ? fetchedProducts.map((product: any, index: any) => ({
         ...product,
         productDetails: product_details[index],
@@ -67,13 +68,11 @@ export default function ProductFilters({
   const esim_realtimeProducts = mergedData.filter(
     (item) => item.productCategory === "esim_realtime"
   );
-  console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
-  console.log(
-    "esim_realtimeProducts.length ----->",
-    esim_realtimeProducts.length
-  );
+
   const [sortedData, setSortedData] = useState(esim_realtimeProducts);
-  // console.log("Sorted ---->", sortedData.length);
+
+
+
 
   useEffect(() => {
     const countryParams = searchParams.get("selectedCountry");
@@ -85,12 +84,12 @@ export default function ProductFilters({
     }
   }, [searchParams, setSelectedCountryCodes]);
 
-  useEffect(() => {
-    console.log(
-      "🚀 selectedCountryCodes: ----->",
-      selectedCountryCodes.join(",")
-    );
-  }, [selectedCountryCodes]);
+  // useEffect(() => {
+  //   console.log(
+  //     "🚀 selectedCountryCodes: ----->",
+  //     selectedCountryCodes.join(",")
+  //   );
+  // }, [selectedCountryCodes]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,19 +100,23 @@ export default function ProductFilters({
         });
         // Update the state with the fetched products
         setFetchedProducts(response || []); // Modify this based on the actual structure of your response
-        console.log("fetched products length", fetchedProducts.length);
+        // console.log("fetched products length", fetchedProducts.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
     fetchData();
-  }, [selectedCountryCodes]);
+  }, [selectedCountryCodes, fetchedProducts.length]);
+
+
+
+
 
   // console.log("country", country, "region", region);
   const handleSortValue = (value: string) => {
     console.log("value", value);
     // Define a mapping of sorting criteria to corresponding functions
-    const sortingCriteria = {
+    const sortingCriteria : any = {
       default: (a: any, b: any) => a.rank - b.rank,
       "lowest price": (a: any, b: any) => a.retailPrice - b.retailPrice,
       "lowest price per gb": (a: any, b: any) =>
@@ -131,7 +134,7 @@ export default function ProductFilters({
     // Apply sorting using the selected criteria
     // @ts-ignore
     const sortedProducts = [...esim_realtimeProducts].sort(
-      sortingCriteria[sortingCriteriaKey]
+      sortingCriteria[sortingCriteriaKey ] 
     );
     setSortedData(sortedProducts);
     // console.log("Sorted", sortedProducts);
@@ -244,7 +247,8 @@ export default function ProductFilters({
             {esim_realtimeProducts.length} products
           </p>
         ) : (
-          <p className="text-txtgrey">{data?.length} products</p>
+          // <p className="text-txtgrey">{data?.length} products</p>
+          <></>
         )}
         <div className="flex flex-col items-end gap-y-2">
           {/* Sort By */}
@@ -346,32 +350,16 @@ export default function ProductFilters({
         <div className="max-w-[1200px] px-5 mx-auto">
           {/* <h1 className=' font-bold'>Country Name : {params.countryName}</h1> */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4">
-            {(sortedData && sortedData.length > 0 ? sortedData : data).map(
-              (product: IProductsProps, index: number) => (
-                <EsimCard key={index} data={product} country={countries} />
-              )
-            )}
-            {(!sortedData || sortedData.length === 0) && data.length === 0 && (
-              <p className="text-xl">No products found</p>
-            )}
-            {/* {fetchedProducts && fetchedProducts.length > 0 ? (
-                <>
-                    {fetchedProducts.map((product : IProductsProps , index : number)  => (
-                         <EsimCard key={index} data={product} country={countries}  />
-                         ))}
-                         </>
-            ): (
-                <p className=' text-xl'>No products found</p>
-            )}
-            {data.length > 0 ? (
-                <>
-                     {data.map((product : IProductsProps , index : number)  => (
-                         <EsimCard key={index} data={product} country={countries}  />
-                         ))}
-                         </>
-            ): (
-                <p className=' text-xl'>No products found</p>
-            )} */}
+
+            {(
+              (sortedData && sortedData.length > 0
+                ? sortedData
+                : esim_realtimeProducts) || []
+            ).map((product: IProductsProps, index: number) => (
+              <EsimCard key={index} data={product} country={countries} />
+            ))}
+            {(!esim_realtimeProducts || esim_realtimeProducts.length === 0) &&
+              !sortedData && <p className="text-xl">No products found</p>}
           </div>
         </div>
       </div>
