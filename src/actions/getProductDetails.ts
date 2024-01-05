@@ -7,6 +7,7 @@ export  interface productDetails {
     product_data_limit : string;
     product_tags : string[];
     product_Title : string;
+    product_FIVEG : string;
 }
 
 export const getProductDetails = (product : any) => {
@@ -24,6 +25,7 @@ export const getProductDetails = (product : any) => {
                 product_data_limit : '',
                 product_tags : [] ,
                 product_Title : '',
+                product_FIVEG : '',
             }
     
             item.forEach((item : any) => {
@@ -45,6 +47,9 @@ export const getProductDetails = (product : any) => {
                         break;
                     case "PLAN_TITLE":
                         result.product_Title = item.value
+                        break;
+                    case "FIVEG":
+                        result.product_FIVEG = item.value
                         break;
                 }
             });

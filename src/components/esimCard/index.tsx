@@ -8,7 +8,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { productDetails } from "@/actions/getProductDetails";
 import React from "react";
-import { IProductsProps } from "@/app/travel-esim/[countryName]/page";
+import { IProductsProps } from "@/app/[search]/page";
+
 
 export default function EsimCard({
   data,
@@ -122,7 +123,7 @@ export default function EsimCard({
             <span> </span>
           )} */}
           {/* Network */}
-          {data?.network! === "5G" ? (
+          {data?.productDetails?.product_FIVEG === "1" ? (
             <Image src={fiveG} alt="5G" width={22} height={22} />
           ) : null}
         </div>
