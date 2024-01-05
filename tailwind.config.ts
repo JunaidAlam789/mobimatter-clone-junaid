@@ -43,6 +43,7 @@ const config = {
         txtgrey:"#718096",
         btndark:"#2d4156",
         btnlight:"eaeff2",
+        darkblue:'#1e2f4f',
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
