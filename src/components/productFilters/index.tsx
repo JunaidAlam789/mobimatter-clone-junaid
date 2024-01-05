@@ -248,7 +248,11 @@ export default function ProductFilters({
           {/* Sort By */}
           <div className="flex items-center gap-x-3">
             <p className="text-txtgrey">Sort By</p>
-            <CustomDropDown onSelect={handleSortValue} data={dataForSearchPage} placeholder="Recommended"  />
+            <CustomDropDown
+              onSelect={handleSortValue}
+              data={dataForSearchPage}
+              placeholder="Recommended"
+            />
           </div>
           {/* Show Hide Filters Button*/}
           <Button
