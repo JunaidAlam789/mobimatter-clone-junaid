@@ -50,7 +50,7 @@ function MultiSelect({
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<string[]>(params!);
+  const [selected, setSelected] = React.useState<string[]>(params! || []);
 
   // this useEffect will send the selected values to the URL
   React.useEffect(() => {
@@ -60,7 +60,7 @@ function MultiSelect({
 // const filteredSelected = selected.filter((item) => item !== region && item !== country);
   // Find the selected country codes in countryData
   const selectedCountryCodes = countryData?.filter((country : any) =>
-    selected.includes(country.name)
+    selected?.includes(country.name)
   );
 
  
@@ -108,14 +108,14 @@ function MultiSelect({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className={`w-full py-2 justify-between text-gray-500 hover:bg-white ${
-            selected.length > 0 ? "h-full" : "h-16"
+          className={`w-full py-2 justify-between text-gray-500 hover:bg-white shadow-md ${
+            selected?.length > 0 ? "h-full" : "h-16"
           }`}
           onClick={() => setOpen(!open)}
         >
           <div className="">
             <div className="flex gap-1 flex-wrap">
-              {selected.map((item) => (
+              {selected?.map((item) => (
                 <Badge
                   variant="secondary"
                   key={item}
@@ -148,8 +148,8 @@ function MultiSelect({
           </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[80dvw]">
-        <Command className={className}>
+      <PopoverContent className={cn("w-[80dvw]" , className)}>
+        <Command >
           <CommandInput placeholder="Search ..." />
           <CommandEmpty>No item found.</CommandEmpty>
           <CommandGroup className="max-h-64 overflow-auto">
@@ -158,8 +158,8 @@ function MultiSelect({
                 key={option.name}
                 onSelect={() => {
                   onChange(
-                    selected.includes(option.name)
-                      ? selected.filter((item) => item !== option.name)
+                    selected?.includes(option.name)
+                      ? selected?.filter((item) => item !== option.name)
                       : [...selected, option.name]
                   );
                   setOpen(true);
@@ -168,7 +168,7 @@ function MultiSelect({
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    selected.includes(option.name) ? "opacity-100" : "opacity-0"
+                    selected?.includes(option.name) ? "opacity-100" : "opacity-0"
                   )}
                 />
                 <div className="flex items-center gap-2">

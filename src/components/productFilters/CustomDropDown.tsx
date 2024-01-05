@@ -8,11 +8,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
-export function SortbyDropdown({
+export function CustomDropDown({
   onSelect,
+  className,
+  data ,
+  placeholder,
 }: {
   onSelect: (value: string) => void;
+  className?: string;
+  data: { value: string; label: string }[];
+  placeholder : string;
 }) {
   // const [val, selectedVal] = React.useState("");
   return (
@@ -21,12 +28,22 @@ export function SortbyDropdown({
         onSelect(value);
       }}
     >
-      <SelectTrigger className="w-[180px] focus:ring-0 focus:ring-offset-0 bg-transparent border-2 ">
-        <SelectValue placeholder="Recommended" />
+      <SelectTrigger
+        className={cn(
+          "w-[180px] focus:ring-0 focus:ring-offset-0 bg-transparent border-2 ",
+          className
+        )}
+      >
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          <SelectItem value="recommended">Recommended</SelectItem>
+          {data.map((item) => (
+            <SelectItem key={item.value} value={item.value}>
+            {item.label}
+          </SelectItem>
+          ))}
+          {/* <SelectItem value="recommended">Recommended</SelectItem>
           <SelectItem value="lowest price">Lowest price</SelectItem>
           <SelectItem value="most data allowance">
             Most data allowance
@@ -34,7 +51,7 @@ export function SortbyDropdown({
           <SelectItem value="lowest price per gb">
             Lowest price per GB
           </SelectItem>
-          <SelectItem value="longest validity">Longest validity</SelectItem>
+          <SelectItem value="longest validity">Longest validity</SelectItem> */}
         </SelectGroup>
       </SelectContent>
     </Select>

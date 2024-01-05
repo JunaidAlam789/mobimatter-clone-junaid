@@ -3,7 +3,7 @@ import { ChevronRight, ListFilter } from "lucide-react";
 import Link from "next/link";
 import EsimCard from "@/components/esimCard";
 // import { simData } from "@/views/homepage/esimOffers";
-import { SortbyDropdown } from "./sortbyDropdown";
+import { CustomDropDown } from "./CustomDropDown";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
@@ -13,6 +13,7 @@ import {
 } from "@/actions/getDynamicProducts";
 import { getProductDetails } from "@/actions/getProductDetails";
 import { IProductsProps } from "@/app/esim/[search]/page";
+import { dataForSearchPage } from "@/utils/customSelectorData";
 
 export default function ProductFilters({
   country,
@@ -247,7 +248,7 @@ export default function ProductFilters({
           {/* Sort By */}
           <div className="flex items-center gap-x-3">
             <p className="text-txtgrey">Sort By</p>
-            <SortbyDropdown onSelect={handleSortValue} />
+            <CustomDropDown onSelect={handleSortValue} data={dataForSearchPage} placeholder="Recommended"  />
           </div>
           {/* Show Hide Filters Button*/}
           <Button
