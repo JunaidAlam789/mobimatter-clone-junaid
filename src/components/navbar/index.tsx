@@ -46,7 +46,7 @@ export const dropdownMenuData = [
     label: "eSIM offers for UAE",
     description:
       "Best eSIM deals for the United Arab Emirates from the top providers worldwide",
-    href: "/UAE",
+    href: "/esim/UAE",
   },
   {
     icon: send,
@@ -58,13 +58,13 @@ export const dropdownMenuData = [
     icon: usa,
     label: "eSIM offers for USA",
     description: "Enjoy the United States with 4G speeds from $1.2/GB",
-    href: "/America",
+    href: "/esim/America",
   },
   {
     icon: europe,
     label: "eSIM offers for Europe",
     description: "Enjoy the United States with 4G speeds from $1.2/GB",
-    href: "/Europe",
+    href: "/esim/Europe",
   },
 ];
 export default function Navbar() {

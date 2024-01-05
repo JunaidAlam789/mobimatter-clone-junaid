@@ -9,18 +9,18 @@ const column1 = [
     text: "Buy new eSIM",
     href: "/",
   },
-  {
-    text: "Our Blog",
-    href: "/blog",
-  },
+  // {
+  //   text: "Our Blog",
+  //   href: "/blog",
+  // },
   {
     text: "About",
     href: "/about",
   },
-  {
-    text: "Help & Support",
-    href: "/help",
-  },
+  // {
+  //   text: "Help & Support",
+  //   href: "/help",
+  // },
   {
     text: "Terms & conditions",
     href: "/terms",
@@ -29,18 +29,18 @@ const column1 = [
     text: "Privacy Policy",
     href: "/policy",
   },
-  {
-    text: "Delivery, refunds policy",
-    href: "/delivery",
-  },
-  {
-    text: "Sitemap",
-    href: "/sitemap",
-  },
-  {
-    text: "Affiliate",
-    href: "/affiliate",
-  },
+  // {
+  //   text: "Delivery, refunds policy",
+  //   href: "/delivery",
+  // },
+  // {
+  //   text: "Sitemap",
+  //   href: "/sitemap",
+  // },
+  // {
+  //   text: "Affiliate",
+  //   href: "/affiliate",
+  // },
   {
     text: "Destinations",
     href: "/destinations",
@@ -50,66 +50,66 @@ const column1 = [
 const column2_regions = [
   {
     text: "eSIM for Europe",
-    href: "/travel-esim/europe",
+    href: "/esim/Europe",
   },
   {
     text: "eSIM for Asia",
-    href: "/travel-esim/asia",
+    href: "/esim/Asia",
   },
   {
     text: "eSIM for Americas",
-    href: "/travel-esim/america",
+    href: "/esim/America",
   },
   {
     text: "eSIM for Middle East",
-    href: "/travel-esim/middle-east",
+    href: "/esim/Middle East",
   },
   {
     text: "eSIM for Oceania",
-    href: "/travel-esim/oceania",
+    href: "/esim/Oceania",
   },
   {
     text: "eSIM for Africa",
-    href: "/travel-esim/africa",
+    href: "/esim/Africa",
   },
 ];
 
 const column3_countries = [
   {
     text: "eSIM for USA",
-    href: "/travel-esim/usa",
+    href: "/esim/USA",
   },
   {
     text: "eSIM for Japan",
-    href: "/travel-esim/japan",
+    href: "/esim/Japan",
   },
   {
     text: "eSIM for Canada",
-    href: "/travel-esim/canada",
+    href: "/esim/Canada",
   },
   {
     text: "eSIM for Spain",
-    href: "/travel-esim/spain",
+    href: "/esim/Spain",
   },
   {
     text: "eSIM for Italy",
-    href: "/travel-esim/italy",
+    href: "/esim/Italy",
   },
   {
     text: "eSIM for United Kingdom",
-    href: "/travel-esim/uk",
+    href: "/esim/United Kingdom",
   },
   {
     text: "eSIM for Dubai",
-    href: "/travel-esim/dubai",
+    href: "/esim/Dubai",
   },
   {
     text: "eSIM for Singapore",
-    href: "/travel-esim/singapore",
+    href: "/esim/Singapore",
   },
   {
     text: "eSIM for Turkey",
-    href: "/travel-esim/turkey",
+    href: "/esim/Turkey",
   },
 ];
 

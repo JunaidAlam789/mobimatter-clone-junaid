@@ -348,7 +348,16 @@ export default function ProductFilters({
                 ? sortedData
                 : esim_realtimeProducts) || []
             ).map((product: IProductsProps, index: number) => (
-              <EsimCard key={index} data={product} country={countries} />
+              <EsimCard
+                key={index}
+                data={product}
+                country={countries}
+                buttonText="View Offers"
+                buttonLink={{
+                  pathname: `/${product?.productDetails?.product_Title}`,
+                  query: { id: `${product?.productId}` },
+                }}
+              />
             ))}
             {(!esim_realtimeProducts || esim_realtimeProducts.length === 0) &&
               !sortedData && <p className="text-xl">No products found</p>}

@@ -183,13 +183,21 @@ export default async function EsimOffers() {
         }))
     : [];
 
-  // console.log("mergedData", mergedData);
   return (
     <div className="max-w-[1200px] px-5 mt-10 mx-auto">
       <h2 className="text-#1A202C text-lg font-medium">Popular eSIM offers</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4">
         {mergedData.map((item: any, index: number) => (
-          <EsimCard key={index} data={item} country={countries} />
+          <EsimCard
+            key={index}
+            data={item}
+            country={countries}
+            buttonText="View Offer"
+            buttonLink={{
+              pathname: `${item?.productDetails?.product_Title}`,
+              query: { id: `${item?.productId}` },
+            }}
+          />
         ))}
       </div>
     </div>
