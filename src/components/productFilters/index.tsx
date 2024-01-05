@@ -19,11 +19,13 @@ export default function ProductFilters({
   region,
   data,
   countries,
+  currentPage,
 }: {
   country?: any;
   region?: any;
   data: IProductsProps[];
   countries: any;
+  currentPage: string;
 }) {
   const searchParams = useSearchParams();
   const [selectedCountryCodes, setSelectedCountryCodes] = useState<string[]>(
@@ -67,11 +69,11 @@ export default function ProductFilters({
   const esim_realtimeProducts = mergedData.filter(
     (item) => item.productCategory === "esim_realtime"
   );
-  console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
-  console.log(
-    "esim_realtimeProducts.length ----->",
-    esim_realtimeProducts.length
-  );
+  // console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
+  // console.log(
+  //   "esim_realtimeProducts.length ----->",
+  //   esim_realtimeProducts.length
+  // );
   const [sortedData, setSortedData] = useState(esim_realtimeProducts);
   // console.log("Sorted ---->", sortedData.length);
 
@@ -101,7 +103,7 @@ export default function ProductFilters({
         });
         // Update the state with the fetched products
         setFetchedProducts(response || []); // Modify this based on the actual structure of your response
-        console.log("fetched products length", fetchedProducts.length);
+        // console.log("fetched products length", fetchedProducts.length);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -111,7 +113,7 @@ export default function ProductFilters({
 
   // console.log("country", country, "region", region);
   const handleSortValue = (value: string) => {
-    console.log("value", value);
+    // console.log("value", value);
     // Define a mapping of sorting criteria to corresponding functions
     const sortingCriteria = {
       default: (a: any, b: any) => a.rank - b.rank,
@@ -198,7 +200,7 @@ export default function ProductFilters({
           href={`/`}
           className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
         >
-          New eSIMS
+          {currentPage}
         </Link>
 
         {region && (

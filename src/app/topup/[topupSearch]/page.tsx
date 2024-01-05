@@ -3,14 +3,9 @@ import surfer from "/public/surfer.png";
 import { getCountriesData } from "@/utils/getCountriesdata";
 import { MultiSelect } from "@/components/multiSelectSearch";
 import ProductFilters from "@/components/productFilters";
-import {
-  getAllTags,
-  getProductDetails,
-  productDetails,
-} from "@/actions/getProductDetails";
+import { getProductDetails, productDetails } from "@/actions/getProductDetails";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
-import EsimCard from "@/components/esimCard";
 
 export interface IProductsProps {
   merchantId: string;
@@ -127,7 +122,7 @@ export default async function Search({ params }: { params: { search: any } }) {
           region={region}
           data={esim_realtimeProducts}
           countries={countriesData}
-          currentPage={" New eSIMS"}
+          currentPage={"Top up existing eSIMs"}
         />
       ) : (
         <ProductFilters
@@ -135,7 +130,7 @@ export default async function Search({ params }: { params: { search: any } }) {
           region={region}
           data={esim_realtimeProducts}
           countries={countriesData}
-          currentPage={" New eSIMS"}
+          currentPage={"Top up existing eSIMs"}
         />
       )}
     </div>

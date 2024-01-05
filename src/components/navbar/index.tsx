@@ -20,14 +20,14 @@ export const navbarData = [
     text: "Check Usage",
     href: "/usage",
   },
-  {
-    text: "Blog",
-    href: "/blog",
-  },
-  {
-    text: "Help & Support",
-    href: "/help",
-  },
+  // {
+  //   text: "Blog",
+  //   href: "/blog",
+  // },
+  // {
+  //   text: "Help & Support",
+  //   href: "/help",
+  // },
   {
     text: "FAQs",
     href: "/faqs",
@@ -46,7 +46,7 @@ export const dropdownMenuData = [
     label: "eSIM offers for UAE",
     description:
       "Best eSIM deals for the United Arab Emirates from the top providers worldwide",
-    href: "/uae",
+    href: "/UAE",
   },
   {
     icon: send,
@@ -58,13 +58,13 @@ export const dropdownMenuData = [
     icon: usa,
     label: "eSIM offers for USA",
     description: "Enjoy the United States with 4G speeds from $1.2/GB",
-    href: "/america",
+    href: "/America",
   },
   {
     icon: europe,
     label: "eSIM offers for Europe",
     description: "Enjoy the United States with 4G speeds from $1.2/GB",
-    href: "/europe",
+    href: "/Europe",
   },
 ];
 export default function Navbar() {
