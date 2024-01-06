@@ -12,6 +12,8 @@ import { checkIfRegion, getRegionName } from "@/utils/RegionFunctionality";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
+import EsimCard from "@/components/esimCard";
+
 
 export interface IProductsProps {
   merchantId: string;

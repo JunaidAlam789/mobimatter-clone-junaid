@@ -1,3 +1,4 @@
+"use client";
 import { ChevronRight, LogIn, Menu } from "lucide-react";
 import Logo from "@/components/logo";
 import Link from "next/link";
@@ -5,12 +6,14 @@ import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { navbarData } from ".";
 import { dropdownMenuData } from ".";
+import { useState } from "react";
 
 export default function MobileNavbar() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center justify-between w-full h-16 px-2 border-b-2 border-[#F2F6F8] ">
       {/* SideMenu */}
-      <Sheet>
+      <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger>
           <Menu size={25} />
         </SheetTrigger>
@@ -36,6 +39,7 @@ export default function MobileNavbar() {
                           key={index}
                           href={item.href}
                           className="flex items-start gap-x-3 w-full rounded-lg hover:bg-slate-50 duration-200 ease-in-out transition-colors mb-5 p-2"
+                          onClick={() => setOpen(false)}
                         >
                           <Image
                             src={item.icon}
@@ -56,7 +60,11 @@ export default function MobileNavbar() {
                   </Sheet>
                 </div>
               ) : (
-                <Link className="hover:text-slate-500" href={item.href}>
+                <Link
+                  className="hover:text-slate-500"
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                >
                   {item.text}
                 </Link>
               )}
