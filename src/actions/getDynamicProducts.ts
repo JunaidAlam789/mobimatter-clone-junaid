@@ -19,6 +19,8 @@ export const getDynamicProducts = async (
     
     if (region && category) {
       url += `?region=${region}&category=${category}`;
+    } else if (region && country){
+      url += `?region=${region}&country=${country}`;
     } else if (region) {
       url += `?region=${region}`;
     } else if (country && category) {

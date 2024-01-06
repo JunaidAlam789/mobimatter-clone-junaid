@@ -46,10 +46,10 @@ export default async function Search({
   params: { search: any };
   searchParams: any;
 }) {
-  console.log("Search-Params ---->" , searchParams);
+  // console.log("Search-Params ---->" , searchParams);
   
   const country = params.search.replace(/%20/g, " ");
-  console.log("params" , country);
+  // console.log("params" , country);
   
   const paramCountry: string[] = [];
   paramCountry.push(country);
@@ -61,19 +61,26 @@ export default async function Search({
   const region = isRegion ? country : getRegionName(country, countries);
 
     const getCountryCode = await getSpecificCountryCode(country);
-  // fetch data
+
   let getSpecificCountryProduct;
-  if (!getCountryCode) {
-    getSpecificCountryProduct = await getDynamicProducts({
-      region: country,
-      category : "esim_realtime",
-    });
-  } else {
-    getSpecificCountryProduct = await getDynamicProducts({
-      country: searchParams?.selectedCountry,
-      category: "esim_realtime",
-    });
-  }
+
+if (searchParams?.selectedCountry) {
+  getSpecificCountryProduct = await getDynamicProducts({
+    country: searchParams.selectedCountry,
+    category: "esim_realtime",
+  });
+} else if (getCountryCode) {
+  getSpecificCountryProduct = await getDynamicProducts({
+    country: getCountryCode?.cca2,
+    category: "esim_realtime",
+  });
+} else {
+  getSpecificCountryProduct = await getDynamicProducts({
+    region: country,
+    category: "esim_realtime",
+  });
+}
+
 
   const esim_realtimeProducts = getFormattedProductsArray({
     products : getSpecificCountryProduct,

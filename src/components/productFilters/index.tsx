@@ -30,8 +30,6 @@ export default function ProductFilters({
   const [selectedCountryCodes, setSelectedCountryCodes] = useState<string[]>(
     []
   );
-  const [fetchedProducts, setFetchedProducts] = useState<IProductsProps[]>([]);
-
   const [showSidebar, setShowSidebar] = useState(false);
 
   // Filters state
@@ -40,44 +38,16 @@ export default function ProductFilters({
   const [minDataAllowance, setMinDataAllowance] = useState<number | undefined>(
     undefined
   );
+  // sorted State
+  const [sortedData, setSortedData] = useState(data);
 
   // trigger apply filters on first button click
   useEffect(() => {
     applyFilters();
   }, [maxPrice, minValidity, minDataAllowance]);
 
-  // const esim_realtimeProducts = getFormattedProductsArray({
-  //   products : fetchedProducts,
-  //   product_category : "esim_realtime"
-  // });
-
-  // console.log("ESIM Length" , esim_realtimeProducts.length);
   
-  // const fetchProductDetails = fetchedProducts?.map(
-  //   (product: any) => product.productDetails
-  // );
-
-  // // get Dynamic Products Details
-  // const product_details: any = getProductDetails(fetchProductDetails);
-
-  // const data2 = fetchedProducts && product_details;
-
-  // // Merge productDetails into each element of getSpecificCountryProduct
-  // const mergedData = data2
-  //   ? fetchedProducts.map((product: any, index: any) => ({
-  //       ...product,
-  //       productDetails: product_details[index],
-  //       product_tags: product_details[index].product_tags,
-  //       product_details: product_details[index].product_detail,
-  //     }))
-  //   : [];
-
-  // const esim_realtimeProducts = mergedData.filter(
-  //   (item) => item.productCategory === "esim_realtime"
-  // );
-  // console.log("ESIM Length" , esim_realtimeProducts.length);
   
-  const [sortedData, setSortedData] = useState(data);
 
   useEffect(() => {
     const countryParams = searchParams.get("selectedCountry");
@@ -89,67 +59,6 @@ export default function ProductFilters({
     }
   }, [searchParams, setSelectedCountryCodes]);
 
-  // useEffect(() => {
-  //   console.log(
-  //     "🚀 selectedCountryCodes: ----->",
-  //     selectedCountryCodes.join(",")
-  //   );
-  // }, [selectedCountryCodes]);
-
-  // SWR
-  // const { data: fetchedProductsData, error } = useSWR(
-  //   region ? [region, 'esim_realtime'] : ['esim_realtime', selectedCountryCodes.join(',')], 
-  //   async (region: any, category: any) => {
-  //     try {
-  //       let response;
-
-  //       if (region) {
-  //         response = await getDynamicProducts({
-  //           region: region,
-  //           category: category,
-  //         });
-  //       } else {
-  //         response = await getDynamicProducts({
-  //           country: category,
-  //         });
-  //       }
-
-  //       return response || [];
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //       throw error;
-  //     }
-  //   }
-  // );
-
-  
-  
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       let response ;
-
-  //       if ( region) {
-  //         response = await getDynamicProducts({
-  //           region: region,
-  //           category : "esim_realtime",
-  //         });
-  //       } else {
-  //         response = await getDynamicProducts({
-  //           country: selectedCountryCodes.join(","),
-  //           // category : "esim_realtime",
-  //         });
-  //       }
-        
-  //       // Update the state with the fetched products
-  //       setFetchedProducts(response || []); // Modify this based on the actual structure of your response
-  //       // console.log("fetched products length", fetchedProducts.length);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, [selectedCountryCodes, fetchedProducts.length]);
 
   // console.log("country", country, "region", region);
   const handleSortValue = (value: string) => {
@@ -172,7 +81,7 @@ export default function ProductFilters({
 
     // Apply sorting using the selected criteria
     // @ts-ignore
-    const sortedProducts = [...esim_realtimeProducts].sort(
+    const sortedProducts = [...data].sort(
       sortingCriteria[sortingCriteriaKey]
     );
     setSortedData(sortedProducts);
@@ -242,6 +151,7 @@ export default function ProductFilters({
         >
           {currentPage}
         </Link>
+
 
         {region && (
           <>
@@ -409,7 +319,7 @@ export default function ProductFilters({
                 }}
               />
             ))}
-            {
+            { !((sortedData && sortedData.length > 0) || (data && data.length > 0)) && (
               <div className="flex flex-col items-center col-span-3">
                 <div className="flex flex-col items-center">
                   <p className="font-semibold">
@@ -428,7 +338,7 @@ export default function ProductFilters({
                   src="/profile/card.svg"
                 />
               </div>
-            }
+            )}
           </div>
         </div>
       </div>

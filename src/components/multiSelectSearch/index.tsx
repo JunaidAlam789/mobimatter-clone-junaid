@@ -3,7 +3,7 @@ import * as React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
-import { Check, X, ChevronsUpDown, SearchIcon } from "lucide-react";
+import { Check, X, SearchIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -48,49 +48,65 @@ function MultiSelect({
 }: MultiSelectProps) {
   const router = useRouter();
   const pathname = usePathname();
+  console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname)
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>(params! || []);
 
+  // console.log("Params in mutli Select ---- > " , params);
+  
   // this useEffect will send the selected values to the URL
   React.useEffect(() => {
     
     const newSearchParams = new URLSearchParams(searchParams);
+    // console.log("🚀 ~ file: index.tsx:62 ~ React.useEffect ~ newSearchParams:", newSearchParams.get("selectedCountry"))
+    const selectedCountryString = newSearchParams!.get("selectedCountry")
+    const selectedCountryArrayLength = selectedCountryString?.split(',').length 
+    console.log("🚀 ~ file: index.tsx:65 ~ React.useEffect ~ countryCodesArray:", selectedCountryArrayLength)
 
-// const filteredSelected = selected.filter((item) => item !== region && item !== country);
   // Find the selected country codes in countryData
   const selectedCountryCodes = countryData?.filter((country : any) =>
     selected?.includes(country.name)
   );
 
- 
+
    // Extract the country codes from the selectedCountryCodes array
    const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
- // Include the country code for the country value if it exists
-//  if (country && countryData?.some((c : any) => c.name === country)) {
-//   const countryObject = countryData.find((c : any) => c.name === country);
-//   if (countryObject) {
-//     countryCodes?.push(countryObject.cca2);
-//   }
-// }
 
+    // Update URL with the filtered selected values
+    if ( countryCodes.length > 0) {
+      newSearchParams.set("selectedCountry", countryCodes?.join(','));
+
+    }  else {
+      newSearchParams.delete("selectedCountry");
+    }
+
+    // if ( selectedCountryArrayLength! > 1) {
+    //     router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+    // }
+    // Save the existing selectedCountry value
+  // const existingSelectedCountry = newSearchParams.get("selectedCountry");
+  // const existedSelectedCountryArray = selectedCountryString?.split(',')
 
   
 
 
-    // Update URL with the filtered selected values
-    if ( countryCodes.length > 0) {
-      // newSearchParams.set("selectedCountry", filteredSelected.join(','));
-      // newSearchParams.set("selectedCountry", (filteredSelected.join('&')));
-      newSearchParams.set("selectedCountry", countryCodes?.join(','));
-
-    } else {
-      newSearchParams.delete("selectedCountry");
+    if ( selectedCountryArrayLength!  > 1){
+      router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+    } else  {
+      router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
     }
 
-    router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+
+    // router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+    // router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
     // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
-  }, [selected, pathname, searchParams , region , country , countryData , options , router]);
+  }, [selected, pathname, searchParams , region , country , countryData , options , router , params]);
+
+
+  
+
+  
 
 
   
@@ -98,7 +114,6 @@ function MultiSelect({
   const handleUnselect = (item: string) => {
     onChange(selected.filter((i) => i !== item));
   };
-
 
   
   return (
