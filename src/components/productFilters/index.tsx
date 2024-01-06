@@ -14,6 +14,9 @@ import {
 import { getProductDetails } from "@/actions/getProductDetails";
 import { IProductsProps } from "@/app/esim/[search]/page";
 import { dataForSearchPage } from "@/utils/customSelectorData";
+import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
+import useSwr from "swr";
+import useSWR from "swr";
 
 export default function ProductFilters({
   country,
@@ -48,29 +51,38 @@ export default function ProductFilters({
     applyFilters();
   }, [maxPrice, minValidity, minDataAllowance]);
 
-  const fetchProductDetails = fetchedProducts?.map(
-    (product: any) => product.productDetails
-  );
+  // const esim_realtimeProducts = getFormattedProductsArray({
+  //   products : fetchedProducts,
+  //   product_category : "esim_realtime"
+  // });
 
-  // get Dynamic Products Details
-  const product_details: any = getProductDetails(fetchProductDetails);
+  // console.log("ESIM Length" , esim_realtimeProducts.length);
+  
+  // const fetchProductDetails = fetchedProducts?.map(
+  //   (product: any) => product.productDetails
+  // );
 
-  const data2 = fetchedProducts && product_details;
+  // // get Dynamic Products Details
+  // const product_details: any = getProductDetails(fetchProductDetails);
 
-  // Merge productDetails into each element of getSpecificCountryProduct
-  const mergedData = data2
-    ? fetchedProducts.map((product: any, index: any) => ({
-        ...product,
-        productDetails: product_details[index],
-        product_tags: product_details[index].product_tags,
-        product_details: product_details[index].product_detail,
-      }))
-    : [];
+  // const data2 = fetchedProducts && product_details;
 
-  const esim_realtimeProducts = mergedData.filter(
-    (item) => item.productCategory === "esim_realtime"
-  );
-  const [sortedData, setSortedData] = useState(esim_realtimeProducts);
+  // // Merge productDetails into each element of getSpecificCountryProduct
+  // const mergedData = data2
+  //   ? fetchedProducts.map((product: any, index: any) => ({
+  //       ...product,
+  //       productDetails: product_details[index],
+  //       product_tags: product_details[index].product_tags,
+  //       product_details: product_details[index].product_detail,
+  //     }))
+  //   : [];
+
+  // const esim_realtimeProducts = mergedData.filter(
+  //   (item) => item.productCategory === "esim_realtime"
+  // );
+  // console.log("ESIM Length" , esim_realtimeProducts.length);
+  
+  const [sortedData, setSortedData] = useState(data);
 
   useEffect(() => {
     const countryParams = searchParams.get("selectedCountry");
@@ -89,22 +101,60 @@ export default function ProductFilters({
   //   );
   // }, [selectedCountryCodes]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getDynamicProducts({
-          country: selectedCountryCodes.join(","),
-          // category : "esim_realtime",
-        });
-        // Update the state with the fetched products
-        setFetchedProducts(response || []); // Modify this based on the actual structure of your response
-        // console.log("fetched products length", fetchedProducts.length);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [selectedCountryCodes, fetchedProducts.length]);
+  // SWR
+  // const { data: fetchedProductsData, error } = useSWR(
+  //   region ? [region, 'esim_realtime'] : ['esim_realtime', selectedCountryCodes.join(',')], 
+  //   async (region: any, category: any) => {
+  //     try {
+  //       let response;
+
+  //       if (region) {
+  //         response = await getDynamicProducts({
+  //           region: region,
+  //           category: category,
+  //         });
+  //       } else {
+  //         response = await getDynamicProducts({
+  //           country: category,
+  //         });
+  //       }
+
+  //       return response || [];
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //       throw error;
+  //     }
+  //   }
+  // );
+
+  
+  
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       let response ;
+
+  //       if ( region) {
+  //         response = await getDynamicProducts({
+  //           region: region,
+  //           category : "esim_realtime",
+  //         });
+  //       } else {
+  //         response = await getDynamicProducts({
+  //           country: selectedCountryCodes.join(","),
+  //           // category : "esim_realtime",
+  //         });
+  //       }
+        
+  //       // Update the state with the fetched products
+  //       setFetchedProducts(response || []); // Modify this based on the actual structure of your response
+  //       // console.log("fetched products length", fetchedProducts.length);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, [selectedCountryCodes, fetchedProducts.length]);
 
   // console.log("country", country, "region", region);
   const handleSortValue = (value: string) => {
@@ -135,7 +185,7 @@ export default function ProductFilters({
   };
 
   const applyFilters = () => {
-    let filteredProducts = [...esim_realtimeProducts];
+    let filteredProducts = [...data!];
 
     // Apply filters based on the sidebar input fields
     if (maxPrice !== undefined) {
@@ -236,9 +286,9 @@ export default function ProductFilters({
 
       <div className="mt-2 flex items-start justify-between">
         {/* Total Products */}
-        {esim_realtimeProducts && esim_realtimeProducts.length > 0 ? (
+        {data && data.length > 0 ? (
           <p className="text-txtgrey">
-            {esim_realtimeProducts.length} products
+            {data.length} products
           </p>
         ) : (
           // <p className="text-txtgrey">{data?.length} products</p>
@@ -351,7 +401,7 @@ export default function ProductFilters({
             {(
               (sortedData && sortedData.length > 0
                 ? sortedData
-                : esim_realtimeProducts) || []
+                : data) || []
             ).map((product: IProductsProps, index: number) => (
               <EsimCard
                 key={index}
@@ -364,7 +414,7 @@ export default function ProductFilters({
                 }}
               />
             ))}
-            {(!esim_realtimeProducts || esim_realtimeProducts.length === 0) &&
+            {(!data || data.length === 0) &&
               !sortedData && <p className="text-xl">No products found</p>}
           </div>
         </div>

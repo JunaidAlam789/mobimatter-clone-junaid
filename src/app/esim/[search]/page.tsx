@@ -8,9 +8,10 @@ import {
   getProductDetails,
   productDetails,
 } from "@/actions/getProductDetails";
+import { checkIfRegion, getRegionName } from "@/utils/RegionFunctionality";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
-import EsimCard from "@/components/esimCard";
+import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 
 export interface IProductsProps {
   merchantId: string;
@@ -36,70 +37,49 @@ export interface IProductsProps {
   product_details: [];
 }
 
-export default async function Search({ params }: { params: { search: any } }) {
-  const data1: any = await getCountriesData();
+export default async function Search({
+  params,
+  searchParams,
+}: {
+  params: { search: any };
+  searchParams: any;
+}) {
+  console.log("Search-Params ---->" , searchParams);
+  
   const country = params.search.replace(/%20/g, " ");
+  console.log("params" , country);
+  
   const paramCountry: string[] = [];
   paramCountry.push(country);
-
-  // Check if the country is actually a region
-  const isRegion = checkIfRegion(country, data1);
-  const region = isRegion ? country : getRegionName(country, data1);
-  // console.log("isRegion", isRegion, "region", region);
-
-  // new Code
-
-  // const countryName = params.search.split('-').join(' ');
-  // console.log("🚀 ~ file: page.tsx:15 ~ countryName:", countryName)
-
-  // const getCountryCode = await getSpecificCountryCode(country);
-  // console.log("🚀 ~ file: page.tsx:22 ~ getCountryCode:", getCountryCode);
-
-  // let getSpecificCountryProduct;
-  // if (!getCountryCode) {
-  //   getSpecificCountryProduct = await getDynamicProducts({
-  //     region: country,
-  //   });
-  // } else {
-  //   getSpecificCountryProduct = await getDynamicProducts({
-  //     country: getCountryCode?.cca2,
-  //     category: "esim_realtime",
-  //   });
-  // }
-
-  // fetch Product Details
-  // const fetchProductDetails = getSpecificCountryProduct?.map(
-  //   (product: any) => product.productDetails
-  // );
-  // console.log("🚀 ~ file: page.tsx:40 ~ productDetails:", productDetails)
-
-  // get Dynamic Products Details
-  // const product_details: any = getProductDetails(fetchProductDetails);
-  // console.log("🚀 ~ file: page.tsx:39 ~ product_details:", product_details)
-  // console.log("🚀  product_details:", product_details);
-  // const allTags = getAllTags(product_details)
-  // console.log("🚀 ~ file: page.tsx:42 ~ allTags:", allTags )
-
-  // const data = getSpecificCountryProduct && product_details;
-
   const countries = await getCountriesData();
   const countriesData = countries?.map((country: any) => country);
-  // console.log("FULL DATA ----->", combinedData);
 
-  // Merge productDetails into each element of getSpecificCountryProduct
-  // const mergedData: IProductsProps[] = data
-  //   ? getSpecificCountryProduct.map((product: any, index: any) => ({
-  //       ...product,
-  //       productDetails: product_details[index],
-  //       product_tags: product_details[index].product_tags,
-  //       product_details: product_details[index].product_detail,
-  //     }))
-  //   : [];
+  // Check if the country is actually a region
+  const isRegion = checkIfRegion(country, countries);
+  const region = isRegion ? country : getRegionName(country, countries);
 
-  // const esim_realtimeProducts = mergedData.filter(
-  //   (item) => item.productCategory === "esim_realtime"
-  // );
-  // console.log("Merged Data ----->", mergedData);
+    const getCountryCode = await getSpecificCountryCode(country);
+  // fetch data
+  let getSpecificCountryProduct;
+  if (!getCountryCode) {
+    getSpecificCountryProduct = await getDynamicProducts({
+      region: country,
+      category : "esim_realtime",
+    });
+  } else {
+    getSpecificCountryProduct = await getDynamicProducts({
+      country: searchParams?.selectedCountry,
+      category: "esim_realtime",
+    });
+  }
+
+  const esim_realtimeProducts = getFormattedProductsArray({
+    products : getSpecificCountryProduct,
+    product_category : "esim_realtime"
+  });
+
+  console.log("Data on Server " , getSpecificCountryProduct.length);
+  
 
   return (
     <div>
@@ -111,11 +91,11 @@ export default async function Search({ params }: { params: { search: any } }) {
           </h2>
 
           <MultiSelect
-            options={data1}
+            options={countries}
             params={paramCountry}
             region={region}
             country={country}
-            countryData={data1}
+            countryData={countries}
           />
         </div>
       </div>
@@ -124,7 +104,7 @@ export default async function Search({ params }: { params: { search: any } }) {
       {isRegion ? (
         <ProductFilters
           region={region}
-          // data={esim_realtimeProducts}
+          data={esim_realtimeProducts}
           countries={countriesData}
           currentPage={"New eSIMS"}
         />
@@ -132,31 +112,11 @@ export default async function Search({ params }: { params: { search: any } }) {
         <ProductFilters
           country={country}
           region={region}
-          // data={esim_realtimeProducts}
+          data={esim_realtimeProducts}
           countries={countriesData}
           currentPage={"New eSIMS"}
         />
       )}
     </div>
   );
-}
-
-// Function to check if the country is actually a region
-function checkIfRegion(country: string, countriesData: any[]): boolean {
-  // Search in the array of all countries to determine if it's a valid country name
-  const validCountry = countriesData?.find(
-    (data) => data.name.toLowerCase() === country.toLowerCase()
-  );
-
-  // If it's not a valid country, it might be a region
-  return !validCountry;
-}
-
-// Function to get the region name based on the country
-function getRegionName(country: string, countriesData: any[]): string {
-  const countryData = countriesData?.find(
-    (data) => data.name.toLowerCase() === country.toLowerCase()
-  );
-  // console.log("countryData", countryData);
-  return countryData ? countryData.region : "";
 }
