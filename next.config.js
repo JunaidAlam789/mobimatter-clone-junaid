@@ -6,8 +6,8 @@ const nextConfig = {
         protocol: "https",
         hostname: "mobimatterstorage.blob.core.windows.net",
       },
+      { protocol: "https", hostname: "media.istockphoto.com" },
     ],
-    domains: ["media.istockphoto.com"],
   },
 };
 
