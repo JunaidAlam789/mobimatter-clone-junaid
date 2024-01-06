@@ -2,18 +2,15 @@
 import { ChevronRight, ListFilter } from "lucide-react";
 import Link from "next/link";
 import EsimCard from "@/components/esimCard";
-// import { simData } from "@/views/homepage/esimOffers";
 import { CustomDropDown } from "./CustomDropDown";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
-import {
-  DynamicProductsOptions,
-  getDynamicProducts,
-} from "@/actions/getDynamicProducts";
+import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getProductDetails } from "@/actions/getProductDetails";
 import { IProductsProps } from "@/app/esim/[search]/page";
 import { dataForSearchPage } from "@/utils/customSelectorData";
+import Image from "next/image";
 
 export default function ProductFilters({
   country,
@@ -202,7 +199,7 @@ export default function ProductFilters({
           <>
             <ChevronRight size={13} />
             <Link
-              href={`/${region}`}
+              href={`/esim/${region}`}
               className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
             >
               {region}
@@ -214,7 +211,7 @@ export default function ProductFilters({
           <>
             <ChevronRight size={13} />
             <Link
-              href={`/${country}`}
+              href={`/esim/${country}`}
               className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
             >
               {country}
@@ -364,8 +361,26 @@ export default function ProductFilters({
                 }}
               />
             ))}
-            {(!esim_realtimeProducts || esim_realtimeProducts.length === 0) &&
-              !sortedData && <p className="text-xl">No products found</p>}
+            {
+              <div className="flex flex-col items-center col-span-3">
+                <div className="flex flex-col items-center">
+                  <p className="font-semibold">
+                    We currently don&apos;t have any offers for this search
+                    criteria..
+                  </p>
+                  <p>
+                    Try searching for another destination or adjusting your
+                    filters.
+                  </p>
+                </div>
+                <Image
+                  alt=""
+                  height={150}
+                  width={150}
+                  src="/profile/card.svg"
+                />
+              </div>
+            }
           </div>
         </div>
       </div>
