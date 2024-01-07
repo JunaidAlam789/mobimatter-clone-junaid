@@ -17,7 +17,7 @@ const WalletPageComponent = () => {
         {
             list.map((val,idx)=>(
                 <div className='flex items-center space-x-2' key={idx}>
-                    <Image alt src='/profile/star.svg' height={20} width={20} />
+                    <Image alt='' src='/profile/star.svg' height={20} width={20} />
                     <p>{val}</p>
                 </div>
             ))
