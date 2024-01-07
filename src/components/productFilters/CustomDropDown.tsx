@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 export function CustomDropDown({
   onSelect,
@@ -16,7 +17,8 @@ export function CustomDropDown({
   data ,
   placeholder,
   provider,
-  country
+  country,
+  providerDetails,
 }: {
   onSelect: (value: string) => void;
   className?: string;
@@ -24,11 +26,18 @@ export function CustomDropDown({
   placeholder : string;
   provider ?: string;
   country ?: string;
+  providerDetails ?: { providerName : string; providerLogo : string}[];
 }) {
-  console.log("🚀 ~ file: CustomDropDown.tsx:28 ~ country:", country)
-  // console.log("🚀 ~ file: CustomDropDown.tsx:26 ~ paramsProvider:", provider)
-  const [selected, setSelected] = React.useState<string>(provider! || "");
-  // const [val, selectedVal] = React.useState("");
+  const pathname = usePathname();
+  let paramsProvider = pathname.split("/")[2];
+
+  // Check if paramsProvider matches any of the specified values
+  // const validProviders = ["All", "Sparks", "3", "Ubigi", "eSIMGo", "Airalo"];
+     const validProviders = providerDetails?.map((item) => item.providerName);
+  if (!validProviders?.includes(paramsProvider)) {
+    paramsProvider = ''; // Set to an empty string if not in the valid list
+  }
+
   return (
     <Select
       onValueChange={(value) => {
@@ -42,7 +51,7 @@ export function CustomDropDown({
         )}
       >
          {/* Use paramsProvider as the initial value if available, otherwise use an empty string */}
-        <SelectValue defaultValue={provider || ""} placeholder={placeholder} />
+        <SelectValue   placeholder={paramsProvider || placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

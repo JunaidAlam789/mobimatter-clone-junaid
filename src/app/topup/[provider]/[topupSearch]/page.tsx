@@ -100,8 +100,13 @@ export default async function Search({
   const esim_realtimeProducts = mergedData.filter(
     (item) => item.productCategory === "esim_realtime"
   );
-  // console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
-  // console.log("Merged Data ----->", mergedData);
+
+ // Extract Provider Names and Logos from Esim-Product Array
+const esim_ProviderDetails = esim_realtimeProducts.map(item => ({
+  providerName: item.providerName,
+  providerLogo: item.providerLogo,
+}));
+  
 
   return (
     <div>
@@ -123,6 +128,7 @@ export default async function Search({
             optionData={data1}
             providerName={params?.provider}
             paramCountry={params?.topupSearch}
+            providerDetails={esim_ProviderDetails}
             />
 
         </div>

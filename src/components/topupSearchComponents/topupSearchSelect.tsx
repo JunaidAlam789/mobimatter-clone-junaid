@@ -12,20 +12,21 @@ import { TypedSearch } from "../SearchButton/typedSearch";
 interface TopupSelectProps {
   optionData: any;
   providerName : string
-  paramCountry : string
+  paramCountry : string;
+  providerDetails : { providerName : string; providerLogo : string}[];
 }
 
 export const TopupSearchSelect = ({ 
   optionData ,
   providerName,
-  paramCountry
+  paramCountry,
+  providerDetails
 }: TopupSelectProps) => {
-  console.log("🚀 ~ file: topupSearchSelect.tsx:23 ~ providerName:", providerName)
   const [providername, setProvidername] = useState("");
-  // console.log(
-  //   "🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername:",
-  //   providername
-  // );
+
+  // sending params array to multi select
+  const urlCountry : string[] = [];
+  urlCountry.push(paramCountry);
 
   const handleSelectValue = (value: string) => {
     setProvidername(value);
@@ -38,12 +39,13 @@ export const TopupSearchSelect = ({
         className=" bg-white text-gray-500 h-[64px] w-96 shadow-md"
         placeholder="Select Provider Name"
         provider={providerName}
-        country={paramCountry}
+        providerDetails={providerDetails}
       />
       <MultiSelect
         options={optionData}
         countryData={optionData}
         className=" w-[55dvw] shadow-md"
+        params={urlCountry}
       />
     </div>
   );

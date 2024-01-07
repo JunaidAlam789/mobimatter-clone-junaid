@@ -28,7 +28,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 interface MultiSelectProps {
   // options: OptionType[];
   options: any[];
-  params?: string[];
+  params?: string[] ; 
   onChange?: React.Dispatch<React.SetStateAction<string[]>>;
   className?: string;
   region ?: any;
@@ -48,10 +48,10 @@ function MultiSelect({
 }: MultiSelectProps) {
   const router = useRouter();
   const pathname = usePathname();
-  console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname)
+  // console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname)
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState<string[]>(params! || []);
+  const [selected, setSelected] = React.useState<string[]>(params! ||  []);
 
   // console.log("Params in mutli Select ---- > " , params);
   
