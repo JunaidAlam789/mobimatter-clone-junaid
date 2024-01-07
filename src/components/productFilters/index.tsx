@@ -46,9 +46,6 @@ export default function ProductFilters({
     applyFilters();
   }, [maxPrice, minValidity, minDataAllowance]);
 
-  
-  
-
   useEffect(() => {
     const countryParams = searchParams.get("selectedCountry");
     // console.log("🚀 countryParams: ----- > ", countryParams);
@@ -58,7 +55,6 @@ export default function ProductFilters({
       setSelectedCountryCodes(codes as string[]);
     }
   }, [searchParams, setSelectedCountryCodes]);
-
 
   // console.log("country", country, "region", region);
   const handleSortValue = (value: string) => {
@@ -81,9 +77,7 @@ export default function ProductFilters({
 
     // Apply sorting using the selected criteria
     // @ts-ignore
-    const sortedProducts = [...data].sort(
-      sortingCriteria[sortingCriteriaKey]
-    );
+    const sortedProducts = [...data].sort(sortingCriteria[sortingCriteriaKey]);
     setSortedData(sortedProducts);
     // console.log("Sorted", sortedProducts);
   };
@@ -152,7 +146,6 @@ export default function ProductFilters({
           {currentPage}
         </Link>
 
-
         {region && (
           <>
             <ChevronRight size={13} />
@@ -192,9 +185,7 @@ export default function ProductFilters({
       <div className="mt-2 flex items-start justify-between">
         {/* Total Products */}
         {data && data.length > 0 ? (
-          <p className="text-txtgrey">
-            {data.length} products
-          </p>
+          <p className="text-txtgrey">{data.length} products</p>
         ) : (
           // <p className="text-txtgrey">{data?.length} products</p>
           <></>
@@ -304,9 +295,7 @@ export default function ProductFilters({
           {/* <h1 className=' font-bold'>Country Name : {params.countryName}</h1> */}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4">
             {(
-              (sortedData && sortedData.length > 0
-                ? sortedData
-                : data) || []
+              (sortedData && sortedData.length > 0 ? sortedData : data) || []
             ).map((product: IProductsProps, index: number) => (
               <EsimCard
                 key={index}
@@ -314,12 +303,15 @@ export default function ProductFilters({
                 country={countries}
                 buttonText="View Offers"
                 buttonLink={{
-                  pathname: `/${product?.productDetails?.product_Title}`,
+                  pathname: `/esimInfo/${product?.productDetails?.product_Title}`,
                   query: { id: `${product?.productId}` },
                 }}
               />
             ))}
-            { !((sortedData && sortedData.length > 0) || (data && data.length > 0)) && (
+            {!(
+              (sortedData && sortedData.length > 0) ||
+              (data && data.length > 0)
+            ) && (
               <div className="flex flex-col items-center col-span-3">
                 <div className="flex flex-col items-center">
                   <p className="font-semibold">

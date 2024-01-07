@@ -13,7 +13,6 @@ interface props{
 
 const OptionListComponent:React.FC<props> = ({text,img,path}) => {
     const router = useRouter();
-    console.log(path)
 
     const handlePush=()=>{
       let p = `/profile/${path}`
