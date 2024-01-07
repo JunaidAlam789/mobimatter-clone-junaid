@@ -48,7 +48,7 @@ function MultiSelect({
 }: MultiSelectProps) {
   const router = useRouter();
   const pathname = usePathname();
-  console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname);
+  // console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname);
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>(params! || []);
@@ -78,7 +78,7 @@ function MultiSelect({
     }
 
     const baseUrl = pathname.split("/")[1];
-    console.log(baseUrl);
+    // console.log(baseUrl);
 
     if (selectedCountryArrayLength! > 1) {
       router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);

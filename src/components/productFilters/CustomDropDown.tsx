@@ -13,13 +13,13 @@ import { cn } from "@/lib/utils";
 export function CustomDropDown({
   onSelect,
   className,
-  data ,
+  data,
   placeholder,
 }: {
   onSelect: (value: string) => void;
   className?: string;
   data: { value: string; label: string }[];
-  placeholder : string;
+  placeholder: string;
 }) {
   // const [val, selectedVal] = React.useState("");
   return (
@@ -30,7 +30,7 @@ export function CustomDropDown({
     >
       <SelectTrigger
         className={cn(
-          "w-[180px] focus:ring-0 focus:ring-offset-0 bg-transparent border-2 ",
+          "min-[370px]:w-[180px] focus:ring-0 focus:ring-offset-0 bg-transparent border-2 ",
           className
         )}
       >
@@ -40,8 +40,8 @@ export function CustomDropDown({
         <SelectGroup>
           {data.map((item) => (
             <SelectItem key={item.value} value={item.value}>
-            {item.label}
-          </SelectItem>
+              {item.label}
+            </SelectItem>
           ))}
           {/* <SelectItem value="recommended">Recommended</SelectItem>
           <SelectItem value="lowest price">Lowest price</SelectItem>
