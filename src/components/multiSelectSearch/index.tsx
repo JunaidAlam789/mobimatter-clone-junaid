@@ -56,57 +56,57 @@ function MultiSelect({
   // console.log("Params in mutli Select ---- > " , params);
   
   // this useEffect will send the selected values to the URL
-  // React.useEffect(() => {
-    
-  //   const newSearchParams = new URLSearchParams(searchParams);
-  //   // console.log("🚀 ~ file: index.tsx:62 ~ React.useEffect ~ newSearchParams:", newSearchParams.get("selectedCountry"))
-
-  // // Find the selected country codes in countryData
-  // const selectedCountryCodes = countryData?.filter((country : any) =>
-  //   selected?.includes(country.name)
-  // );
-
-
-  //  // Extract the country codes from the selectedCountryCodes array
-  //  const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
-
-  //   // Update URL with the filtered selected values
-  //   if ( countryCodes.length > 0) {
-  //     newSearchParams.set("selectedCountry", countryCodes?.join(','));
-
-  //   }  else {
-  //     newSearchParams.delete("selectedCountry");
-  //   }
-
-
-
-  //   router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
-  //   // router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
-  //   // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
-  // }, [selected, pathname, searchParams , region , country , countryData , options , router , params]);
-
   React.useEffect(() => {
+    
     const newSearchParams = new URLSearchParams(searchParams);
-  
-    // Find the selected country codes in countryData
-    const selectedCountryCodes = countryData?.filter((country: any) =>
-      selected?.includes(country.name)
-    );
-  
-    // Extract the country codes from the selectedCountryCodes array
-    const countryCodes = selectedCountryCodes?.map((country: any) => country.cca2);
-  
+    // console.log("🚀 ~ file: index.tsx:62 ~ React.useEffect ~ newSearchParams:", newSearchParams.get("selectedCountry"))
+
+  // Find the selected country codes in countryData
+  const selectedCountryCodes = countryData?.filter((country : any) =>
+    selected?.includes(country.name)
+  );
+
+
+   // Extract the country codes from the selectedCountryCodes array
+   const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
+
     // Update URL with the filtered selected values
-    if (countryCodes.length > 0) {
+    if ( countryCodes.length > 0) {
       newSearchParams.set("selectedCountry", countryCodes?.join(','));
-    } else {
+
+    }  else {
       newSearchParams.delete("selectedCountry");
     }
+
+
+
+    router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+    // router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
+    // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
+  }, [selected, pathname, searchParams , region , country , countryData , options , router , params]);
+
+  // React.useEffect(() => {
+  //   const newSearchParams = new URLSearchParams(searchParams);
   
-    // Update URL based on the order of removal
-    const updatedPathname = `/esim/${selected[0] || params}`;
-    router.replace(`${updatedPathname}?${newSearchParams.toString()}`, undefined);
-  }, [selected, pathname, searchParams, region, country, countryData, options, router, params]);
+  //   // Find the selected country codes in countryData
+  //   const selectedCountryCodes = countryData?.filter((country: any) =>
+  //     selected?.includes(country.name)
+  //   );
+  
+  //   // Extract the country codes from the selectedCountryCodes array
+  //   const countryCodes = selectedCountryCodes?.map((country: any) => country.cca2);
+  
+  //   // Update URL with the filtered selected values
+  //   if (countryCodes.length > 0) {
+  //     newSearchParams.set("selectedCountry", countryCodes?.join(','));
+  //   } else {
+  //     newSearchParams.delete("selectedCountry");
+  //   }
+  
+  //   // Update URL based on the order of removal
+  //   const updatedPathname = `/esim/${selected[0] || params}`;
+  //   router.replace(`${updatedPathname}?${newSearchParams.toString()}`, undefined);
+  // }, [selected, pathname, searchParams, region, country, countryData, options, router, params]);
   
   
   

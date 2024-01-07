@@ -6,6 +6,7 @@ import ProductFilters from "@/components/productFilters";
 import { getProductDetails, productDetails } from "@/actions/getProductDetails";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
+import { TopupSearchSelect } from "@/components/topupSearchComponents/topupSearchSelect";
 
 export interface IProductsProps {
   merchantId: string;
@@ -111,13 +112,19 @@ export default async function Search({
             Buy Prepaid eSIM Andorra from $1.4 per GB when you visit Andorra
           </h2>
 
-          <MultiSelect
+          {/* <MultiSelect
             options={data1}
             params={paramCountry}
             region={region}
             country={country}
             countryData={data1}
-          />
+          /> */}
+            <TopupSearchSelect
+            optionData={data1}
+            providerName={params?.provider}
+            paramCountry={params?.topupSearch}
+            />
+
         </div>
       </div>
 

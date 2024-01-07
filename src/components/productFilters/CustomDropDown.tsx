@@ -15,17 +15,24 @@ export function CustomDropDown({
   className,
   data ,
   placeholder,
+  provider,
+  country
 }: {
   onSelect: (value: string) => void;
   className?: string;
   data: { value: string; label: string }[];
   placeholder : string;
+  provider ?: string;
+  country ?: string;
 }) {
+  console.log("🚀 ~ file: CustomDropDown.tsx:28 ~ country:", country)
+  // console.log("🚀 ~ file: CustomDropDown.tsx:26 ~ paramsProvider:", provider)
+  const [selected, setSelected] = React.useState<string>(provider! || "");
   // const [val, selectedVal] = React.useState("");
   return (
     <Select
       onValueChange={(value) => {
-        onSelect(value);
+        onSelect(value );
       }}
     >
       <SelectTrigger
@@ -34,7 +41,8 @@ export function CustomDropDown({
           className
         )}
       >
-        <SelectValue placeholder={placeholder} />
+         {/* Use paramsProvider as the initial value if available, otherwise use an empty string */}
+        <SelectValue defaultValue={provider || ""} placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
