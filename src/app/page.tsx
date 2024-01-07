@@ -1,7 +1,7 @@
-import { getCountriesData } from "@/utils/getCountriesdata";
 import { HeroSection } from "@/views/homepage/HeroSection";
 import { PromotionCards } from "@/views/homepage/PromotionCards";
 import EsimOffers from "@/views/homepage/esimOffers";
+import HowItWorks from "@/views/homepage/howItWorks";
 import { PopularCountries } from "@/views/homepage/popularCountries";
 
 export default async function Home() {
@@ -11,7 +11,7 @@ export default async function Home() {
       <PopularCountries />
       <EsimOffers />
       <PromotionCards />
+      <HowItWorks />
     </>
-  
   );
 }

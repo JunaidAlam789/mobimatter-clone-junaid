@@ -1,4 +1,3 @@
-
 "use client";
 
 import * as React from "react";
@@ -34,17 +33,21 @@ export function CustomSelector({
 }: CustomSelectorI) {
   const router = useRouter();
   const [val, selectedVal] = React.useState(identifier);
-  console.log("Selected Value",val);
+  console.log("Selected Value", val);
 
-  
   return (
     <Select
-      onValueChange={(value : any) => {
-        onSelect(value);
-        selectedVal(value);
+      onValueChange={(value: any) => {
+        // onSelect(value);
+        // selectedVal(value);
+
+        // Replace spaces with hyphens in the country name
+        const formattedValue = value.name.trim().replace(/\s+/g, "-");
+        onSelect(formattedValue);
+        selectedVal(formattedValue);
 
         // redirect
-        router.push(`/travel-esim/${value.name}`)
+        router.push(`/travel-esim/${formattedValue}`);
       }}
     >
       <SelectTrigger
@@ -53,16 +56,13 @@ export function CustomSelector({
             ? "bg-transparent border-Dark-opacity-20"
             : "bg-Dark-opacity-5  border-Dark-opacity-5"
         }`}
-           /* @ts-ignore */
+        /* @ts-ignore */
         customicon={
-          <Button
-        className=' bg-[#38BDEF] rounded-full text-white  hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2  xl:p-2.5 ml-auto'
-        >
-        <SearchIcon
-         className=' h-5 w-5' />
-        </Button>
-          }
-          >
+          <Button className=" bg-[#38BDEF] rounded-full text-white  hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2  xl:p-2.5 ml-auto">
+            <SearchIcon className=" h-5 w-5" />
+          </Button>
+        }
+      >
         <SelectValue
           placeholder={
             <div
@@ -78,7 +78,7 @@ export function CustomSelector({
         />
       </SelectTrigger>
 
-      <SelectContent>
+      <SelectContent side="bottom" avoidCollisions={false}>
         {error ? (
           <p>Error loading countries</p>
         ) : isLoading ? (
@@ -86,11 +86,16 @@ export function CustomSelector({
         ) : (
           <SelectGroup className=" ">
             <SelectLabel>Select an option</SelectLabel>
-            {data?.map((item : any) => (
-              <SelectItem key={item.name} value={item} className="" >
+            {data?.map((item: any) => (
+              <SelectItem key={item.name} value={item} className="">
                 <div className=" flex items-center gap-2">
-                <Image src={item.flag} alt={item.name} height={20} width={20} />
-                {item.name}
+                  <Image
+                    src={item.flag}
+                    alt={item.name}
+                    height={20}
+                    width={20}
+                  />
+                  {item.name}
                 </div>
               </SelectItem>
             ))}
