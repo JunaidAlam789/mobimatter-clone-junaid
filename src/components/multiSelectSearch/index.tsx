@@ -31,9 +31,9 @@ interface MultiSelectProps {
   params?: string[];
   onChange?: React.Dispatch<React.SetStateAction<string[]>>;
   className?: string;
-  region ?: any;
-  country ?: any;
-  countryData ?: any;
+  region?: any;
+  country?: any;
+  countryData?: any;
 }
 
 function MultiSelect({
@@ -48,74 +48,63 @@ function MultiSelect({
 }: MultiSelectProps) {
   const router = useRouter();
   const pathname = usePathname();
-  console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname)
+  console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname);
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>(params! || []);
 
-  // console.log("Params in mutli Select ---- > " , params);
-  
   // this useEffect will send the selected values to the URL
-  // React.useEffect(() => {
-    
-  //   const newSearchParams = new URLSearchParams(searchParams);
-  //   // console.log("🚀 ~ file: index.tsx:62 ~ React.useEffect ~ newSearchParams:", newSearchParams.get("selectedCountry"))
-
-  // // Find the selected country codes in countryData
-  // const selectedCountryCodes = countryData?.filter((country : any) =>
-  //   selected?.includes(country.name)
-  // );
-
-
-  //  // Extract the country codes from the selectedCountryCodes array
-  //  const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
-
-  //   // Update URL with the filtered selected values
-  //   if ( countryCodes.length > 0) {
-  //     newSearchParams.set("selectedCountry", countryCodes?.join(','));
-
-  //   }  else {
-  //     newSearchParams.delete("selectedCountry");
-  //   }
-
-
-
-  //   router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
-  //   // router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
-  //   // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
-  // }, [selected, pathname, searchParams , region , country , countryData , options , router , params]);
-
   React.useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams);
-  
+
+    const selectedCountryString = newSearchParams!.get("selectedCountry");
+    const selectedCountryArrayLength = selectedCountryString?.split(",").length;
+
     // Find the selected country codes in countryData
     const selectedCountryCodes = countryData?.filter((country: any) =>
       selected?.includes(country.name)
     );
-  
+
     // Extract the country codes from the selectedCountryCodes array
-    const countryCodes = selectedCountryCodes?.map((country: any) => country.cca2);
-  
+    const countryCodes = selectedCountryCodes?.map(
+      (country: any) => country.cca2
+    );
+
     // Update URL with the filtered selected values
     if (countryCodes.length > 0) {
-      newSearchParams.set("selectedCountry", countryCodes?.join(','));
+      newSearchParams.set("selectedCountry", countryCodes?.join(","));
     } else {
       newSearchParams.delete("selectedCountry");
     }
-  
-    // Update URL based on the order of removal
-    const updatedPathname = `/esim/${selected[0] || params}`;
-    router.replace(`${updatedPathname}?${newSearchParams.toString()}`, undefined);
-  }, [selected, pathname, searchParams, region, country, countryData, options, router, params]);
-  
-  
-  
+
+    const baseUrl = pathname.split("/")[1];
+    console.log(baseUrl);
+
+    if (selectedCountryArrayLength! > 1) {
+      router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+    } else {
+      router.replace(
+        `/${baseUrl}/${selected[0] || params}?${newSearchParams.toString()}`,
+        undefined
+      );
+    }
+  }, [
+    selected,
+    pathname,
+    searchParams,
+    region,
+    country,
+    countryData,
+    options,
+    router,
+    params,
+  ]);
+
   onChange = setSelected;
   const handleUnselect = (item: string) => {
     onChange(selected.filter((i) => i !== item));
   };
 
-  
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
       <PopoverTrigger asChild>
@@ -163,8 +152,8 @@ function MultiSelect({
           </div>
         </Button>
       </PopoverTrigger>
-      <PopoverContent className={cn("w-[80dvw]" , className)}>
-        <Command >
+      <PopoverContent className={cn("w-[80dvw]", className)}>
+        <Command>
           <CommandInput placeholder="Search ..." />
           <CommandEmpty>No item found.</CommandEmpty>
           <CommandGroup className="max-h-64 overflow-auto">
@@ -183,7 +172,9 @@ function MultiSelect({
                 <Check
                   className={cn(
                     "mr-2 h-4 w-4",
-                    selected?.includes(option.name) ? "opacity-100" : "opacity-0"
+                    selected?.includes(option.name)
+                      ? "opacity-100"
+                      : "opacity-0"
                   )}
                 />
                 <div className="flex items-center gap-2">
