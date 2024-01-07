@@ -63,7 +63,13 @@ export default async function Search({
 
   let getSpecificCountryProduct;
 
-  if (searchParams?.selectedCountry) {
+  if (!getCountryCode) {
+    getSpecificCountryProduct = await getDynamicProducts({
+      region: country,
+      category: "esim_realtime",
+      country: searchParams?.selectedCountry,
+    });
+  } else if (searchParams?.selectedCountry) {
     getSpecificCountryProduct = await getDynamicProducts({
       country: searchParams.selectedCountry,
       category: "esim_realtime",

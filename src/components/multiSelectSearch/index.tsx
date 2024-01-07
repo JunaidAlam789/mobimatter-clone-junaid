@@ -56,59 +56,59 @@ function MultiSelect({
   // console.log("Params in mutli Select ---- > " , params);
   
   // this useEffect will send the selected values to the URL
-  React.useEffect(() => {
+  // React.useEffect(() => {
     
+  //   const newSearchParams = new URLSearchParams(searchParams);
+  //   // console.log("🚀 ~ file: index.tsx:62 ~ React.useEffect ~ newSearchParams:", newSearchParams.get("selectedCountry"))
+
+  // // Find the selected country codes in countryData
+  // const selectedCountryCodes = countryData?.filter((country : any) =>
+  //   selected?.includes(country.name)
+  // );
+
+
+  //  // Extract the country codes from the selectedCountryCodes array
+  //  const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
+
+  //   // Update URL with the filtered selected values
+  //   if ( countryCodes.length > 0) {
+  //     newSearchParams.set("selectedCountry", countryCodes?.join(','));
+
+  //   }  else {
+  //     newSearchParams.delete("selectedCountry");
+  //   }
+
+
+
+  //   router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
+  //   // router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
+  //   // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
+  // }, [selected, pathname, searchParams , region , country , countryData , options , router , params]);
+
+  React.useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams);
-    // console.log("🚀 ~ file: index.tsx:62 ~ React.useEffect ~ newSearchParams:", newSearchParams.get("selectedCountry"))
-    const selectedCountryString = newSearchParams!.get("selectedCountry")
-    const selectedCountryArrayLength = selectedCountryString?.split(',').length 
-    console.log("🚀 ~ file: index.tsx:65 ~ React.useEffect ~ countryCodesArray:", selectedCountryArrayLength)
-
-  // Find the selected country codes in countryData
-  const selectedCountryCodes = countryData?.filter((country : any) =>
-    selected?.includes(country.name)
-  );
-
-
-   // Extract the country codes from the selectedCountryCodes array
-   const countryCodes = selectedCountryCodes?.map((country : any) => country.cca2);
-
+  
+    // Find the selected country codes in countryData
+    const selectedCountryCodes = countryData?.filter((country: any) =>
+      selected?.includes(country.name)
+    );
+  
+    // Extract the country codes from the selectedCountryCodes array
+    const countryCodes = selectedCountryCodes?.map((country: any) => country.cca2);
+  
     // Update URL with the filtered selected values
-    if ( countryCodes.length > 0) {
+    if (countryCodes.length > 0) {
       newSearchParams.set("selectedCountry", countryCodes?.join(','));
-
-    }  else {
+    } else {
       newSearchParams.delete("selectedCountry");
     }
-
-    // if ( selectedCountryArrayLength! > 1) {
-    //     router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
-    // }
-    // Save the existing selectedCountry value
-  // const existingSelectedCountry = newSearchParams.get("selectedCountry");
-  // const existedSelectedCountryArray = selectedCountryString?.split(',')
-
   
-
-
-    if ( selectedCountryArrayLength!  > 1){
-      router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
-    } else  {
-      router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
-    }
-
-
-    // router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
-    // router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);
-    // window.history.replaceState({}, "", `${pathname}?${newSearchParams.toString()}`);
-  }, [selected, pathname, searchParams , region , country , countryData , options , router , params]);
-
-
+    // Update URL based on the order of removal
+    const updatedPathname = `/esim/${selected[0] || params}`;
+    router.replace(`${updatedPathname}?${newSearchParams.toString()}`, undefined);
+  }, [selected, pathname, searchParams, region, country, countryData, options, router, params]);
   
-
   
-
-
   
   onChange = setSelected;
   const handleUnselect = (item: string) => {

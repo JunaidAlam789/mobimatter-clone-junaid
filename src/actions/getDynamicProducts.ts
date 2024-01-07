@@ -16,7 +16,9 @@ export const getDynamicProducts = async (
     // console.log("🚀 ~ file: getDynamicProducts.ts:15 ~ getDynamicProducts ~ country:", country)
     // console.log("Options ----> ", options);
 
-    if (region && category) {
+    if (region && category && country) {
+      url += `?region=${region}&category=${category}&country=${country}`;
+    } else if (region && category) {
       url += `?region=${region}&category=${category}`;
     } else if (region && country) {
       url += `?region=${region}&country=${country}`;
