@@ -194,7 +194,7 @@ export default async function EsimOffers() {
             country={countries}
             buttonText="View Offer"
             buttonLink={{
-              pathname: `${item?.productDetails?.product_Title}`,
+              pathname: `/esimInfo/${item?.productDetails?.product_Title}`,
               query: { id: `${item?.productId}` },
             }}
           />

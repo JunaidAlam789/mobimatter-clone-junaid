@@ -183,7 +183,10 @@ export default function EsimCard({
       {/* View Offer Button */}
       {/* Button */}
       <Link href={buttonLink} className="mt-3 block">
-        <Button className="bg-[#38BDEF] min-w-full" size="sm">
+        <Button
+          className="bg-[#38BDEF] min-w-full hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
+          size="sm"
+        >
           {buttonText}
         </Button>
       </Link>

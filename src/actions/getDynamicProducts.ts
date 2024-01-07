@@ -14,30 +14,27 @@ export const getDynamicProducts = async (
 
     const { region, country, productId, category } = options;
     // console.log("🚀 ~ file: getDynamicProducts.ts:15 ~ getDynamicProducts ~ country:", country)
+    // console.log("Options ----> ", options);
 
-    if (region) {
+    if (region && category && country) {
+      url += `?region=${region}&category=${category}&country=${country}`;
+    } else if (region && category) {
+      url += `?region=${region}&category=${category}`;
+    } else if (region && country) {
+      url += `?region=${region}&country=${country}`;
+    } else if (region) {
       url += `?region=${region}`;
-    } else if (country) {
-      url += `?country=${country}`;
     } else if (country && category) {
       url += `?country=${country}&category=${category}`;
+    } else if (country) {
+      url += `?country=${country}`;
     } else if (productId) {
       url += `?productId=${productId}`;
     } else if (category) {
       url += `?category=${category}`;
     }
 
-    // if (region && country && productId ) {
-    //     url += `?region=${region}&country=${country}&productId=${productId}`;
-    // } else if (region) {
-    //     url += `?region=${region}`;
-    // } else if (country) {
-    //     url += `?country=${country}`;
-    // } else if (productId) {
-    //     url += `?productId=${productId}`;
-    // } else if (category) {
-    //     url += `?category=${category}`;
-    // }
+    // console.log("URL ----> " , url);
 
     const res = await fetch(url, {
       method: "GET",

@@ -5,6 +5,7 @@ import { navbarData } from ".";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import DropdownMenu from "./dropdownMenu";
+import UserButton from "./userButton";
 
 export default function LargescreenNavbar() {
   return (
@@ -40,9 +41,7 @@ export default function LargescreenNavbar() {
           </ul>
         ))}
         {/* Button */}
-        <Link href="/signup">
-          <Button className="bg-[#38BDEF]">Join Now</Button>
-        </Link>
+        <UserButton isLargeScreen={true} />
       </div>
     </div>
   );

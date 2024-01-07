@@ -24,7 +24,7 @@ export const PopularCountries = () => {
     {
       label: "USA",
       icon: USA,
-      href: `/esim/USA`,
+      href: `/esim/United States`,
     },
     {
       label: "Europe",
@@ -34,7 +34,7 @@ export const PopularCountries = () => {
     {
       label: "UK",
       icon: Uk,
-      href: `/esim/UK`,
+      href: `/esim/United Kingdom`,
     },
     {
       label: "Middle East",
@@ -49,12 +49,12 @@ export const PopularCountries = () => {
     {
       label: "UAE",
       icon: UAE,
-      href: `/esim/UAE`,
+      href: `/esim/United Arab Emirates`,
     },
     {
       label: "KSA",
       icon: Saudia,
-      href: `/esim/SaudiArabia`,
+      href: `/esim/Saudi Arabia`,
     },
     {
       label: "Asia",
