@@ -58,7 +58,7 @@ const column2_regions = [
   },
   {
     text: "eSIM for Americas",
-    href: "/esim/America",
+    href: "/esim/Americas",
   },
   {
     text: "eSIM for Middle East",
@@ -77,7 +77,7 @@ const column2_regions = [
 const column3_countries = [
   {
     text: "eSIM for USA",
-    href: "/esim/USA",
+    href: "/esim/United States",
   },
   {
     text: "eSIM for Japan",
@@ -101,7 +101,7 @@ const column3_countries = [
   },
   {
     text: "eSIM for Dubai",
-    href: "/esim/Dubai",
+    href: "/esim/Uniter Arab Emirates",
   },
   {
     text: "eSIM for Singapore",

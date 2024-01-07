@@ -14,7 +14,6 @@ import { getSpecificCountryCode } from "@/utils/getCountryCode";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 import EsimCard from "@/components/esimCard";
 
-
 export interface IProductsProps {
   merchantId: string;
   uniqueId: string;
@@ -47,10 +46,10 @@ export default async function Search({
   searchParams: any;
 }) {
   // console.log("Search-Params ---->" , searchParams);
-  
+
   const country = params.search.replace(/%20/g, " ");
   // console.log("params" , country);
-  
+
   const paramCountry: string[] = [];
   paramCountry.push(country);
   const countries = await getCountriesData();
@@ -60,35 +59,33 @@ export default async function Search({
   const isRegion = checkIfRegion(country, countries);
   const region = isRegion ? country : getRegionName(country, countries);
 
-    const getCountryCode = await getSpecificCountryCode(country);
+  const getCountryCode = await getSpecificCountryCode(country);
 
   let getSpecificCountryProduct;
 
-if (searchParams?.selectedCountry) {
-  getSpecificCountryProduct = await getDynamicProducts({
-    country: searchParams.selectedCountry,
-    category: "esim_realtime",
-  });
-} else if (getCountryCode) {
-  getSpecificCountryProduct = await getDynamicProducts({
-    country: getCountryCode?.cca2,
-    category: "esim_realtime",
-  });
-} else {
-  getSpecificCountryProduct = await getDynamicProducts({
-    region: country,
-    category: "esim_realtime",
-  });
-}
-
+  if (searchParams?.selectedCountry) {
+    getSpecificCountryProduct = await getDynamicProducts({
+      country: searchParams.selectedCountry,
+      category: "esim_realtime",
+    });
+  } else if (getCountryCode) {
+    getSpecificCountryProduct = await getDynamicProducts({
+      country: getCountryCode?.cca2,
+      category: "esim_realtime",
+    });
+  } else {
+    getSpecificCountryProduct = await getDynamicProducts({
+      region: country,
+      category: "esim_realtime",
+    });
+  }
 
   const esim_realtimeProducts = getFormattedProductsArray({
-    products : getSpecificCountryProduct,
-    product_category : "esim_realtime"
+    products: getSpecificCountryProduct,
+    product_category: "esim_realtime",
   });
 
-  console.log("Data on Server " , getSpecificCountryProduct.length);
-  
+  // console.log("Data on Server " , getSpecificCountryProduct.length);
 
   return (
     <div>

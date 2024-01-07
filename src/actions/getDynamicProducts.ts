@@ -14,12 +14,11 @@ export const getDynamicProducts = async (
 
     const { region, country, productId, category } = options;
     // console.log("🚀 ~ file: getDynamicProducts.ts:15 ~ getDynamicProducts ~ country:", country)
-    console.log("Options ----> " , options);
+    // console.log("Options ----> ", options);
 
-    
     if (region && category) {
       url += `?region=${region}&category=${category}`;
-    } else if (region && country){
+    } else if (region && country) {
       url += `?region=${region}&country=${country}`;
     } else if (region) {
       url += `?region=${region}`;
@@ -32,10 +31,8 @@ export const getDynamicProducts = async (
     } else if (category) {
       url += `?category=${category}`;
     }
-    
 
-    console.log("URL ----> " , url);
-    
+    // console.log("URL ----> " , url);
 
     const res = await fetch(url, {
       method: "GET",

@@ -46,7 +46,7 @@ export const dropdownMenuData = [
     label: "eSIM offers for UAE",
     description:
       "Best eSIM deals for the United Arab Emirates from the top providers worldwide",
-    href: "/esim/UAE",
+    href: "/esim/United Arab Emirates",
   },
   {
     icon: send,
