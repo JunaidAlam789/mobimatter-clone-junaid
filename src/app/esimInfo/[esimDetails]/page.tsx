@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import React from "react";
 import Image from "next/image";
+import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 
 export default async function EsimDetailsEsim({
   params,
@@ -22,15 +23,9 @@ export default async function EsimDetailsEsim({
   const countries = await getCountriesData();
   const productId = searchParams.id;
   const data = await getDynamicProducts({ productId });
-  const productDetails = data.map((product: any) => product.productDetails);
-  const formattedData: any = getProductDetails(productDetails);
-  const mergedData = data.map((product: any, index: any) => ({
-    ...product,
-    productDetails: formattedData[index],
-    product_tags: formattedData[index].product_tags,
-    product_details: formattedData[index].product_detail,
-  }));
-  // console.log("product details", formattedData[0]);
+  const formattedData = getFormattedProductsArray({
+    products: data,
+  });
 
   const countryFlagsAndNames = data[0].countries.map((countryCode: string) => {
     const country = countries.find((c: any) => c.cca2 === countryCode);
@@ -58,7 +53,7 @@ export default async function EsimDetailsEsim({
           {formattedData[0].product_Title}
         </h3>
         <EsimCard
-          data={mergedData[0]}
+          data={formattedData[0]}
           country={countries}
           buttonText="Buy Now"
           buttonLink={"/checkout"}
@@ -72,20 +67,20 @@ export default async function EsimDetailsEsim({
           <div className="bg-white p-2 rounded-md space-y-3">
             {/* Title */}
             <p className="font-medium uppercase text-lg">
-              {formattedData[0].product_detail.heading}
+              {formattedData[0].productDetails.product_Title}
             </p>
             {/* Description */}
             <p className="text-sm">
-              {formattedData[0].product_detail.description}
+              {formattedData[0].product_details.heading}
             </p>
             <Separator className="bg-gray-100" />
             {/* Multiline Details */}
-            {formattedData[0].product_detail.items.map(
+            {formattedData[0].product_details.items?.map(
               (item: any, index: number) => (
                 <div key={index} className="">
                   <p className="text-[15px] leading-6 my-3">{item}</p>
                   {index !==
-                    formattedData[0].product_detail.items.length - 1 && (
+                    formattedData[0].product_details.items.length - 1 && (
                     <Separator className="bg-gray-100" />
                   )}
                 </div>

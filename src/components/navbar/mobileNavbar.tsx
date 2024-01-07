@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { navbarData } from ".";
 import { dropdownMenuData } from ".";
 import { useState } from "react";
+import UserButton from "./userButton";
 
 export default function MobileNavbar() {
   const [open, setOpen] = useState(false);
@@ -75,9 +76,7 @@ export default function MobileNavbar() {
       {/* Logo */}
       <Logo />
       {/* Login Button */}
-      <Link href="/signup">
-        <LogIn />
-      </Link>
+      <UserButton isLargeScreen={false} />
     </div>
   );
 }
