@@ -54,7 +54,7 @@ export const PopularCountries = () => {
     {
       label: "KSA",
       icon: Saudia,
-      href: `/esim/SaudiArabia`,
+      href: `/esim/saudia-arabia`,
     },
     {
       label: "Asia",
