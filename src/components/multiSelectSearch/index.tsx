@@ -91,7 +91,7 @@ function MultiSelect({
   
 
 
-    if ( selectedCountryArrayLength!  > 1){
+    if ( selectedCountryArrayLength!  > 1) {
       router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
     } else  {
       router.replace(`/esim/${selected[0] || params}?${newSearchParams.toString()}`, undefined);

@@ -24,7 +24,7 @@ export const PopularCountries = () => {
     {
       label: "USA",
       icon: USA,
-      href: `/esim/USA`,
+      href: `/esim/america`,
     },
     {
       label: "Europe",
