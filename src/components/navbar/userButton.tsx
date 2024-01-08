@@ -37,8 +37,8 @@ export default function UserButton({
           </Link>
           {/* Reward Balance */}
           <Link href="/profile/wallet">
-            <p className="text-[9px]">Reward Balance</p>
-            <p className="text-[15px] mt-0.5 font-[450]">$0.00</p>
+            <p className="text-[9px] text-black">Reward Balance</p>
+            <p className="text-[15px] mt-0.5 font-[450] text-black">$0.00</p>
           </Link>
         </div>
       ) : (

@@ -15,7 +15,7 @@ const column1 = [
   // },
   {
     text: "About",
-    href: "/about",
+    href: "/about-us",
   },
   // {
   //   text: "Help & Support",
@@ -23,16 +23,16 @@ const column1 = [
   // },
   {
     text: "Terms & conditions",
-    href: "/terms",
+    href: "/terms-conditions",
   },
   {
     text: "Privacy Policy",
-    href: "/policy",
+    href: "/privacy-policy",
   },
-  // {
-  //   text: "Delivery, refunds policy",
-  //   href: "/delivery",
-  // },
+  {
+    text: "Delivery, refunds policy",
+    href: "/delivery",
+  },
   // {
   //   text: "Sitemap",
   //   href: "/sitemap",
@@ -181,7 +181,7 @@ export default function Footer() {
             <Image src={linkedin} alt="linkedin" width={26} height={26} />
           </Link>
           <Link href={"www.instagram.com"}>
-            <Instagram size={20} />
+            <Instagram size={20} className="text-black" />
           </Link>
           <Link href={"www.facebook.com"}>
             <Image src={facebook} alt="facebook" width={23} height={24} />

@@ -43,15 +43,6 @@ export function SortDropDown({
               {item.label}
             </SelectItem>
           ))}
-          {/* <SelectItem value="recommended">Recommended</SelectItem>
-          <SelectItem value="lowest price">Lowest price</SelectItem>
-          <SelectItem value="most data allowance">
-            Most data allowance
-          </SelectItem>
-          <SelectItem value="lowest price per gb">
-            Lowest price per GB
-          </SelectItem>
-          <SelectItem value="longest validity">Longest validity</SelectItem> */}
         </SelectGroup>
       </SelectContent>
     </Select>

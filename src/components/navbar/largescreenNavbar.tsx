@@ -22,7 +22,7 @@ export default function LargescreenNavbar() {
             <li>
               {index === 0 ? (
                 <div className="cursor-pointer group h-14 flex items-center">
-                  <span className="hover:text-slate-500 flex items-center">
+                  <span className="hover:text-slate-500 flex items-center text-black">
                     {item.text}
                     <ChevronDown className="h-5 w-5 ml-1 hover:text-slate-500" />
                   </span>
@@ -33,7 +33,10 @@ export default function LargescreenNavbar() {
                   </div>
                 </div>
               ) : (
-                <Link className="hover:text-slate-500" href={item.href}>
+                <Link
+                  className="hover:text-slate-500 text-black"
+                  href={item.href}
+                >
                   {item.text}
                 </Link>
               )}

@@ -1,12 +1,10 @@
 import Image from "next/image";
-// import { simDataT } from "@/views/homepage/esimOffers";
 import fiveG from "/public/homepage/esimCard/fiveg.svg";
 import globe from "/public/homepage/esimCard/globe.svg";
 import snow from "/public/homepage/esimCard/snow.svg";
 import badge from "/public/homepage/esimCard/badge.svg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { productDetails } from "@/actions/getProductDetails";
 import React from "react";
 import { IProductsProps } from "@/app/esim/[search]/page";
 
@@ -47,7 +45,6 @@ export default function EsimCard({
     tag: item.item,
   }));
 
-  // console.log("BUTTON LINK", buttonLink);
   return (
     <div className="bg-white w-full xl:h-[186px] rounded-md shadow-sm p-3">
       {/* Logo - Package - tag */}
