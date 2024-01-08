@@ -3,15 +3,23 @@ import { ChevronRight, ListFilter } from "lucide-react";
 import Link from "next/link";
 import EsimCard from "@/components/esimCard";
 import { CustomDropDown } from "../CustomDropDown";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
-import { getDynamicProducts } from "@/actions/getDynamicProducts";
-import { getProductDetails } from "@/actions/getProductDetails";
 import { IProductsProps } from "@/app/esim/[search]/page";
 import { dataForSearchPage } from "@/utils/customSelectorData";
-import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 import Image from "next/image";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import Filters from "./filters";
 
 export default function ProductFilters({
   country,
@@ -27,28 +35,22 @@ export default function ProductFilters({
   currentPage: string;
 }) {
   const searchParams = useSearchParams();
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortedData, setSortedData] = useState(data);
+  const [open, setOpen] = useState(false);
   const [selectedCountryCodes, setSelectedCountryCodes] = useState<string[]>(
     []
   );
-  const [showSidebar, setShowSidebar] = useState(false);
 
   // Filters state
-  const [maxPrice, setMaxPrice] = useState<number | undefined>(undefined);
-  const [minValidity, setMinValidity] = useState<number | undefined>(undefined);
-  const [minDataAllowance, setMinDataAllowance] = useState<number | undefined>(
-    undefined
-  );
-  // sorted State
-  const [sortedData, setSortedData] = useState(data);
-
-  // trigger apply filters on first button click
-  useEffect(() => {
-    applyFilters();
-  }, [maxPrice, minValidity, minDataAllowance]);
+  const [filters, setFilters] = useState({
+    maxPrice: undefined,
+    minValidity: undefined,
+    minDataAllowance: undefined,
+  });
 
   useEffect(() => {
     const countryParams = searchParams.get("selectedCountry");
-    // console.log("🚀 countryParams: ----- > ", countryParams);
 
     if (countryParams) {
       const codes = countryParams.split("%2C");
@@ -56,9 +58,10 @@ export default function ProductFilters({
     }
   }, [searchParams, setSelectedCountryCodes]);
 
-  // console.log("country", country, "region", region);
+  // Sorting Function
   const handleSortValue = (value: string) => {
-    // console.log("value", value);
+    // Apply filters first to get filtered products
+    const filteredProducts = applyFilters();
     // Define a mapping of sorting criteria to corresponding functions
     const sortingCriteria: any = {
       default: (a: any, b: any) => a.rank - b.rank,
@@ -77,71 +80,80 @@ export default function ProductFilters({
 
     // Apply sorting using the selected criteria
     // @ts-ignore
-    const sortedProducts = [...data].sort(sortingCriteria[sortingCriteriaKey]);
+    const sortedProducts = [...filteredProducts].sort(
+      sortingCriteria[sortingCriteriaKey]
+    );
     setSortedData(sortedProducts);
-    // console.log("Sorted", sortedProducts);
   };
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filteredProducts = [...data!];
 
     // Apply filters based on the sidebar input fields
-    if (maxPrice !== undefined) {
-      // console.log("Maximum price", maxPrice);
+    if (filters.maxPrice !== undefined) {
       filteredProducts = filteredProducts.filter(
-        (product) => product.retailPrice <= maxPrice
+        (product) =>
+          !isNaN(product.retailPrice) &&
+          product.retailPrice <= filters.maxPrice!
       );
     }
 
-    if (minValidity !== undefined) {
-      // Convert minimum validity from days to hours
-      const minValidityInHours = minValidity * 24;
-
-      // console.log("User Minimum validity (days)", minValidity);
-      // console.log("User Minimum validity (hours)", minValidityInHours);
+    if (filters.minValidity !== undefined && filters.minValidity > 0) {
+      const minValidityInHours = filters.minValidity * 24;
 
       filteredProducts = filteredProducts.filter((product) => {
         const productValidityInHours = Number(
           product.productDetails.product_validity
         );
-        // console.log("Product validity (hours)", productValidityInHours);
-
         return (
           !isNaN(productValidityInHours) &&
           productValidityInHours >= minValidityInHours
         );
       });
     }
-
-    if (minDataAllowance !== undefined) {
-      // console.log("Minimum data allowance", minDataAllowance);
+    if (filters.minDataAllowance !== undefined) {
       filteredProducts = filteredProducts.filter(
         (product) =>
-          Number(product.productDetails.product_data_limit) >= minDataAllowance
+          !isNaN(Number(product.productDetails.product_data_limit)) &&
+          Number(product.productDetails.product_data_limit) >=
+            filters.minDataAllowance!
       );
     }
-    // console.log("FILTERED", filteredProducts);
     setSortedData(filteredProducts);
+    return filteredProducts;
+  }, [data, filters.maxPrice, filters.minValidity, filters.minDataAllowance]);
+
+  // Toggle sidebar function
+  const toggleSidebar = () => {
+    setShowFilters(!showFilters);
   };
 
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
+  // trigger applyFilters on first button click
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
+
+  // Reset filters
+  const handleFilterChange = (key: string, value: string) => {
+    const numericValue = value.trim() === "" ? undefined : Number(value);
+    setFilters((prevFilters) => ({ ...prevFilters, [key]: numericValue }));
+    applyFilters();
   };
 
   return (
-    <div className="max-w-[1330px] mx-auto">
+    <div className="max-w-[1350px] mx-auto px-5">
       {/* Navigation Bar */}
       <div className="flex items-center gap-x-3">
         <Link
           href="/"
-          className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
+          className="text-xs sm:text-sm text-gray-700 hover:underline hover:underline-offset-2"
         >
           Home
         </Link>
         <ChevronRight size={13} />
         <Link
           href={`/`}
-          className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
+          className="text-xs sm:text-sm text-gray-700 hover:underline hover:underline-offset-2"
         >
           {currentPage}
         </Link>
@@ -151,7 +163,7 @@ export default function ProductFilters({
             <ChevronRight size={13} />
             <Link
               href={`/esim/${region}`}
-              className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
+              className="text-xs sm:text-sm text-gray-700 hover:underline hover:underline-offset-2"
             >
               {region}
             </Link>
@@ -163,7 +175,7 @@ export default function ProductFilters({
             <ChevronRight size={13} />
             <Link
               href={`/esim/${country}`}
-              className="text-sm text-gray-700 hover:underline hover:underline-offset-2"
+              className="text-xs sm:text-sm text-gray-700 hover:underline hover:underline-offset-2"
             >
               {country}
             </Link>
@@ -182,18 +194,17 @@ export default function ProductFilters({
         </h2>
       )}
 
-      <div className="mt-2 flex items-start justify-between">
+      <div className="mt-2 flex flex-col md:flex-row items-start justify-between">
         {/* Total Products */}
         {data && data.length > 0 ? (
           <p className="text-txtgrey">{data.length} products</p>
         ) : (
-          // <p className="text-txtgrey">{data?.length} products</p>
-          <></>
+          <p className="text-txtgrey">{data?.length} products</p>
         )}
-        <div className="flex flex-col items-end gap-y-2">
+        <div className="flex flex-row md:flex-col items-end gap-y-2 mt-2 md:mt-0 w-full md:w-auto">
           {/* Sort By */}
           <div className="flex items-center gap-x-3">
-            <p className="text-txtgrey">Sort By</p>
+            <p className="text-txtgrey hidden md:block">Sort By</p>
             <CustomDropDown
               onSelect={handleSortValue}
               data={dataForSearchPage}
@@ -201,99 +212,110 @@ export default function ProductFilters({
             />
           </div>
           {/* Show Hide Filters Button*/}
-          <Button
-            className="min-w-full bg-transparent border-2 font-normal hover:bg-transparent focus:ring-0 focus:ring-offset-0"
-            variant="outline"
-            onClick={toggleSidebar}
-          >
-            <ListFilter size={15} className="mr-2" />
-            {showSidebar ? "Hide Filters" : "Show Filters"}
-          </Button>
+          <div className="w-full">
+            {/* Large Screens */}
+            <div className="hidden md:block w-full">
+              <Button
+                className="w-full bg-transparent border-2 font-normal hover:bg-transparent focus:ring-0 focus:ring-offset-0"
+                variant="outline"
+                onClick={toggleSidebar}
+              >
+                <ListFilter size={15} className="mr-2" />
+                {showFilters ? "Hide Filters" : "Show Filters"}
+              </Button>
+            </div>
+            {/* Mobile */}
+            <div className="md:hidden text-right">
+              <Sheet open={open} onOpenChange={setOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    className="bg-transparent border-2 font-normal hover:bg-transparent focus:ring-0 focus:ring-offset-0"
+                    variant="outline"
+                  >
+                    <ListFilter size={15} className="mr-2" />
+                    Show Filters
+                  </Button>
+                </SheetTrigger>
+                {/* Sheet for small screens*/}
+                <SheetContent
+                  side={"bottom"}
+                  className="w-full top-0 md:hidden z-[150]"
+                >
+                  <SheetHeader className="my-7 ">
+                    <SheetTitle className="flex items-end justify-between">
+                      <p></p>
+                      <p>Filter By</p>
+                      <button
+                        className="text-[#38BDEF] text-sm underline underline-offset-2"
+                        onClick={() => {
+                          setFilters({
+                            maxPrice: undefined,
+                            minValidity: undefined,
+                            minDataAllowance: undefined,
+                          });
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </SheetTitle>
+                  </SheetHeader>
+                  <Filters
+                    filters={filters}
+                    onFilterChange={handleFilterChange}
+                    onClearFilters={() => {
+                      setFilters({
+                        maxPrice: undefined,
+                        minValidity: undefined,
+                        minDataAllowance: undefined,
+                      });
+                      applyFilters(); // Apply filters after resetting
+                    }}
+                  />
+                  <SheetFooter className="mt-7">
+                    <Button
+                      className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF] min-w-full"
+                      onClick={() => {
+                        setOpen(false);
+                        applyFilters();
+                        setShowFilters(false);
+                      }}
+                    >
+                      Apply Filters
+                    </Button>
+                  </SheetFooter>
+                </SheetContent>
+              </Sheet>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="flex mt-3">
-        {/* Sidebar */}
-        {showSidebar && (
-          <div className="space-y-4 min-w-fit p-1">
-            <div>
-              <p className="text-sm mb-2">Maximum Price</p>
-              <div className="flex">
-                <input
-                  type="number"
-                  value={Number(maxPrice)}
-                  className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center"
-                  onWheel={(e) => (e.target as HTMLElement).blur()}
-                  onChange={(e) => {
-                    const value = e.target.value.trim();
-                    setMaxPrice(value === "" ? undefined : Number(value));
-                    applyFilters();
-                  }}
-                  autoFocus
-                />
-                <p className="bg-gray-200 p-2 rounded-r-md min-w-[20%] text-center">
-                  USD
-                </p>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm mb-2">Minimum Validity</p>
-              <div className="flex">
-                <input
-                  type="number"
-                  value={Number(minValidity)}
-                  className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center"
-                  onWheel={(e) => (e.target as HTMLElement).blur()}
-                  onChange={(e) => {
-                    const value = e.target.value.trim(); // Trim to handle empty string
-                    setMinValidity(value === "" ? undefined : Number(value));
-                    applyFilters();
-                  }}
-                />
-                <p className="bg-gray-200 p-2 rounded-r-md min-w-[20%] text-center">
-                  days
-                </p>
-              </div>
-            </div>
-            <div>
-              <p className="text-sm mb-2">Minimum Data Allowance</p>
-              <div className="flex">
-                <input
-                  type="number"
-                  value={Number(minDataAllowance)}
-                  className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center"
-                  onWheel={(e) => (e.target as HTMLElement).blur()}
-                  onChange={(e) => {
-                    const value = e.target.value.trim(); // Trim to handle empty string
-                    setMinDataAllowance(
-                      value === "" ? undefined : Number(value)
-                    );
-                    applyFilters();
-                  }}
-                />
-                <p className="bg-gray-200 p-2 rounded-r-md min-w-[20%] text-center">
-                  GB
-                </p>
-              </div>
-            </div>
-            <Button
-              className="bg-[#38BDEF] min-w-full"
-              onClick={() => {
-                setMaxPrice(undefined);
-                setMinValidity(undefined);
-                setMinDataAllowance(undefined);
+      <div className="flex mt-3 gap-x-3">
+        {/* Sidebar, hidden for small screens*/}
+        {showFilters && (
+          <div className="hidden md:block min-w-[20%]">
+            <Filters
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onClearFilters={() => {
+                setFilters({
+                  maxPrice: undefined,
+                  minValidity: undefined,
+                  minDataAllowance: undefined,
+                });
                 applyFilters(); // Apply filters after resetting
               }}
-            >
-              Clear Filters
-            </Button>
+            />
           </div>
         )}
 
         {/* Product Grid */}
-        <div className="max-w-[1200px] px-5 mx-auto">
-          {/* <h1 className=' font-bold'>Country Name : {params.countryName}</h1> */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4">
+        <div
+          className={`${showFilters ? "md:w-auto" : "min-w-[90%]"} mx-auto `}
+        >
+          <div
+            className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4`}
+          >
             {(
               (sortedData && sortedData.length > 0 ? sortedData : data) || []
             ).map((product: IProductsProps, index: number) => (
