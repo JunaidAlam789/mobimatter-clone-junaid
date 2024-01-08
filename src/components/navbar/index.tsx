@@ -30,7 +30,7 @@ export const navbarData = [
   // },
   {
     text: "FAQs",
-    href: "/faqs",
+    href: "/faq",
   },
 ];
 

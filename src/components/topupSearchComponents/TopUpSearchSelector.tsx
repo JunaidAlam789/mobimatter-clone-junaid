@@ -38,11 +38,11 @@ export function TopUpSearchSelector({
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const SearchParams = new URLSearchParams(searchParams);
-  const paramsSelectedCountryCodes  = SearchParams.get("selectedCountry");
-  console.log(
-    "🚀 ~ file: TopUpSearchSelector.tsx:42 ~ paramsSelectedCountryCodes:",
-    paramsSelectedCountryCodes
-  );
+  const paramsSelectedCountryCodes = SearchParams.get("selectedCountry");
+  // console.log(
+  //   "🚀 ~ file: TopUpSearchSelector.tsx:42 ~ paramsSelectedCountryCodes:",
+  //   paramsSelectedCountryCodes
+  // );
   // Check if paramsProvider matches any of the specified values
   // const validProviders = ["All", "Sparks", "3", "Ubigi", "eSIMGo", "Airalo"];
   const validProviders = data?.map((item) => item.label);
@@ -59,11 +59,12 @@ export function TopUpSearchSelector({
 
         setSelected(value);
 
-        const newUrl = `/topup/${value}/${countryParams}?selectedCountry=${(paramsSelectedCountryCodes || '').toString()}`;
+        const newUrl = `/topup/${value}/${countryParams}?selectedCountry=${(
+          paramsSelectedCountryCodes || ""
+        ).toString()}`;
 
         window.location.href = newUrl;
         console.log("Updated URL:", newUrl);
-
       }}
     >
       <SelectTrigger
