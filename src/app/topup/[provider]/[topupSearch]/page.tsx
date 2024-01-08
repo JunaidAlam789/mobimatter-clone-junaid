@@ -6,6 +6,9 @@ import ProductFilters from "@/components/productFilters";
 import { getProductDetails, productDetails } from "@/actions/getProductDetails";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
+import { TopupSearchSelect } from "@/components/topupSearchComponents/topupSearchSelect";
+import { getProviderDetails } from "@/actions/getProviderDetails";
+import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 
 export interface IProductsProps {
   merchantId: string;
@@ -63,44 +66,43 @@ export default async function Search({
   } else {
     getSpecificCountryProduct = await getDynamicProducts({
       country: getCountryCode?.cca2,
-      category: "esim_realtime",
+      category: "esim_addon",
+      provider: params.provider,
     });
   }
 
-  // fetch Product Details
-  const fetchProductDetails = getSpecificCountryProduct?.map(
-    (product: any) => product.productDetails
-  );
-  // console.log("🚀 ~ file: page.tsx:40 ~ productDetails:", productDetails)
-
-  // get Dynamic Products Details
-  const product_details: any = getProductDetails(fetchProductDetails);
-  // console.log("🚀 ~ file: page.tsx:39 ~ product_details:", product_details)
-  // console.log("🚀  product_details:", product_details);
-  // const allTags = getAllTags(product_details)
-  // console.log("🚀 ~ file: page.tsx:42 ~ allTags:", allTags )
-
-  const data = getSpecificCountryProduct && product_details;
+  const esim_realtimeProducts = getFormattedProductsArray({
+    products: getSpecificCountryProduct,
+    product_category: "esim_addon",
+  });
 
   const countries = await getCountriesData();
   const countriesData = countries?.map((country: any) => country);
-  // console.log("FULL DATA ----->", combinedData);
 
-  // Merge productDetails into each element of getSpecificCountryProduct
-  const mergedData: IProductsProps[] = data
-    ? getSpecificCountryProduct.map((product: any, index: any) => ({
-        ...product,
-        productDetails: product_details[index],
-        product_tags: product_details[index].product_tags,
-        product_details: product_details[index].product_detail,
-      }))
-    : [];
+  const allProviderDetails = await getProviderDetails();
 
-  const esim_realtimeProducts = mergedData.filter(
-    (item) => item.productCategory === "esim_realtime"
-  );
-  // console.log("esim_realtimeProducts ----->", esim_realtimeProducts);
-  // console.log("Merged Data ----->", mergedData);
+  // Creating an object to map provider names to logos
+  const providerNamesWithLogos: {
+    logo: string;
+    label: string;
+    value: string;
+  }[] = [];
+
+  allProviderDetails.forEach((item: any) => {
+    const { providerName, providerLogo } = item;
+
+    // Ensure the providerName is not already in the object
+    if (!providerNamesWithLogos[providerName]) {
+      providerNamesWithLogos[providerName] = {
+        logo: providerLogo,
+        label: providerName,
+        value: providerName,
+      };
+    }
+  });
+
+  // Extracting an array of objects with unique provider names and logos
+  const uniqueProvidersWithLogos = Object.values(providerNamesWithLogos);
 
   return (
     <div>
@@ -111,12 +113,18 @@ export default async function Search({
             Buy Prepaid eSIM Andorra from $1.4 per GB when you visit Andorra
           </h2>
 
-          <MultiSelect
+          {/* <MultiSelect
             options={data1}
             params={paramCountry}
             region={region}
             country={country}
             countryData={data1}
+          /> */}
+          <TopupSearchSelect
+            optionData={data1}
+            providerName={params?.provider}
+            paramCountry={params?.topupSearch}
+            providers={uniqueProvidersWithLogos}
           />
         </div>
       </div>

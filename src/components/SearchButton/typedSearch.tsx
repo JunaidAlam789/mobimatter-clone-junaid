@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/popover";
 import { useRouter } from "next/navigation";
 
-export function TypedSearch({ countries }: { countries: any }) {
+export function TypedSearch({ countries , className }: { countries: any; className ?: string }) {
   // console.log("Countries", countries);
   // countries.map((country: any) => console.log("country", country.name));
   const router = useRouter();
@@ -42,7 +42,9 @@ export function TypedSearch({ countries }: { countries: any }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="rounded-full p-6 gap-x-3 sm:gap-0 sm:py-7 sm:px-5 flex items-center justify-between text-[15px] font-medium focus:ring-0 focus:ring-offset-0  transition-colors duration-500 bg-transparent border-Dark-opacity-20 bg-[#FFFFFF]  border border-neutral-200 w-auto sm:max-w-[470px] md:w-[350px] lg:w-[350px] xl:w-[460px] shadow-inner mt-4 mb-6 sm:mt-6 sm:mb-6 md:mt-6 md:mb-9 lg:mt-10 lg:mb-4 xl:mt-16 xl:mb-5"
+          className={cn("rounded-full p-6 gap-x-3 sm:gap-0 sm:py-7 sm:px-5 flex items-center justify-between text-[15px] font-medium focus:ring-0 focus:ring-offset-0  transition-colors duration-500 bg-transparent border-Dark-opacity-20 bg-[#FFFFFF]  border border-neutral-200 w-auto sm:max-w-[470px] md:w-[350px] lg:w-[350px] xl:w-[460px] shadow-inner mt-4 mb-6 sm:mt-6 sm:mb-6 md:mt-6 md:mb-9 lg:mt-10 lg:mb-4 xl:mt-16 xl:mb-5",
+          className
+          )}
         >
           {value
             ? countries.find((country: any) => country.name === value).name

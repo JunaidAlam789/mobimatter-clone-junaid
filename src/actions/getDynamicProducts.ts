@@ -4,6 +4,7 @@ export interface DynamicProductsOptions {
   country?: string;
   productId?: string;
   category?: string;
+  provider ?:string;
 }
 
 export const getDynamicProducts = async (
@@ -12,7 +13,7 @@ export const getDynamicProducts = async (
   try {
     let url = "https://api.mobimatter.com/mobimatter/api/v2/products";
 
-    const { region, country, productId, category } = options;
+    const { region, country, productId, category , provider } = options;
     // console.log("🚀 ~ file: getDynamicProducts.ts:15 ~ getDynamicProducts ~ country:", country)
     // console.log("Options ----> ", options);
 
@@ -22,6 +23,8 @@ export const getDynamicProducts = async (
       url += `?region=${region}&category=${category}`;
     } else if (region && country) {
       url += `?region=${region}&country=${country}`;
+    } else if ( country && provider && category ) {
+      url += `?country=${country}&provider=${provider}&category=${category}`;
     } else if (region) {
       url += `?region=${region}`;
     } else if (country && category) {
