@@ -13,7 +13,7 @@ interface CountryItemProps {
 export const CountryItem = ({ label, icon: Icon, href }: CountryItemProps) => {
   return (
     <>
-      <Link href={`/topup/${label}/all`} className="flex flex-col items-center my-2 group">
+      <Link href={href as string} className="flex flex-col items-center my-2 group">
         <div className="rounded-full bg-[#FFFFFF] shadow-md p-2 flex flex-col items-center justify-center w-[60px] h-[60px]">
           <Image
             src={Icon}

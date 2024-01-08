@@ -74,8 +74,8 @@ export function CustomDropDown({
           //    console.log("Updated URL:", newUrl);
           //  }
            
-          router.push(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
-          console.log(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
+          // router.push(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
+          // console.log(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
         // const updatePathname = pathname.replace(`/topup/${paramsProvider}/${countryParams}?${SearchParams.toString()}`, `/topup/${value}/${countryParams}?${SearchParams.toString()}`);
         // // console.log("Updated Pathname ----> ", updatePathname);
         // router.replace(updatePathname,undefined);

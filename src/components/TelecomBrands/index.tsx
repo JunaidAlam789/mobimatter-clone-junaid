@@ -67,7 +67,7 @@ export const TelecomBrands = ({
                     key={brand.label}
                     label={brand.label}
                     icon={brand.logo}
-
+                    href={`/topup/${brand.value}/all`}
                 />
             ))}
         </Slider>
