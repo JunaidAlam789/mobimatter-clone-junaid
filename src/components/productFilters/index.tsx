@@ -9,7 +9,6 @@ import { useSearchParams } from "next/navigation";
 import { IProductsProps } from "@/app/esim/[search]/page";
 import { dataForSearchPage } from "@/utils/customSelectorData";
 import Image from "next/image";
-import SideBar from "./sideBar";
 import {
   Sheet,
   SheetClose,
@@ -20,6 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import Filters from "./filters";
 
 export default function ProductFilters({
   country,
@@ -35,8 +35,9 @@ export default function ProductFilters({
   currentPage: string;
 }) {
   const searchParams = useSearchParams();
-  const [showSidebar, setShowSidebar] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const [sortedData, setSortedData] = useState(data);
+  const [open, setOpen] = useState(false);
   const [selectedCountryCodes, setSelectedCountryCodes] = useState<string[]>(
     []
   );
@@ -124,7 +125,7 @@ export default function ProductFilters({
 
   // Toggle sidebar function
   const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
+    setShowFilters(!showFilters);
   };
 
   // trigger applyFilters on first button click
@@ -212,6 +213,7 @@ export default function ProductFilters({
           </div>
           {/* Show Hide Filters Button*/}
           <div className="w-full">
+            {/* Large Screens */}
             <div className="hidden md:block w-full">
               <Button
                 className="w-full bg-transparent border-2 font-normal hover:bg-transparent focus:ring-0 focus:ring-offset-0"
@@ -219,38 +221,67 @@ export default function ProductFilters({
                 onClick={toggleSidebar}
               >
                 <ListFilter size={15} className="mr-2" />
-                {showSidebar ? "Hide Filters" : "Show Filters"}
+                {showFilters ? "Hide Filters" : "Show Filters"}
               </Button>
             </div>
+            {/* Mobile */}
             <div className="md:hidden text-right">
-              <Sheet>
+              <Sheet open={open} onOpenChange={setOpen}>
                 <SheetTrigger asChild>
                   <Button
                     className="bg-transparent border-2 font-normal hover:bg-transparent focus:ring-0 focus:ring-offset-0"
                     variant="outline"
-                    onClick={toggleSidebar}
                   >
                     <ListFilter size={15} className="mr-2" />
-                    {showSidebar ? "Hide Filters" : "Show Filters"}
+                    Show Filters
                   </Button>
                 </SheetTrigger>
-                {/* Sidebar, sheet for small screens*/}
+                {/* Sheet for small screens*/}
                 <SheetContent
                   side={"bottom"}
-                  className="w-full top-16 md:hidden"
+                  className="w-full top-0 md:hidden z-[150]"
                 >
-                  <SheetHeader>
-                    <SheetTitle>Edit profile</SheetTitle>
-                    <SheetDescription>
-                      Make changes to your profile here. Click save when youre
-                      done.
-                    </SheetDescription>
+                  <SheetHeader className="my-7 ">
+                    <SheetTitle className="flex items-end justify-between">
+                      <p></p>
+                      <p>Filter By</p>
+                      <button
+                        className="text-[#38BDEF] text-sm underline underline-offset-2"
+                        onClick={() => {
+                          setFilters({
+                            maxPrice: undefined,
+                            minValidity: undefined,
+                            minDataAllowance: undefined,
+                          });
+                        }}
+                      >
+                        Clear
+                      </button>
+                    </SheetTitle>
                   </SheetHeader>
-
-                  <SheetFooter>
-                    <SheetClose asChild>
-                      <Button>Save changes</Button>
-                    </SheetClose>
+                  <Filters
+                    filters={filters}
+                    onFilterChange={handleFilterChange}
+                    onClearFilters={() => {
+                      setFilters({
+                        maxPrice: undefined,
+                        minValidity: undefined,
+                        minDataAllowance: undefined,
+                      });
+                      applyFilters(); // Apply filters after resetting
+                    }}
+                  />
+                  <SheetFooter className="mt-7">
+                    <Button
+                      className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF] min-w-full"
+                      onClick={() => {
+                        setOpen(false);
+                        applyFilters();
+                        setShowFilters(false);
+                      }}
+                    >
+                      Apply Filters
+                    </Button>
                   </SheetFooter>
                 </SheetContent>
               </Sheet>
@@ -261,23 +292,27 @@ export default function ProductFilters({
 
       <div className="flex mt-3 gap-x-3">
         {/* Sidebar, hidden for small screens*/}
-        {showSidebar && (
-          <SideBar
-            filters={filters}
-            onFilterChange={handleFilterChange}
-            onClearFilters={() => {
-              setFilters({
-                maxPrice: undefined,
-                minValidity: undefined,
-                minDataAllowance: undefined,
-              });
-              applyFilters(); // Apply filters after resetting
-            }}
-          />
+        {showFilters && (
+          <div className="hidden md:block min-w-[20%]">
+            <Filters
+              filters={filters}
+              onFilterChange={handleFilterChange}
+              onClearFilters={() => {
+                setFilters({
+                  maxPrice: undefined,
+                  minValidity: undefined,
+                  minDataAllowance: undefined,
+                });
+                applyFilters(); // Apply filters after resetting
+              }}
+            />
+          </div>
         )}
 
         {/* Product Grid */}
-        <div className={`${showSidebar ? "w-auto" : "min-w-[90%]"} mx-auto `}>
+        <div
+          className={`${showFilters ? "md:w-auto" : "min-w-[90%]"} mx-auto `}
+        >
           <div
             className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4`}
           >

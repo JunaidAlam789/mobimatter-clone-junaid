@@ -9,20 +9,20 @@ interface SidebarProps {
   onFilterChange: (key: string, value: string) => void;
   onClearFilters: () => void;
 }
-export default function SideBar({
+export default function Filters({
   filters,
   onFilterChange,
   onClearFilters,
 }: SidebarProps) {
   return (
-    <div className="space-y-4 min-w-[20%] p-1 hidden md:block">
+    <div className="space-y-4 p-1">
       <div>
         <p className="text-sm mb-2">Maximum Price</p>
         <div className="flex">
           <input
             type="number"
             value={filters.maxPrice !== undefined ? filters.maxPrice : ""}
-            className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center"
+            className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center border border-gray-200"
             onWheel={(e) => (e.target as HTMLElement).blur()}
             onChange={(e) => onFilterChange("maxPrice", e.target.value)}
             autoFocus
@@ -38,7 +38,7 @@ export default function SideBar({
           <input
             type="number"
             value={filters.minValidity !== undefined ? filters.minValidity : ""}
-            className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center"
+            className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center border border-gray-200"
             onWheel={(e) => (e.target as HTMLElement).blur()}
             onChange={(e) => onFilterChange("minValidity", e.target.value)}
           />
@@ -57,7 +57,7 @@ export default function SideBar({
                 ? filters.minDataAllowance
                 : ""
             }
-            className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center"
+            className="w-full rounded-l-md focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center border border-gray-200"
             onWheel={(e) => (e.target as HTMLElement).blur()}
             onChange={(e) => onFilterChange("minDataAllowance", e.target.value)}
           />
@@ -67,7 +67,7 @@ export default function SideBar({
         </div>
       </div>
       <Button
-        className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF] min-w-full"
+        className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF] min-w-full hidden md:block"
         onClick={onClearFilters}
       >
         Clear Filters
