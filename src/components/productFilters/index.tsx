@@ -20,6 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import Filters from "./filters";
+import { SortDropDown } from "./sortDropDown";
 
 export default function ProductFilters({
   country,
@@ -205,7 +206,7 @@ export default function ProductFilters({
           {/* Sort By */}
           <div className="flex items-center gap-x-3">
             <p className="text-txtgrey hidden md:block">Sort By</p>
-            <CustomDropDown
+            <SortDropDown
               onSelect={handleSortValue}
               data={dataForSearchPage}
               placeholder="Recommended"

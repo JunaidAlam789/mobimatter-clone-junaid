@@ -5,7 +5,7 @@ import Image from 'next/image'
 import WalletPageComponent from '@/components/profilePageComponents/WalletPageComponent'
 
 
-const page = () => {
+const Page = () => {
   const[width,setWidth] = useState(0);
   
   useEffect(()=>{
@@ -42,4 +42,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

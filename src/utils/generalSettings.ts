@@ -3,7 +3,6 @@ export const countriesCarouselSettings = {
   speed: 500,
   slidesToShow: 11,
   slidesToScroll: 1,
-  Infinity : false,
   arrows: false,
   swipeToSlide: true,
   responsive: [

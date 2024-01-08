@@ -40,7 +40,7 @@ const TopupPage = async () => {
       <div className="relative w-full h-56">
         <Image src={surfer} alt={"hero_image"} fill className="object-cover" />
         <div className=" absolute top-[70%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%]">
-          <h2 className="text-white md:text-xl font-semibold mb-3 -ml-[930px] text-center ">
+          <h2 className= " absolute flex justify-start w-36 sm:w-auto -top-12 -left-10 sm:-top-9 sm:-left-6 md:-top-10 md:-left-9 lg:-top-10 lg:left-0 xl:-top-12 xl:left-6 2xl:-top-12 2xl:left-6 3xl:-top-12 3xl:left-10   text-white text-base  sm:text-lg md:text-xl font-semibold mb-3  text-center ">
             Shop for eSIM topups
           </h2>
           <ToggleButton />
@@ -56,7 +56,9 @@ const TopupPage = async () => {
       <NavigationButtons />
 
       {/* Promotion image */}
+      <div className=" mx-4 sm:mx-5 md:mx-7 lg:mx-7 xl:mx-auto ">
       <BannerCard />
+      </div>
     </div>
   );
 };

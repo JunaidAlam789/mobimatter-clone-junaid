@@ -9,6 +9,7 @@ import { Input } from "../ui/input";
 import { SearchIcon } from "lucide-react";
 import { TypedSearch } from "../SearchButton/typedSearch";
 import { SelectBox } from "./SelectBox";
+import { MainTopupSelector } from "./MainTopupSelector";
 
 interface TopupSelectProps {
   optionData: any;
@@ -18,36 +19,39 @@ interface TopupSelectProps {
 export const TopupSelect = ({ optionData , providers  }: TopupSelectProps) => {
   const { selectedButton, setSelectedButton } = useToggle();
   const [providername, setProvidername] = useState('');
-  // console.log("🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername:", providername)
+  console.log("🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername ------>   ", providername)
 
   const handleSelectValue = ( value : string) => {
     setProvidername(value);
   }
   return (
-    <div className=" flex items-center max-w-[1140px] mx-auto gap-x-3">
+    <div className=" flex items-center gap-x-3 -mx-4 sm:-mx-8 md:-mx-12 lg:-mx-8 xl:mx-0 3xl:mx-8">
       {selectedButton === "Country" && (
         <>
-          <CustomDropDown
-            onSelect={handleSelectValue}
-            data={providers}
-            className=" bg-white text-gray-500 h-[64px] w-96 shadow-md"
-            placeholder="Select Provider Name"
+         {/* Main Topup Page Selector */}
+
+         <MainTopupSelector
+          onSelect={handleSelectValue}
+          data={providers}
+          className=" bg-white text-gray-500 h-[64px] w-auto sm:w-96 2xl:w-full 3xl:w-full shadow-md"
+          placeholder="Select Provider Name"
           />
           {/* <MultiSelect
             options={optionData}
             countryData={optionData}
             className=" w-[55dvw] shadow-md"
           /> */}
-          <div className=" relative flex items-center w-full">
+          <div className="  flex items-center mx-auto">
           <SelectBox 
           countries={optionData}
           className=" w-[55dvw] bg-white text-gray-500 shadow-md" 
           provider={providername}
           />
-          <div className=" absolute right-3 bg-[#38BDEF] rounded-full text-white hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2 xl:p-2.5 ml-auto">
+          <div className=" absolute right-1  sm:-right-3 md:-right-6 lg:-right-3 xl:right-3 2xl:right-3 3xl:right-12 bg-[#38BDEF] rounded-full text-white hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2 xl:p-2.5 ml-auto">
           <SearchIcon className="h-5 w-5" />
         </div>
           </div>
+
           
          
         </>

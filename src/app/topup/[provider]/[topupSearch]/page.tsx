@@ -66,14 +66,14 @@ export default async function Search({
   } else {
     getSpecificCountryProduct = await getDynamicProducts({
       country: getCountryCode?.cca2,
-      category: "esim_realtime",
+      category: "esim_addon",
       provider: params.provider,
     });
   }
 
   const esim_realtimeProducts = getFormattedProductsArray({
     products: getSpecificCountryProduct,
-    product_category: "esim_realtime",
+    product_category: "esim_addon",
   });
 
   const countries = await getCountriesData();

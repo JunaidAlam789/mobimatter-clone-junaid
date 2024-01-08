@@ -24,10 +24,12 @@ export function SelectBox({
   countries,
   className,
   provider,
+  baseUrl,
 }: {
   countries: any;
   className?: string;
   provider: string;
+  baseUrl ?: string;
 }) {
 //   console.log("provider ------>", provider);
   
@@ -42,28 +44,73 @@ export function SelectBox({
 
   function capitalizeEachWord(str: string) {
     return str.replace(/\b\w/g, (match) => match.toUpperCase());
-  }
-
+  } 
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (!provider) {
+      event.preventDefault();
+    }
+  };
+  
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      {provider ? (
+         <PopoverTrigger asChild onKeyDown={handleKeyPress} onKeyUp={handleKeyPress}>
+         <Button
+           variant="outline"
+           role="combobox"
+           aria-expanded={open}
+           className={cn(
+             `w-full py-2 justify-between text-gray-500 hover:bg-white shadow-md h-16 ${provider ? "" : " cursor-not-allowed"} ${provider ? " opacity-100" : " opacity-100"}`,
+             className
+           )}
+           // disabled={!provider}
+           onKeyDown={handleKeyPress}
+           onKeyUp={handleKeyPress}
+         >
+           {/* {value
+             ? countries.find((country: any) => country.name === value)?.name
+             : "Search for a destination!"} */}
+              {value ? (
+             countries.find((country: any) => country.name === value)?.name
+           ) : (
+             provider ? "Search for a destination!" : "Select a provider first!"
+           )}
+           {/* <button className="  bg-[#38BDEF] rounded-full text-white  hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2  xl:p-2.5 ml-auto">
+             <SearchIcon className="h-5 w-5" />
+           </button> */}
+         </Button>
+       </PopoverTrigger>
+      ) : (
+        <>
         <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className={cn(
-            "w-full py-2 justify-between text-gray-500 hover:bg-white shadow-md h-16"
-          )}
-        >
-          {value
-            ? countries.find((country: any) => country.name === value).name
-            : "Search for a destination!"}
-          {/* <button className="  bg-[#38BDEF] rounded-full text-white  hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2  xl:p-2.5 ml-auto">
-            <SearchIcon className="h-5 w-5" />
-          </button> */}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent
+        variant="outline"
+        role="combobox"
+        aria-expanded={open}
+        className={cn(
+          `w-full py-2 justify-between text-gray-500 hover:bg-white shadow-md h-16 ${provider ? "" : " cursor-not-allowed"} ${provider ? " opacity-100" : " opacity-100"}`,
+          className
+        )}
+        // disabled={!provider}
+        onKeyDown={handleKeyPress}
+        onKeyUp={handleKeyPress}
+      >
+        {/* {value
+          ? countries.find((country: any) => country.name === value)?.name
+          : "Search for a destination!"} */}
+           {value ? (
+          countries.find((country: any) => country.name === value)?.name
+        ) : (
+          provider ? "Search for a destination!" : "Select a provider first!"
+        )}
+        {/* <button className="  bg-[#38BDEF] rounded-full text-white  hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2  xl:p-2.5 ml-auto">
+          <SearchIcon className="h-5 w-5" />
+        </button> */}
+      </Button>
+      </>
+      )}
+     
+      {provider && (
+        <PopoverContent
         side="bottom"
         avoidCollisions={false}
         className={cn("w-[80dvw] h-80", className)}
@@ -80,7 +127,15 @@ export function SelectBox({
                   const newValue = capitalizeEachWord(currentValue);
                   setValue(newValue);
                   setOpen(false);
-                  router.push(`/topup/${provider}/${newValue}`);
+                  // Check if provider is present before pushing to router
+                  if (provider) {
+                    const url = baseUrl ? baseUrl : `/topup/${provider}/${newValue}`;
+                    router.push(url);
+                  } else {
+                    console.warn("Provider not provided. Router push skipped.");
+                  }
+                  // const url = baseUrl ? baseUrl : `/topup/${provider}/${newValue}`
+                  // router.push(`/topup/${provider}/${newValue}`);
                 }}
               >
                 <Check
@@ -103,6 +158,8 @@ export function SelectBox({
           </CommandGroup>
         </Command>
       </PopoverContent>
+      )}
+      
     </Popover>
   );
 }

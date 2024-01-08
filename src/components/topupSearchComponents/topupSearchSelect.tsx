@@ -2,13 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { MultiSelect } from "../multiSelectSearch";
-import { CustomDropDown } from "../CustomDropDown";
-import { dataForTopupPage } from "@/utils/customSelectorData";
-import useToggle from "@/utils/toggleButtonState";
-import { Input } from "../ui/input";
-import { SearchIcon } from "lucide-react";
-import { TypedSearch } from "../SearchButton/typedSearch";
-import { useRouter } from "next/navigation";
+import { TopUpSearchSelector } from "./TopUpSearchSelector";
 
 interface TopupSelectProps {
   optionData: any;
@@ -32,14 +26,15 @@ export const TopupSearchSelect = ({
     setProvidername(value);
   };
   return (
-    <div className=" flex items-center max-w-[1140px] mx-auto gap-x-3 h-auto">
-      <CustomDropDown
-        onSelect={handleSelectValue}
-        data={providers}
-        className=" bg-white text-gray-500 h-[64px] w-96 shadow-md"
-        placeholder="Select Provider Name"
-        provider={providerName}
-        country={paramCountry}
+    <div className=" flex items-center max-w-[1140px] mx-auto   gap-x-3 h-auto">
+      {/* TopUp Search Page Selector */}
+      <TopUpSearchSelector
+      onSelect={handleSelectValue}
+      data={providers}
+      className=" bg-white text-gray-500 h-[64px] w-96 shadow-md"
+      placeholder="Select Provider Name"
+      provider={providerName}
+      country={paramCountry}
       />
       <MultiSelect
         options={optionData}
