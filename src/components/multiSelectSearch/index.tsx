@@ -34,6 +34,7 @@ interface MultiSelectProps {
   region?: any;
   country?: any;
   countryData?: any;
+  baseUrl : string;
 }
 
 function MultiSelect({
@@ -44,11 +45,12 @@ function MultiSelect({
   region,
   country,
   countryData,
+  baseUrl,
   ...props
 }: MultiSelectProps) {
   const router = useRouter();
   const pathname = usePathname();
-  console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname);
+  // console.log("🚀 ~ file: index.tsx:51 ~ pathname:", pathname);
   const searchParams = useSearchParams();
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState<string[]>(params! ||  []);
@@ -78,14 +80,14 @@ function MultiSelect({
       newSearchParams.delete("selectedCountry");
     }
 
-    const baseUrl = pathname.split("/")[1];
-    console.log(baseUrl);
+    // const baseUrl = pathname.split("/")[1];
+    // console.log(baseUrl);
 
     if (selectedCountryArrayLength! > 1) {
       router.replace(`${pathname}?${newSearchParams.toString()}`, undefined);
     } else {
       router.replace(
-        `/${baseUrl}/${selected[0] || params}?${newSearchParams.toString()}`,
+        `${baseUrl}/${selected[0] || params}?${newSearchParams.toString()}`,
         undefined
       );
     }
@@ -99,6 +101,7 @@ function MultiSelect({
     options,
     router,
     params,
+    baseUrl,
   ]);
 
   onChange = setSelected;

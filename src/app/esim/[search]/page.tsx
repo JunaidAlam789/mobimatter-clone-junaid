@@ -108,6 +108,7 @@ export default async function Search({
             region={region}
             country={country}
             countryData={countries}
+            baseUrl="/esim"
           />
         </div>
       </div>

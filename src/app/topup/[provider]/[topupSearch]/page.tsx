@@ -7,6 +7,8 @@ import { getProductDetails, productDetails } from "@/actions/getProductDetails";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
 import { TopupSearchSelect } from "@/components/topupSearchComponents/topupSearchSelect";
+import { getProviderDetails } from "@/actions/getProviderDetails";
+import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 
 export interface IProductsProps {
   merchantId: string;
@@ -65,48 +67,42 @@ export default async function Search({
     getSpecificCountryProduct = await getDynamicProducts({
       country: getCountryCode?.cca2,
       category: "esim_realtime",
+      provider: params.provider,
     });
   }
 
-  // fetch Product Details
-  const fetchProductDetails = getSpecificCountryProduct?.map(
-    (product: any) => product.productDetails
-  );
-  // console.log("🚀 ~ file: page.tsx:40 ~ productDetails:", productDetails)
-
-  // get Dynamic Products Details
-  const product_details: any = getProductDetails(fetchProductDetails);
-  // console.log("🚀 ~ file: page.tsx:39 ~ product_details:", product_details)
-  // console.log("🚀  product_details:", product_details);
-  // const allTags = getAllTags(product_details)
-  // console.log("🚀 ~ file: page.tsx:42 ~ allTags:", allTags )
-
-  const data = getSpecificCountryProduct && product_details;
+  const esim_realtimeProducts = getFormattedProductsArray({
+    products: getSpecificCountryProduct,
+    product_category: "esim_realtime",
+  });
 
   const countries = await getCountriesData();
   const countriesData = countries?.map((country: any) => country);
-  // console.log("FULL DATA ----->", combinedData);
 
-  // Merge productDetails into each element of getSpecificCountryProduct
-  const mergedData: IProductsProps[] = data
-    ? getSpecificCountryProduct.map((product: any, index: any) => ({
-        ...product,
-        productDetails: product_details[index],
-        product_tags: product_details[index].product_tags,
-        product_details: product_details[index].product_detail,
-      }))
-    : [];
+  const allProviderDetails = await getProviderDetails();
 
-  const esim_realtimeProducts = mergedData.filter(
-    (item) => item.productCategory === "esim_realtime"
-  );
+  // Creating an object to map provider names to logos
+  const providerNamesWithLogos: {
+    logo: string;
+    label: string;
+    value: string;
+  }[] = [];
 
- // Extract Provider Names and Logos from Esim-Product Array
-const esim_ProviderDetails = esim_realtimeProducts.map(item => ({
-  providerName: item.providerName,
-  providerLogo: item.providerLogo,
-}));
-  
+  allProviderDetails.forEach((item: any) => {
+    const { providerName, providerLogo } = item;
+
+    // Ensure the providerName is not already in the object
+    if (!providerNamesWithLogos[providerName]) {
+      providerNamesWithLogos[providerName] = {
+        logo: providerLogo,
+        label: providerName,
+        value: providerName,
+      };
+    }
+  });
+
+  // Extracting an array of objects with unique provider names and logos
+  const uniqueProvidersWithLogos = Object.values(providerNamesWithLogos);
 
   return (
     <div>
@@ -124,13 +120,12 @@ const esim_ProviderDetails = esim_realtimeProducts.map(item => ({
             country={country}
             countryData={data1}
           /> */}
-            <TopupSearchSelect
+          <TopupSearchSelect
             optionData={data1}
             providerName={params?.provider}
             paramCountry={params?.topupSearch}
-            providerDetails={esim_ProviderDetails}
-            />
-
+            providers={uniqueProvidersWithLogos}
+          />
         </div>
       </div>
 

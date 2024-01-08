@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { MultiSelect } from "../multiSelectSearch";
-import { CustomDropDown } from "../productFilters/CustomDropDown";
+import { CustomDropDown } from "../CustomDropDown";
 import { dataForTopupPage } from "@/utils/customSelectorData";
 import useToggle from "@/utils/toggleButtonState";
 import { Input } from "../ui/input";
@@ -12,12 +12,13 @@ import { SelectBox } from "./SelectBox";
 
 interface TopupSelectProps {
   optionData: any;
+  providers : {logo : string; label : string; value: string}[];
 }
 
-export const TopupSelect = ({ optionData }: TopupSelectProps) => {
+export const TopupSelect = ({ optionData , providers  }: TopupSelectProps) => {
   const { selectedButton, setSelectedButton } = useToggle();
   const [providername, setProvidername] = useState('');
-  console.log("🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername:", providername)
+  // console.log("🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername:", providername)
 
   const handleSelectValue = ( value : string) => {
     setProvidername(value);
@@ -28,7 +29,7 @@ export const TopupSelect = ({ optionData }: TopupSelectProps) => {
         <>
           <CustomDropDown
             onSelect={handleSelectValue}
-            data={dataForTopupPage}
+            data={providers}
             className=" bg-white text-gray-500 h-[64px] w-96 shadow-md"
             placeholder="Select Provider Name"
           />

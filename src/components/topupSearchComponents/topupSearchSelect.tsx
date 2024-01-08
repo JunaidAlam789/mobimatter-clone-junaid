@@ -1,29 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MultiSelect } from "../multiSelectSearch";
-import { CustomDropDown } from "../productFilters/CustomDropDown";
+import { CustomDropDown } from "../CustomDropDown";
 import { dataForTopupPage } from "@/utils/customSelectorData";
 import useToggle from "@/utils/toggleButtonState";
 import { Input } from "../ui/input";
 import { SearchIcon } from "lucide-react";
 import { TypedSearch } from "../SearchButton/typedSearch";
+import { useRouter } from "next/navigation";
 
 interface TopupSelectProps {
   optionData: any;
   providerName : string
   paramCountry : string;
-  providerDetails : { providerName : string; providerLogo : string}[];
+  providers : {logo : string; label : string; value: string}[];
 }
 
 export const TopupSearchSelect = ({ 
   optionData ,
   providerName,
   paramCountry,
-  providerDetails
+  providers
 }: TopupSelectProps) => {
   const [providername, setProvidername] = useState("");
-
   // sending params array to multi select
   const urlCountry : string[] = [];
   urlCountry.push(paramCountry);
@@ -32,20 +32,21 @@ export const TopupSearchSelect = ({
     setProvidername(value);
   };
   return (
-    <div className=" flex items-center max-w-[1140px] mx-auto gap-x-3">
+    <div className=" flex items-center max-w-[1140px] mx-auto gap-x-3 h-auto">
       <CustomDropDown
         onSelect={handleSelectValue}
-        data={dataForTopupPage}
+        data={providers}
         className=" bg-white text-gray-500 h-[64px] w-96 shadow-md"
         placeholder="Select Provider Name"
         provider={providerName}
-        providerDetails={providerDetails}
+        country={paramCountry}
       />
       <MultiSelect
         options={optionData}
         countryData={optionData}
         className=" w-[55dvw] shadow-md"
         params={urlCountry}
+        baseUrl={`/topup/${providerName}`}
       />
     </div>
   );

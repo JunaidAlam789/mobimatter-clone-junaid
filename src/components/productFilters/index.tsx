@@ -2,7 +2,7 @@
 import { ChevronRight, ListFilter } from "lucide-react";
 import Link from "next/link";
 import EsimCard from "@/components/esimCard";
-import { CustomDropDown } from "./CustomDropDown";
+import { CustomDropDown } from "../CustomDropDown";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";

@@ -1,5 +1,4 @@
-
-
+"use client"
 
 import React from 'react'
 import Sparks from '../../../public/topup/sparks.svg';
@@ -8,6 +7,10 @@ import Ubigi from '../../../public/topup/ubigi.svg'
 import esimgo from '../../../public/topup/esimGo.svg'
 import airalo from '../../../public/topup/airalo.svg'
 import { CountryItem } from '../CountryItem';
+import Slider from 'react-slick';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { countriesCarouselSettings } from '@/utils/generalSettings';
 
 const brands = [
     {
@@ -36,24 +39,40 @@ const brands = [
         href : `/topup/${"Sparks"}/all`,
     },
 ]
-export const TelecomBrands = () => {
+interface TelecomBrandsProps {
+    providers : {logo : string; label : string; value: string}[]
+}
+export const TelecomBrands = ({
+    providers,
+}:TelecomBrandsProps) => {
+
+    const settings = {
+        ...countriesCarouselSettings,
+      };
   return (
-    <div className=' max-w-[1140px] mx-auto mt-6'>
+    <div className=' max-w-[1140px] px-5 mx-auto mt-6'>
         {/* Heading */}
         <div className=" text-xl font-medium">
          <h3>View top-up offers by telecom operator</h3>
         </div>
 
         {/* Brands */}
-        <div className=" flex items-center space-x-28 w-full mx-auto my-6 ">
-            {brands?.map((brand) => (
+        {/* flex items-center flex-wrap justify-around space-x-28 w-full mx-auto my-6  */}
+        <Slider
+         {...settings}
+         className="mt-5 mb-12 -mx-5 md:-mx-7 x"
+        >
+             {providers?.map((brand) => (
                 <CountryItem
                     key={brand.label}
                     label={brand.label}
-                    icon={brand.icon}
-                    href={brand.href}
+                    icon={brand.logo}
+
                 />
             ))}
+        </Slider>
+        <div className=" flex items-center  space-x-28 w-full mx-auto my-6 ">
+           
         </div>
     </div>
   )
