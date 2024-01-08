@@ -1,5 +1,4 @@
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
-import { getProductDetails } from "@/actions/getProductDetails";
 import EsimCard from "@/components/esimCard";
 import { Separator } from "@/components/ui/separator";
 import { getCountriesData } from "@/utils/getCountriesdata";
@@ -12,12 +11,11 @@ import {
 import React from "react";
 import Image from "next/image";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
+import PopupEsimCard from "@/views/esimDetails/popupEsimCard";
 
 export default async function EsimDetailsEsim({
-  params,
   searchParams,
 }: {
-  params: { esimDetails: string };
   searchParams: { id: string };
 }) {
   const countries = await getCountriesData();
@@ -44,11 +42,10 @@ export default async function EsimDetailsEsim({
     }
   });
 
-  // console.log("flag", countryFlagsAndNames);
   return (
-    <div className="max-w-[1300px] mx-auto">
+    <div className="max-w-[1332px] px-5 md:px-8 mx-auto">
       {/* Esim Card */}
-      <div className="flex flex-col items-center justify-center max-w-[70%] mx-auto mt-3">
+      <div className="flex flex-col items-center justify-center w-full md:max-w-[70%] mx-auto mt-3">
         <h3 className="text-sm font-medium mb-3">
           {formattedData[0].product_Title}
         </h3>
@@ -58,11 +55,12 @@ export default async function EsimDetailsEsim({
           buttonText="Buy Now"
           buttonLink={"/checkout"}
         />
+        <PopupEsimCard data={formattedData[0]} country={countries} />
       </div>
 
-      <div className="flex gap-x-5 mt-5">
+      <div className="flex flex-col md:flex-row gap-x-5 gap-y-8 mt-5">
         {/* Esim Details */}
-        <div className="min-w-[60%]">
+        <div className="w-full md:max-w-[60%]">
           <p className="mb-3">Details</p>
           <div className="bg-white p-2 rounded-md space-y-3">
             {/* Title */}
@@ -90,13 +88,13 @@ export default async function EsimDetailsEsim({
         </div>
 
         {/* FAQ */}
-        <div className="min-w-[40%]">
+        <div className="w-full md:max-w-[40%]">
           <p className="mb-3">FAQ</p>
           <div className="bg-white rounded-md p-2">
             {/* First Accordion */}
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-sm hover:no-underline">
+                <AccordionTrigger className="text-sm hover:no-underline text-left">
                   Does my phone support eSIM technology?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -135,7 +133,7 @@ export default async function EsimDetailsEsim({
             {/* Second Accordion */}
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-sm hover:no-underline">
+                <AccordionTrigger className="text-sm hover:no-underline text-left">
                   Can I use my physical SIM along with the eSIM?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -150,7 +148,7 @@ export default async function EsimDetailsEsim({
             {/* Third Accordion */}
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-sm hover:no-underline">
+                <AccordionTrigger className="text-sm hover:no-underline text-left">
                   I already have an active eSIM in my phone, can I use your
                   service?
                 </AccordionTrigger>
@@ -166,7 +164,7 @@ export default async function EsimDetailsEsim({
             {/* Fourth Accordion */}
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger className="text-sm hover:no-underline">
+                <AccordionTrigger className="text-sm hover:no-underline text-left">
                   Can I use Mobile Hotspot or Tethering with my eSIM?
                 </AccordionTrigger>
                 <AccordionContent>
@@ -181,21 +179,27 @@ export default async function EsimDetailsEsim({
           </div>
 
           {/* Reward */}
-          <div className="bg-blue-950 p-3 rounded-md flex gap-x-2 my-4">
-            <Image src={"/logo.png"} alt="logo" width={80} height={80} />
-            <p className="text-white font-[450]">
+          <div className="bg-blue-950 p-3 rounded-md gap-x-2 my-4 hidden md:flex">
+            <Image
+              src={"/logo.png"}
+              alt="logo"
+              width={80}
+              height={80}
+              className="shrink-0 h-8"
+            />
+            <p className="text-white font-[450] text-sm xl:text-base">
               Earn $0.60 MobiMatter Rewards with this purchase
             </p>
           </div>
 
           {/* Suggested Products Carousel */}
-          <div>Carousel?</div>
+          {/* <div>Carousel?</div> */}
         </div>
       </div>
 
       {/* Works in countries */}
       <p className="mt-7">Works in</p>
-      <div className="p-2 bg-white my-4 rounded-md grid grid-cols-5">
+      <div className="p-2 bg-white my-4 rounded-md grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {countryFlagsAndNames.map((item: any) => (
           <div key={item.code} className="flex gap-x-1 mb-1 items-center">
             <Image
