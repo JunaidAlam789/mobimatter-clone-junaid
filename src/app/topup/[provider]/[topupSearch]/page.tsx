@@ -1,9 +1,8 @@
 import Image from "next/image";
 import surfer from "/public/surfer.png";
 import { getCountriesData } from "@/utils/getCountriesdata";
-import { MultiSelect } from "@/components/multiSelectSearch";
 import ProductFilters from "@/components/productFilters";
-import { getProductDetails, productDetails } from "@/actions/getProductDetails";
+import { productDetails } from "@/actions/getProductDetails";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
 import { TopupSearchSelect } from "@/components/topupSearchComponents/topupSearchSelect";

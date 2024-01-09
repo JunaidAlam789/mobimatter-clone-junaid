@@ -3,7 +3,6 @@ import Logo from "@/components/logo";
 import Link from "next/link";
 import { navbarData } from ".";
 import { ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import DropdownMenu from "./dropdownMenu";
 import UserButton from "./userButton";
 

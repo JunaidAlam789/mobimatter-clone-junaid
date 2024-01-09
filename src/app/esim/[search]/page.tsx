@@ -3,16 +3,11 @@ import surfer from "/public/surfer.png";
 import { getCountriesData } from "@/utils/getCountriesdata";
 import { MultiSelect } from "@/components/multiSelectSearch";
 import ProductFilters from "@/components/productFilters";
-import {
-  getAllTags,
-  getProductDetails,
-  productDetails,
-} from "@/actions/getProductDetails";
+import { productDetails } from "@/actions/getProductDetails";
 import { checkIfRegion, getRegionName } from "@/utils/RegionFunctionality";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getSpecificCountryCode } from "@/utils/getCountryCode";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
-import EsimCard from "@/components/esimCard";
 
 export interface IProductsProps {
   merchantId: string;

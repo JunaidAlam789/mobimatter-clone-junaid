@@ -87,7 +87,7 @@ export const PopularCountries = () => {
 
   return (
     <div className="max-w-[1200px] px-5 mt-10 mx-auto">
-      <h2 className="text-#1A202C text-lg font-medium">
+      <h2 className="text-[#1A202C] text-lg font-medium">
         Popular eSIM destinations
       </h2>
       <Slider

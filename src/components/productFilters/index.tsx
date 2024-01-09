@@ -2,7 +2,6 @@
 import { ChevronRight, ListFilter } from "lucide-react";
 import Link from "next/link";
 import EsimCard from "@/components/esimCard";
-import { CustomDropDown } from "../CustomDropDown";
 import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useSearchParams } from "next/navigation";
@@ -11,9 +10,7 @@ import { dataForSearchPage } from "@/utils/customSelectorData";
 import Image from "next/image";
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,

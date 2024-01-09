@@ -2,13 +2,13 @@ import { Minus } from "lucide-react";
 
 export default function About() {
   return (
-    <main className="max-w-[1100px] mx-auto mt-6">
-      <section className="text-gray-800 py-5 l-h-2">
+    <main className="max-w-[1200px] px-5 mx-auto mt-6">
+      <section className="text-gray-800 py-5">
         <div>
           <div className="text-center mb-5 pt-4">
-            <div className="col-12 col-md-11 col-lg-9 mx-auto">
+            <div className="mx-auto">
               <h1 className="font-bold mb-3 text-[40px]">About us</h1>
-              <p className="leading-2 w-[75%] mx-auto">
+              <p className="leading-2 w-full md:w-[75%] mx-auto">
                 MobiMatter is an online re-seller and distributor of mobile
                 telecom services. We help our users to discover, compare and
                 purchase the best mobile offers by our partner mobile telecom

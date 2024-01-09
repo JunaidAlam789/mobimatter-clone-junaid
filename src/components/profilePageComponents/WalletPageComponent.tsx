@@ -1,5 +1,5 @@
 import React from "react";
-import { Info, DollarSign } from "lucide-react";
+import { Info } from "lucide-react";
 import Image from "next/image";
 
 const list = [
@@ -25,7 +25,9 @@ const WalletPageComponent = () => {
         * Rewards credits can be used to get eSIMs and top-ups for free! To
         claim your free gift, collect at least $15 in rewards credits and enough
         to cover the cost of the product.
-        <span className="underline text-btnblue">Terms and conditions </span>{" "}
+        <span className="underline text-btnblue">
+          Terms and conditions{" "}
+        </span>{" "}
         apply.
       </p>
       <div className="bg-txtgrey/20 h-[1px] w-full" />
