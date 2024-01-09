@@ -1,19 +1,60 @@
 "use client";
-import { ChevronRight, LogIn, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import Logo from "@/components/logo";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { navbarData } from ".";
 import { dropdownMenuData } from ".";
 import { useState } from "react";
 import UserButton from "./userButton";
+import { usePathname } from "next/navigation";
+
+const bottomBarData = [
+  {
+    label: "Home",
+    href: "/",
+    img: "/navbar/home.svg",
+  },
+  {
+    label: "Topups",
+    href: "/topup",
+    img: "/navbar/topup.svg",
+  },
+  {
+    label: "My eSIMs",
+    href: "/profile/history?type=esim",
+    img: "/navbar/esim.svg",
+  },
+  {
+    label: "Profile",
+    href: "/profile",
+    img: "/user.jpg",
+  },
+];
 
 export default function MobileNavbar() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  // Function to determine text color based on conditions
+  const getTextColor = (label: string) => {
+    console.log("PATH", pathname, "Label", label);
+    if (
+      (pathname === "/" && label === "Home") ||
+      (pathname === "/topup" && label === "Topups") ||
+      (pathname === "/profile" && label === "Profile") ||
+      (pathname === "/profile/history" && label === "My eSIMs")
+    ) {
+      return "text-[#38BDEF]";
+    } else {
+      return "text-txtgrey";
+    }
+  };
+
+  console.log("function", getTextColor("Home"));
+
   return (
-    <div className="flex items-center justify-between w-full h-16 px-2 border-b-2 border-[#F2F6F8] ">
-      {/* SideMenu */}
+    <div className="flex items-center justify-between w-full h-16 px-2  border-b-2 border-[#F2F6F8] ">
+      {/* Hamburger Menu */}
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger>
           <Menu size={25} />
@@ -22,54 +63,25 @@ export default function MobileNavbar() {
           side="left"
           className="w-full h-screen overflow-y-auto pt-10 z-[100]"
         >
-          {navbarData.map((item, index) => (
-            <div key={item.text} className="mb-4">
-              {index === 0 ? (
-                <div>
-                  <Sheet>
-                    <SheetTrigger className="flex items-center">
-                      {item.text}
-                      <ChevronRight className="h-4 w-4 ml-1" />
-                    </SheetTrigger>
-                    <SheetContent
-                      side="left"
-                      className="w-full pt-10 h-screen overflow-y-auto z-[100]"
-                    >
-                      {dropdownMenuData.map((item, index) => (
-                        <Link
-                          key={index}
-                          href={item.href}
-                          className="flex items-start gap-x-3 w-full rounded-lg hover:bg-slate-50 duration-200 ease-in-out transition-colors mb-5 p-2"
-                          onClick={() => setOpen(false)}
-                        >
-                          <Image
-                            src={item.icon}
-                            alt="icon"
-                            width={20}
-                            height={20}
-                            className="rounded-lg mt-1"
-                          />
-                          <div className="space-y-1">
-                            <h2>{item.label}</h2>
-                            <h4 className="text-slate-400">
-                              {item.description}
-                            </h4>
-                          </div>
-                        </Link>
-                      ))}
-                    </SheetContent>
-                  </Sheet>
-                </div>
-              ) : (
-                <Link
-                  className="hover:text-slate-500"
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                >
-                  {item.text}
-                </Link>
-              )}
-            </div>
+          {dropdownMenuData.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              className="flex items-start gap-x-3 w-full rounded-lg hover:bg-slate-50 duration-200 ease-in-out transition-colors mb-5 p-2"
+              onClick={() => setOpen(false)}
+            >
+              <Image
+                src={item.icon}
+                alt="icon"
+                width={20}
+                height={20}
+                className="rounded-lg mt-1"
+              />
+              <div className="space-y-1">
+                <h2>{item.label}</h2>
+                <h4 className="text-slate-400">{item.description}</h4>
+              </div>
+            </Link>
           ))}
         </SheetContent>
       </Sheet>
@@ -77,6 +89,30 @@ export default function MobileNavbar() {
       <Logo />
       {/* Login Button */}
       <UserButton isLargeScreen={false} />
+
+      {/* Fixed Bar at the bottom */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white flex justify-between border border-l-0 border-r-0 border-b-0 border-t-4 border-t-gray-100 p-3 sm:px-5 md:px-10">
+        {bottomBarData.map((item, index) => (
+          <Link
+            key={index}
+            href={item.href}
+            className="flex flex-col items-center justify-between w-fit"
+          >
+            {/* Icon  */}
+            <Image
+              src={item.img}
+              alt="icon"
+              width={25}
+              height={25}
+              className={item.label === "Profile" ? "rounded-full h-7 w-7" : ""}
+            />
+            {/* Label */}
+            <h2 className={`text-sm font-[450]  ${getTextColor(item.label)}`}>
+              {item.label}
+            </h2>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

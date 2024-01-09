@@ -5,7 +5,7 @@ import { dropdownMenuData } from ".";
 export default function DropdownMenu() {
   return (
     <div className="h-80 px-24 cursor-default shadow-xl bg-white">
-      <div className="grid grid-cols-2 grid-rows-3 grid-flow-col pt-5 gap-4 place-items-start">
+      <div className="grid grid-cols-2 grid-rows-3 grid-flow-row pt-5 gap-4 place-items-start">
         {dropdownMenuData.map((item, index) => (
           <Link
             key={index}

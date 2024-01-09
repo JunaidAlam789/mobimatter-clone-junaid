@@ -24,7 +24,7 @@ const Profile = () => {
         </Button>
       </div>
       <OptionListComponent
-        text="Myesim"
+        text="My eSIMs"
         img="/profile/eSim.svg"
         path="history"
       />
