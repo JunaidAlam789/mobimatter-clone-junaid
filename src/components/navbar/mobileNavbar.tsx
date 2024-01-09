@@ -37,7 +37,6 @@ export default function MobileNavbar() {
   const pathname = usePathname();
   // Function to determine text color based on conditions
   const getTextColor = (label: string) => {
-    console.log("PATH", pathname, "Label", label);
     if (
       (pathname === "/" && label === "Home") ||
       (pathname === "/topup" && label === "Topups") ||
@@ -49,8 +48,6 @@ export default function MobileNavbar() {
       return "text-txtgrey";
     }
   };
-
-  console.log("function", getTextColor("Home"));
 
   return (
     <div className="flex items-center justify-between w-full h-16 px-2  border-b-2 border-[#F2F6F8] ">
