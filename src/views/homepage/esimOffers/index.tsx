@@ -2,6 +2,7 @@ import EsimCard from "@/components/esimCard";
 import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getCountriesData } from "@/utils/getCountriesdata";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
+import { IProductsProps } from "@/app/esim/[search]/page";
 
 export default async function EsimOffers() {
   const countries = await getCountriesData();
@@ -21,7 +22,7 @@ export default async function EsimOffers() {
         Popular eSIM offers
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 place-items-center mt-4">
-        {firstNineProducts.map((item: any, index: number) => (
+        {firstNineProducts.map((item: IProductsProps, index: number) => (
           <EsimCard
             key={index}
             data={item}
@@ -29,7 +30,8 @@ export default async function EsimOffers() {
             buttonText="View Offer"
             buttonLink={{
               pathname: `/esimInfo/${item?.productDetails?.product_Title}`,
-              query: { id: `${item?.productId}` },
+              query: { id: `${item?.productId}`,
+                      regionQuery : `${item?.regions}` },
             }}
           />
         ))}

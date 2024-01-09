@@ -17,6 +17,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { countriesCarouselSettings } from "@/utils/generalSettings";
+import { GeneralCarousel } from "@/components/GeneralCarousel";
 // import { ArrowLeftCircle, ArrowRightCircle } from "lucide-react";
 
 export const PopularCountries = () => {
@@ -90,7 +91,7 @@ export const PopularCountries = () => {
       <h2 className="text-[#1A202C] text-lg font-medium">
         Popular eSIM destinations
       </h2>
-      <Slider
+      {/* <Slider
         {...settings}
         className="mt-5 mb-12 -mx-5 md:-mx-7 xl:max-w-[1200px]"
       >
@@ -102,7 +103,20 @@ export const PopularCountries = () => {
             href={route.href}
           />
         ))}
-      </Slider>
+      </Slider> */}
+      <GeneralCarousel
+      settings={settings}
+      className="mt-5 mb-12 -mx-5 md:-mx-7 xl:max-w-[1200px]"
+      >
+        {routes.map((route) => (
+          <CountryItem
+            key={route.href}
+            label={route.label}
+            icon={route.icon}
+            href={route.href}
+          />
+        ))}
+      </GeneralCarousel>
     </div>
   );
 };

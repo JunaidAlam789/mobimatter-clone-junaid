@@ -130,7 +130,8 @@ function MultiSelect({
                   className="mr-1 mb-3"
                   onClick={() => handleUnselect(item)}
                 >
-                  {item}
+                  {/* {item} */}
+                  {decodeURIComponent(item)} {/* Decode the country name before rendering */}
                   <div
                     className="ml-1 ring-offset-background rounded-full outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
                     onKeyDown={(e) => {
@@ -170,7 +171,8 @@ function MultiSelect({
                       ? selected?.filter((item) => item !== option.name)
                       : [...selected, option.name]
                   );
-                  setOpen(true);
+                  // setOpen(true);
+                  setOpen(false);
                 }}
               >
                 <Check

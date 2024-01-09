@@ -12,12 +12,19 @@ import React from "react";
 import Image from "next/image";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 import PopupEsimCard from "@/views/esimDetails/popupEsimCard";
+import { GeneralCarousel } from "@/components/GeneralCarousel";
+import Link from "next/link";
+import { IProductsProps } from "@/app/esim/[search]/page";
+import { SuggestedProductCard } from "@/components/SuggestedProductCard";
+import { SuggestedProductsCarouselSettings } from "@/utils/generalSettings";
+
 
 export default async function EsimDetailsEsim({
   searchParams,
 }: {
-  searchParams: { id: string };
-}) {
+  searchParams: { id: string; regionQuery: string[] ; countryQuery : string };
+}) {    
+  console.log("🚀 ~ countryQuery:", searchParams.countryQuery)
   const countries = await getCountriesData();
   const productId = searchParams.id;
   const data = await getDynamicProducts({ productId });
@@ -41,7 +48,44 @@ export default async function EsimDetailsEsim({
       };
     }
   });
+  let suggestedProducts;
+  // fetch 3 Products of Suggested Carousel
+    if ( searchParams.regionQuery) {
+      suggestedProducts = await getDynamicProducts({
+        region: searchParams.regionQuery as any,
+        category: "esim_realtime",
+      });
+    } else {
+      suggestedProducts = await getDynamicProducts({
+        country : searchParams.countryQuery as any,
+        category: "esim_realtime",
+      });
+    }
+  
+  const threeProductsProducts = suggestedProducts.slice(0, 7);
+  // console.log("threeProductsProducts --->", threeProductsProducts);
 
+  const formattedSuggestedProducts = getFormattedProductsArray({
+    products: threeProductsProducts,
+  });
+
+
+// Convert country codes into a string of country names
+const countryCodes = searchParams?.countryQuery?.split(",");
+const countryNames = countryCodes?.map((code) => {
+  const country = countries.find((item : any) => item.cca2 === code.trim());
+  return country ? country.name : "Unknown";
+});
+
+const concatenatedCountryNames = countryNames?.join(', ');
+
+console.log(concatenatedCountryNames); // A string of country names separated by commas
+
+
+
+
+   
+ 
   return (
     <div className="max-w-[1332px] px-5 md:px-8 mx-auto">
       {/* Esim Card */}
@@ -193,7 +237,31 @@ export default async function EsimDetailsEsim({
           </div>
 
           {/* Suggested Products Carousel */}
-          {/* <div>Carousel?</div> */}
+          <div>     
+              <p className=" text-lg">Suggested Products for <span className=" font-bold">{searchParams?.regionQuery || concatenatedCountryNames}</span></p>  
+              {/* Slider */}
+              <GeneralCarousel 
+              settings={SuggestedProductsCarouselSettings} 
+              className=" gap-x-3 mx-10 relative mt-3"
+              >
+                    {formattedSuggestedProducts?.map((product : IProductsProps , index : number) => (
+                      <div key={index} className=" flex items-center" >
+                        <SuggestedProductCard
+                        data={product}
+                        country={countries}
+                        buttonText="View Offer"
+                        buttonLink={{
+                          pathname: `/esimInfo/${product?.productDetails?.product_Title}`,
+                          query: { id: `${product?.productId}`,
+                          ...(searchParams.regionQuery ? { region: searchParams.regionQuery } : null),
+          ...(searchParams.countryQuery ? { country: searchParams.countryQuery } : null),   
+                        },
+                        }}
+                        />
+                      </div>
+                    ))}
+              </GeneralCarousel>
+          </div>
         </div>
       </div>
 

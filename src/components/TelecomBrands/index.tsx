@@ -10,7 +10,9 @@ import { CountryItem } from '../CountryItem';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { countriesCarouselSettings } from '@/utils/generalSettings';
+import { countriesCarouselSettings , ProviderCarouselSettings } from '@/utils/generalSettings';
+import { GeneralCarousel } from '../GeneralCarousel';
+import styles from './provider.module.css'
 
 const brands = [
     {
@@ -47,8 +49,14 @@ export const TelecomBrands = ({
 }:TelecomBrandsProps) => {
 
     const settings = {
-        ...countriesCarouselSettings,
+        ...ProviderCarouselSettings,
       };
+
+      const customDots = (dots: React.ReactNode) => (
+        <ul className={`${styles.slickDots} `}>
+          {dots}
+        </ul>
+      );
   return (
     <div className=' max-w-[1140px] px-5 mx-auto mt-6'>
         {/* Heading */}
@@ -58,7 +66,7 @@ export const TelecomBrands = ({
 
         {/* Brands */}
         {/* flex items-center flex-wrap justify-around space-x-28 w-full mx-auto my-6  */}
-        <Slider
+        {/* <Slider
          {...settings}
          className="mt-5 mb-12 -mx-5 md:-mx-7 x"
         >
@@ -70,7 +78,17 @@ export const TelecomBrands = ({
                     href={`/topup/${brand.value}/all`}
                 />
             ))}
-        </Slider>
+        </Slider> */}
+        <GeneralCarousel settings={settings} dots={customDots} className='mt-5 mb-12 -mx-5 md:-mx-7 '>
+        {providers?.map((brand) => (
+                <CountryItem
+                    key={brand.label}
+                    label={brand.label}
+                    icon={brand.logo}
+                    href={`/topup/${brand.value}/all`}
+                />
+            ))}
+        </GeneralCarousel>
         <div className=" flex items-center  space-x-28 w-full mx-auto my-6 ">
            
         </div>

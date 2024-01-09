@@ -41,7 +41,8 @@ export default async function Search({
   searchParams: any;
 }) {
   // console.log("Search-Params ---->" , searchParams);
-
+    // console.log("params",params.search);
+    
   const country = params.search.replace(/%20/g, " ");
   // console.log("params" , country);
 
@@ -52,6 +53,7 @@ export default async function Search({
 
   // Check if the country is actually a region
   const isRegion = checkIfRegion(country, countries);
+  // console.log("🚀 ~ isRegion:", isRegion)
   const region = isRegion ? country : getRegionName(country, countries);
 
   const getCountryCode = await getSpecificCountryCode(country);
@@ -66,7 +68,7 @@ export default async function Search({
     });
   } else if (searchParams?.selectedCountry) {
     getSpecificCountryProduct = await getDynamicProducts({
-      country: searchParams.selectedCountry,
+      country: searchParams?.selectedCountry,
       category: "esim_realtime",
     });
   } else if (getCountryCode) {
@@ -87,6 +89,14 @@ export default async function Search({
   });
 
   // console.log("Data on Server " , getSpecificCountryProduct.length);
+  // Fetch If Region is true
+  let queryLink ;
+  
+  if(isRegion === true){
+    queryLink = region;
+  } else {
+    queryLink = searchParams?.selectedCountry;
+  }
 
   return (
     <div>
@@ -115,6 +125,7 @@ export default async function Search({
           data={esim_realtimeProducts}
           countries={countriesData}
           currentPage={"New eSIMS"}
+          queryLink={queryLink}
         />
       ) : (
         <ProductFilters
@@ -123,6 +134,7 @@ export default async function Search({
           data={esim_realtimeProducts}
           countries={countriesData}
           currentPage={"New eSIMS"}
+          queryLink={queryLink}
         />
       )}
     </div>
