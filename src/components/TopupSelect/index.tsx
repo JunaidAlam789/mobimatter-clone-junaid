@@ -47,7 +47,7 @@ export const TopupSelect = ({ optionData , providers  }: TopupSelectProps) => {
           className=" w-[55dvw] bg-white text-gray-500 shadow-md" 
           provider={providername}
           />
-          <div className=" absolute right-1  sm:-right-3 md:-right-6 lg:-right-3 xl:right-3 2xl:right-3 3xl:right-12 bg-[#38BDEF] rounded-full text-white hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-2 sm:p-2 md:p-2 lg:p-2 xl:p-2.5 ml-auto">
+          <div className=" absolute right-1  sm:-right-3 md:-right-6 lg:-right-3 xl:right-3 2xl:right-3 3xl:right-12 bg-[#38BDEF] rounded-full text-white hover:bg-[#38BDEF] hover:opacity-70 transition duration-500 ease-in-out p-1.5 sm:p-2 md:p-2 lg:p-2 xl:p-2.5 ml-auto">
           <SearchIcon className="h-5 w-5" />
         </div>
           </div>

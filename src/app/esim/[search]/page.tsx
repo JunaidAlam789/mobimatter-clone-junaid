@@ -71,7 +71,7 @@ export default async function Search({
     });
   } else if (searchParams?.selectedCountry) {
     getSpecificCountryProduct = await getDynamicProducts({
-      country: searchParams.selectedCountry,
+      country: searchParams?.selectedCountry,
       category: "esim_realtime",
     });
   } else if (getCountryCode) {
