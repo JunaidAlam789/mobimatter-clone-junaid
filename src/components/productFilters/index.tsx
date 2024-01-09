@@ -28,12 +28,14 @@ export default function ProductFilters({
   data,
   countries,
   currentPage,
+  queryLink,
 }: {
   country?: any;
   region?: any;
   data?: IProductsProps[];
   countries: any;
   currentPage: string;
+  queryLink ?: string;
 }) {
   const searchParams = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
@@ -42,6 +44,8 @@ export default function ProductFilters({
   const [selectedCountryCodes, setSelectedCountryCodes] = useState<string[]>(
     []
   );
+  
+  
 
   // Filters state
   const [filters, setFilters] = useState({
@@ -58,7 +62,13 @@ export default function ProductFilters({
       setSelectedCountryCodes(codes as string[]);
     }
   }, [searchParams, setSelectedCountryCodes]);
-
+  let regionQuery : any;
+  let countryQuery : any; 
+  if( queryLink === region) {
+    regionQuery = queryLink
+  } else {
+    countryQuery = queryLink
+  }
   // Sorting Function
   const handleSortValue = (value: string) => {
     // Apply filters first to get filtered products
@@ -327,7 +337,13 @@ export default function ProductFilters({
                 buttonText="View Offers"
                 buttonLink={{
                   pathname: `/esimInfo/${product?.productDetails?.product_Title}`,
-                  query: { id: `${product?.productId}` },
+                  query: { id: `${product?.productId}`,
+                          // region : regionQuery,
+                          // country : countryQuery
+                          ...(region ? { regionQuery } : null), // Add region query if region exists
+                          ...(country ? { countryQuery } : null), // Add country query if country exists
+                         
+                          }, 
                 }}
               />
             ))}

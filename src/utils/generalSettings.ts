@@ -55,6 +55,54 @@ export const countriesCarouselSettings = {
   ],
 };
 
+export const SuggestedProductsCarouselSettings = {
+  infinite : true,
+  speed : 500,
+  slidesToShow : 1,
+  slidesToScroll : 1,
+  arrows : true,
+  swipeToSlide : true,
+  dots: false,
+  responsive : [
+    {
+      breakpoint : 1024,
+      settings : {
+        slidesToScroll : 1,
+        slidesToShow : 3,
+        arrows : true,
+        dots : false,
+      },
+    },
+    {
+      breakpoint : 768,
+      settings : {
+        slidesToScroll : 1,
+        slidesToShow : 1,
+        arrows : true,
+        dots : false,
+      },
+    },
+    {
+      breakpoint : 570,
+      settings : {
+        slidesToScroll : 1,
+        slidesToShow : 1,
+        arrows : true,
+        dots : false,
+      },
+    },
+    {
+      breakpoint : 400,
+      settings : {
+        slidesToScroll : 1,
+        slidesToShow : 1,
+        arrows : true,
+        dots : false,
+      },
+    },
+  ]
+}
+
 
 export const ProviderCarouselSettings = {
   infinite: true,
