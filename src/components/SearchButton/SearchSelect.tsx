@@ -33,8 +33,7 @@ export function CustomSelector({
 }: CustomSelectorI) {
   const router = useRouter();
   const [val, selectedVal] = React.useState(identifier);
-  console.log("Selected Value", val);
-
+  // console.log("Selected Value", val);
   return (
     <Select
       onValueChange={(value: any) => {

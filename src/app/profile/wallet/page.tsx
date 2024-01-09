@@ -8,7 +8,7 @@ const Wallet = () => {
   const [width, setWidth] = useState(0);
 
   useEffect(() => {
-    console.log(width);
+    // console.log(width);
     const handleResize = () => {
       setWidth(window.innerWidth);
     };
