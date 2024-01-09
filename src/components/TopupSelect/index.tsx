@@ -15,10 +15,10 @@ interface TopupSelectProps {
 export const TopupSelect = ({ optionData, providers }: TopupSelectProps) => {
   const { selectedButton, setSelectedButton } = useToggle();
   const [providername, setProvidername] = useState("");
-  console.log(
-    "🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername ------>   ",
-    providername
-  );
+  // console.log(
+  //   "🚀 ~ file: index.tsx:20 ~ TopupSelect ~ providername ------>   ",
+  //   providername
+  // );
 
   const handleSelectValue = (value: string) => {
     setProvidername(value);
