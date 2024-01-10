@@ -43,14 +43,18 @@ export function TopUpSearchSelector({
   //   "🚀 ~ file: TopUpSearchSelector.tsx:42 ~ paramsSelectedCountryCodes:",
   //   paramsSelectedCountryCodes
   // );
+    // Add "ALL" option to the data array
+    const dataWithAllOption = [{ logo: "", label: "ALL", value: "ALL" }, ...data];
   // Check if paramsProvider matches any of the specified values
   // const validProviders = ["All", "Sparks", "3", "Ubigi", "eSIMGo", "Airalo"];
-  const validProviders = data?.map((item) => item.label);
+  const validProviders = dataWithAllOption?.map((item) => item.label);
   if (!validProviders?.includes(paramsProvider)) {
     paramsProvider = ""; // Set to an empty string if not in the valid list
   }
 
   const selectedProvider = data.find((item) => item.label === paramsProvider);
+
+ 
 
   return (
     <Select
@@ -76,7 +80,7 @@ export function TopUpSearchSelector({
         {/* Use paramsProvider as the initial value if available, otherwise use an empty string */}
         {/* <SelectValue   placeholder={paramsProvider || placeholder} className=" flex items-start justify-center" /> */}
 
-        {selectedProvider && selectedProvider.logo ? (
+        {selectedProvider  ? (
           <div className="flex items-center justify-center space-x-2 space-y-2">
             <Image
               src={selectedProvider.logo}
@@ -95,7 +99,7 @@ export function TopUpSearchSelector({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {data.map((item) => (
+          {dataWithAllOption.map((item) => (
             <SelectItem
               key={item.value}
               value={item.value}
