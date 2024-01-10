@@ -4,10 +4,10 @@
 import { IProductsProps } from '@/app/esim/[search]/page';
 import Image from 'next/image'
 import React from 'react'
-import fiveG from "/public/homepage/esimCard/fiveg.svg";
+import fiveG from "../../../public/homepage/esimCard/fiveg.svg";
 import globe from "/public/homepage/esimCard/globe.svg";
-import snow from "/public/homepage/esimCard/snow.svg";
-import badge from "/public/homepage/esimCard/badge.svg";
+import snow from "../../../public/homepage/esimCard/snow.svg";
+import badge from "../../../public/homepage/esimCard/badge.svg";
 import Link from 'next/link';
 
 export const SuggestedProductCard = ({
@@ -38,14 +38,19 @@ export const SuggestedProductCard = ({
         {/* Logo - Package -Tag */}
         <div className="flex justify-between items-start">
         <div className="flex items-start gap-x-2">
-          {/* Logo */}
+          {data?.providerLogo && data?.providerLogo.trim() !== '' && (
+            <>
+             {/* Logo */}
           <Image
-            src={data?.providerLogo!}
-            alt="logo"
-            width={23}
-            height={23}
-            className="mt-2"
-          />
+          src={data?.providerLogo!}
+          alt="logo"
+          width={23}
+          height={23}
+          className="mt-2"
+        />
+        </>
+          )}
+         
           {/* Package and Company */}
           <div>
             <p className="text-[#1A202C] text-sm font-medium">

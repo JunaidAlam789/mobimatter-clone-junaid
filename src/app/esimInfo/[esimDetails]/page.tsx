@@ -20,7 +20,12 @@ import { SuggestedProductsCarouselSettings } from "@/utils/generalSettings";
 export default async function EsimDetailsEsim({
   searchParams,
 }: {
-  searchParams: { id: string; regionQuery: string[]; countryQuery: string };
+  searchParams: {
+    id: string;
+    regionQuery: string[];
+    countryQuery: string;
+    providerQuery: string;
+  };
 }) {
   // console.log("🚀 ~ countryQuery:", searchParams.countryQuery)
   const countries = await getCountriesData();
@@ -60,11 +65,26 @@ export default async function EsimDetailsEsim({
     });
   }
 
+  let TopUpSuggestedProducts;
+  if (searchParams.providerQuery && searchParams.countryQuery) {
+    TopUpSuggestedProducts = await getDynamicProducts({
+      provider: searchParams.providerQuery as any,
+      country: searchParams.countryQuery as any,
+      category: "esim_addon",
+    });
+  }
+
   const threeProductsProducts = suggestedProducts.slice(0, 7);
   // console.log("threeProductsProducts --->", threeProductsProducts);
 
+  const threeTopUpProducts = TopUpSuggestedProducts.slice(0, 7);
+
   const formattedSuggestedProducts = getFormattedProductsArray({
     products: threeProductsProducts,
+  });
+
+  const formattedTopupProducts = getFormattedProductsArray({
+    products: threeTopUpProducts,
   });
 
   // Convert country codes into a string of country names
@@ -83,7 +103,7 @@ export default async function EsimDetailsEsim({
       {/* Esim Card */}
       <div className="flex flex-col items-center justify-center w-full md:max-w-[70%] mx-auto mt-3">
         <h3 className="text-sm font-medium mb-3">
-          {formattedData[0].product_Title}
+          {formattedData[0]?.product_Title}
         </h3>
         <EsimCard
           data={formattedData[0]}
@@ -101,15 +121,15 @@ export default async function EsimDetailsEsim({
           <div className="bg-white p-2 rounded-md space-y-3">
             {/* Title */}
             <p className="font-medium uppercase text-lg">
-              {formattedData[0].productDetails.product_Title}
+              {formattedData[0]?.productDetails.product_Title}
             </p>
             {/* Description */}
             <p className="text-sm">
-              {formattedData[0].product_details.heading}
+              {formattedData[0]?.product_details.heading}
             </p>
             <Separator className="bg-gray-100" />
             {/* Multiline Details */}
-            {formattedData[0].product_details.items?.map(
+            {formattedData[0]?.product_details?.items?.map(
               (item: any, index: number) => (
                 <div key={index} className="">
                   <p className="text-[15px] leading-6 my-3">{item}</p>
@@ -228,51 +248,96 @@ export default async function EsimDetailsEsim({
             </p>
           </div>
 
+          {/* TopUp Suggested Carousel */}
+          {formattedTopupProducts && (
+            <div className="my-4">
+              <p className="text-lg">
+                Top-Up Suggested Products for{" "}
+                <span className="font-bold">
+                  {searchParams?.regionQuery || concatenatedCountryNames}
+                </span>
+              </p>
+              {/* Slider */}
+              <GeneralCarousel
+                settings={SuggestedProductsCarouselSettings}
+                className="gap-x-3 mx-10 relative mt-3"
+              >
+                {formattedTopupProducts?.map(
+                  (product: IProductsProps, index: number) => (
+                    <div key={index} className="flex items-center">
+                      <SuggestedProductCard
+                        data={product}
+                        country={countries}
+                        buttonText="View Offer"
+                        buttonLink={{
+                          pathname: `/esimInfo/${product?.productDetails?.product_Title}`,
+                          query: {
+                            id: `${product?.productId}`,
+                            // ...(searchParams?.regionQuery
+                            //   ? { regionQuery: searchParams?.regionQuery }
+                            //   : null),
+                            ...(searchParams?.countryQuery
+                              ? { countryQuery: searchParams?.countryQuery }
+                              : null),
+                            ...(searchParams?.providerQuery
+                              ? { providerQuery: searchParams?.providerQuery }
+                              : null),
+                          },
+                        }}
+                      />
+                    </div>
+                  )
+                )}
+              </GeneralCarousel>
+            </div>
+          )}
           {/* Suggested Products Carousel */}
-          <div>
-            <p className="text-lg mt-4">
-              Suggested Products for{" "}
-              <span className=" font-bold">
-                {searchParams?.regionQuery || concatenatedCountryNames}
-              </span>
-            </p>
-            {/* Slider */}
-            <GeneralCarousel
-              settings={SuggestedProductsCarouselSettings}
-              className=" gap-x-3 mx-10 relative mt-3"
-            >
-              {formattedSuggestedProducts?.map(
-                (product: IProductsProps, index: number) => (
-                  <div key={index} className=" flex items-center">
-                    <SuggestedProductCard
-                      data={product}
-                      country={countries}
-                      buttonText="View Offer"
-                      buttonLink={{
-                        pathname: `/esimInfo/${product?.productDetails?.product_Title}`,
-                        query: {
-                          id: `${product?.productId}`,
-                          ...(searchParams.regionQuery
-                            ? { region: searchParams.regionQuery }
-                            : null),
-                          ...(searchParams.countryQuery
-                            ? { country: searchParams.countryQuery }
-                            : null),
-                        },
-                      }}
-                    />
-                  </div>
-                )
-              )}
-            </GeneralCarousel>
-          </div>
+          {!TopUpSuggestedProducts && formattedSuggestedProducts && (
+            <div>
+              <p className=" text-lg mt-4">
+                Suggested Products for{" "}
+                <span className=" font-bold">
+                  {searchParams?.regionQuery || concatenatedCountryNames}
+                </span>
+              </p>
+              {/* Slider */}
+              <GeneralCarousel
+                settings={SuggestedProductsCarouselSettings}
+                className=" gap-x-3 mx-10 relative mt-3"
+              >
+                {formattedSuggestedProducts?.map(
+                  (product: IProductsProps, index: number) => (
+                    <div key={index} className=" flex items-center">
+                      <SuggestedProductCard
+                        data={product}
+                        country={countries}
+                        buttonText="View Offer"
+                        buttonLink={{
+                          pathname: `/esimInfo/${product?.productDetails?.product_Title}`,
+                          query: {
+                            id: `${product?.productId}`,
+                            ...(searchParams?.regionQuery
+                              ? { regionQuery: searchParams?.regionQuery }
+                              : null),
+                            ...(searchParams?.countryQuery
+                              ? { countryQuery: searchParams?.countryQuery }
+                              : null),
+                          },
+                        }}
+                      />
+                    </div>
+                  )
+                )}
+              </GeneralCarousel>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Works in countries */}
       <p className="mt-7">Works in</p>
       <div className="p-2 bg-white my-4 rounded-md grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-        {countryFlagsAndNames.map((item: any) => (
+        {countryFlagsAndNames?.map((item: any) => (
           <div key={item.code} className="flex gap-x-1 mb-1 items-center">
             <Image
               src={item.flag}
