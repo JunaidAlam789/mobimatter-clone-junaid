@@ -8,7 +8,7 @@ import esimIcon from "../../../../public/navbar/esim.svg";
 export default function OrderInfoCard({ data }: any) {
   // console.log("Data", data);
   return (
-    <div className="w-full lg:w-[30%] mx-5">
+    <div className="w-full md:max-w-[890px] mt-10 lg:mt-0 lg:max-w-[30%] mx-5">
       {/* Heading */}
       <div className="flex items-end justify-between mb-1">
         <p className="text-[15px]">Order Summary</p>

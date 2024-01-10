@@ -17,10 +17,10 @@ export default async function Checkout({ searchParams }: CheckoutProps) {
   return (
     <div>
       <TopBar />
-      <OrderInfoCard data={formattedData} />
-
-      {/* Reward Section */}
-      <RewardSection />
+      <div className="max-w-screen-2xl flex flex-col lg:flex-row mx-auto">
+        <RewardSection />
+        <OrderInfoCard data={formattedData} />
+      </div>
     </div>
   );
 }
