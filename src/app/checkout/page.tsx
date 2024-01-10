@@ -2,12 +2,12 @@ import { getDynamicProducts } from "@/actions/getDynamicProducts";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 import OrderInfoCard from "@/views/checkoutpage/orderInfoCard";
 import TopBar from "@/views/checkoutpage/topBar";
+import { RewardSection } from "@/views/checkoutpage/RewardSection";
 
-export default async function Checkout({
-  searchParams,
-}: {
+interface CheckoutProps {
   searchParams: { id: string };
-}) {
+}
+export default async function Checkout({ searchParams }: CheckoutProps) {
   const productId = searchParams.id;
   const data = await getDynamicProducts({ productId });
   const formattedData = getFormattedProductsArray({
@@ -18,6 +18,9 @@ export default async function Checkout({
     <div>
       <TopBar />
       <OrderInfoCard data={formattedData} />
+
+      {/* Reward Section */}
+      <RewardSection />
     </div>
   );
 }
