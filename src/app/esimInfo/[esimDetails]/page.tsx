@@ -72,7 +72,7 @@ export default async function EsimDetailsEsim({
       country: searchParams.countryQuery as any,
       category: "esim_addon",
     });
-  } 
+  }
 
   const threeProductsProducts = suggestedProducts.slice(0, 7);
   // console.log("threeProductsProducts --->", threeProductsProducts);
@@ -84,8 +84,8 @@ export default async function EsimDetailsEsim({
   });
 
   let formattedTopupProducts;
-  
-  if ( searchParams.providerQuery){
+
+  if (searchParams.providerQuery) {
     formattedTopupProducts = getFormattedProductsArray({
       products: threeTopUpProducts,
     });
@@ -113,7 +113,7 @@ export default async function EsimDetailsEsim({
           data={formattedData[0]}
           country={countries}
           buttonText="Buy Now"
-          buttonLink={"/checkout"}
+          buttonLink={`/checkout/${productId}`}
         />
         <PopupEsimCard data={formattedData[0]} country={countries} />
       </div>
