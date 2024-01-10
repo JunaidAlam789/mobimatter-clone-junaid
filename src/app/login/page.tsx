@@ -4,7 +4,7 @@ import { LoginComponent } from "@/components/LoginComponent";
 
 export default function Login() {
   return (
-    <div className="flex flex-col lg:flex-row mx-auto mb-14 w-full">
+    <div className="flex flex-col lg:flex-row mx-auto mb-14 w-full 2xl:w-[1500px] 3xl:w-[1400px] 3xl:gap-x-16">
     {/* Left Side Image */}
     <div className="flex items-center lg:mx-2 relative w-full lg:w-[700px] xl:w-[900px]">
       {/* Image Container */}
