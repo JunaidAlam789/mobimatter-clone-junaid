@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import EsimCard from "@/components/esimCard";
 
-const PopupEsimCard = ({ data, country }: any) => {
+const PopupEsimCard = ({ data, country, buttonLink }: any) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const PopupEsimCard = ({ data, country }: any) => {
           data={data}
           country={country}
           buttonText="Buy Now"
-          buttonLink={"/checkout"}
+          buttonLink={buttonLink}
         />
       </div>
     </>
