@@ -65,27 +65,31 @@ export default async function EsimDetailsEsim({
     });
   }
 
-  let TopUpSuggestedProducts;
+  let TopUpSuggestedProducts = null;
   if (searchParams.providerQuery && searchParams.countryQuery) {
     TopUpSuggestedProducts = await getDynamicProducts({
-      provider: searchParams.providerQuery as any,
+      provider: searchParams?.providerQuery as any,
       country: searchParams.countryQuery as any,
       category: "esim_addon",
     });
-  }
+  } 
 
   const threeProductsProducts = suggestedProducts.slice(0, 7);
   // console.log("threeProductsProducts --->", threeProductsProducts);
 
-  const threeTopUpProducts = TopUpSuggestedProducts.slice(0, 7);
+  const threeTopUpProducts = TopUpSuggestedProducts?.slice(0, 7);
 
   const formattedSuggestedProducts = getFormattedProductsArray({
     products: threeProductsProducts,
   });
 
-  const formattedTopupProducts = getFormattedProductsArray({
-    products: threeTopUpProducts,
-  });
+  let formattedTopupProducts;
+  
+  if ( searchParams.providerQuery){
+    formattedTopupProducts = getFormattedProductsArray({
+      products: threeTopUpProducts,
+    });
+  }
 
   // Convert country codes into a string of country names
   const countryCodes = searchParams?.countryQuery?.split(",");
