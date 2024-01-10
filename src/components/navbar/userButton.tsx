@@ -27,7 +27,7 @@ export default function UserButton({
     <div>
       {isClicked ? (
         <div className="flex items-center gap-2">
-          <Link href={"/profile"}>
+          <Link href={"/profile"} className="hidden lg:block">
             <Avatar>
               <AvatarImage src="/user.jpg" alt="user" />
               <AvatarFallback className="bg-white border border-[#38BDEF] text-[#38BDEF]">

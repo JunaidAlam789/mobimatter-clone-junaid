@@ -13,7 +13,6 @@ import Image from "next/image";
 import { getFormattedProductsArray } from "@/utils/FormattedProductsArray";
 import PopupEsimCard from "@/views/esimDetails/popupEsimCard";
 import { GeneralCarousel } from "@/components/GeneralCarousel";
-import Link from "next/link";
 import { IProductsProps } from "@/app/esim/[search]/page";
 import { SuggestedProductCard } from "@/components/SuggestedProductCard";
 import { SuggestedProductsCarouselSettings } from "@/utils/generalSettings";
@@ -77,7 +76,7 @@ export default async function EsimDetailsEsim({
 
   const concatenatedCountryNames = countryNames?.join(", ");
 
-  console.log(concatenatedCountryNames); // A string of country names separated by commas
+  // console.log(concatenatedCountryNames); // A string of country names separated by commas
 
   return (
     <div className="max-w-[1332px] px-5 md:px-8 mx-auto">
@@ -231,7 +230,7 @@ export default async function EsimDetailsEsim({
 
           {/* Suggested Products Carousel */}
           <div>
-            <p className=" text-lg">
+            <p className="text-lg mt-4">
               Suggested Products for{" "}
               <span className=" font-bold">
                 {searchParams?.regionQuery || concatenatedCountryNames}

@@ -20,7 +20,7 @@ const PopupEsimCard = ({ data, country }: any) => {
   return (
     <>
       <div
-        className={`fixed bottom-0  w-full sm:w-[80%] md:hidden transition-all duration-500 ${
+        className={`fixed bottom-[76px] z-50  w-full sm:w-[80%] md:hidden transition-all duration-500 ${
           isScrolled ? "translate-y-0" : "translate-y-full "
         }`}
       >

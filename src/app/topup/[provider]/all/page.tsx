@@ -7,7 +7,7 @@ import { ToggleButton } from "@/components/ToggleButton";
 import { TopUpAllSelect } from "@/components/Topup-All-Page/TopUpAllSelect";
 
 const AllPage = async ({ params }: { params: { provider: string } }) => {
-  console.log("🚀 ~ file: page.tsx:17 ~ params:", params.provider);
+  // console.log("🚀 ~ file: page.tsx:17 ~ params:", params.provider);
   const optionsData: any = await getCountriesData();
 
   const allProviderDetails = await getProviderDetails();

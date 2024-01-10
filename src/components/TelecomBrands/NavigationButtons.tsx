@@ -35,7 +35,7 @@ export const NavigationButtons = ({
       <div className=" flex items-center w-full space-x-2 sm:space-x-4 mt-4 mb-6">
         <Button
           asChild
-          className=" bg-white w-full h-12 sm:h-[65px] hover:bg-white"
+          className="px-0 bg-white w-full h-12 sm:h-[65px] hover:bg-white"
         >
           <Link href={leftBtnHref}>
             <div className=" flex items-center gap-1">

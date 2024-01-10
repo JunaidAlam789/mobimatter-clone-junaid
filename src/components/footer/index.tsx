@@ -115,7 +115,7 @@ const column3_countries = [
 
 export default function Footer() {
   return (
-    <div className="max-w-screen-2xl mx-auto px-5 xl:px-10 pt-8 mt-4 border-t border-[#E2E8F0]">
+    <div className="max-w-screen-2xl mx-auto px-5 pb-16 lg:pb-0 xl:px-10 pt-8 mt-4 border-t border-[#E2E8F0]">
       <div className="flex gap-y-16 flex-col lg:flex-row">
         {/* Left Side */}
         <div className="w-full md:w-[60%] lg:w-[40%] space-y-10">

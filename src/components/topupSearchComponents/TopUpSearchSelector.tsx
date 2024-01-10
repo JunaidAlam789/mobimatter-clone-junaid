@@ -64,7 +64,7 @@ export function TopUpSearchSelector({
         ).toString()}`;
 
         window.location.href = newUrl;
-        console.log("Updated URL:", newUrl);
+        // console.log("Updated URL:", newUrl);
       }}
     >
       <SelectTrigger
