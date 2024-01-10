@@ -113,7 +113,12 @@ export default async function EsimDetailsEsim({
           data={formattedData[0]}
           country={countries}
           buttonText="Buy Now"
-          buttonLink={`/checkout/${productId}`}
+          buttonLink={{
+            pathname : `/checkout`,
+            query : {
+              id : productId,
+            }
+          }}
         />
         <PopupEsimCard data={formattedData[0]} country={countries} />
       </div>
