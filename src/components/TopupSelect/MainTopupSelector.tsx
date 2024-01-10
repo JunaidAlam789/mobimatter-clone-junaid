@@ -44,39 +44,14 @@ export function MainTopupSelector({
 
   const selectedProvider = data.find((item) => item.label === paramsProvider);
 
-  // React.useEffect(() => {
-  //   if (pathname === `/topup/${paramsProvider}/${countryParams}`) {
-  //     SearchParams.set("selectedProvider", selected);
-  //   }
-
-  //   router.refresh();
-  // }, [SearchParams ,countryParams, paramsProvider, router, selected , pathname]);
+   // Add "ALL" option to the data array
+   const dataWithAllOption = [{ logo: "", label: "ALL", value: "ALL" }, ...data];
   return (
     <Select
       onValueChange={(value) => {
         onSelect(value);
 
-        // if (paramsProvider !== value){
-        //   router.push(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
-        //   console.log(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
 
-        // }
-        // pathname.replace(`/topup/${paramsProvider}/${countryParams}?${SearchParams.toString()}`, `/topup/${value}/${countryParams}?${SearchParams.toString()}`);
-
-        // Use window.location.href to update the URL
-        //  if ( pathname === `/topup/${value}/${countryParams}?${SearchParams.toString()}`){
-        //    const newUrl = `/topup/${value}/${countryParams}?${SearchParams.toString()}`;
-        //    window.location.href = newUrl;
-        //    console.log("Updated URL:", newUrl);
-        //  }
-
-        // router.push(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
-        // console.log(`/topup/${value}/${countryParams}?${SearchParams.toString()}`);
-        // const updatePathname = pathname.replace(`/topup/${paramsProvider}/${countryParams}?${SearchParams.toString()}`, `/topup/${value}/${countryParams}?${SearchParams.toString()}`);
-        // // console.log("Updated Pathname ----> ", updatePathname);
-        // router.replace(updatePathname,undefined);
-
-        // router.push(`/topup/${value}/abc/dfre/swdq`);
       }}
     >
       <SelectTrigger
@@ -107,7 +82,7 @@ export function MainTopupSelector({
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {data.map((item) => (
+          {dataWithAllOption.map((item) => (
             <SelectItem
               key={item.value}
               value={item.value}

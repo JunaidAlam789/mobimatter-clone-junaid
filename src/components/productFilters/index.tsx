@@ -26,6 +26,8 @@ export default function ProductFilters({
   countries,
   currentPage,
   queryLink,
+  providerName,
+  countryCode
 }: {
   country?: any;
   region?: any;
@@ -33,6 +35,8 @@ export default function ProductFilters({
   countries: any;
   currentPage: string;
   queryLink ?: string;
+  providerName ?: string;
+  countryCode ?: string[];
 }) {
   const searchParams = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
@@ -61,10 +65,20 @@ export default function ProductFilters({
   }, [searchParams, setSelectedCountryCodes]);
   let regionQuery : any;
   let countryQuery : any; 
+  let providerQuery : any;
   if( queryLink === region) {
     regionQuery = queryLink
   } else {
     countryQuery = queryLink
+  }
+
+  if (providerName) {
+    // regionQuery = regionQuery ? regionQuery + providerName : providerName;
+    providerQuery = providerName;
+  }
+  
+  if (countryCode) {
+    countryQuery = countryQuery ? countryQuery + countryCode : countryCode;
   }
   // Sorting Function
   const handleSortValue = (value: string) => {
@@ -339,7 +353,7 @@ export default function ProductFilters({
                           // country : countryQuery
                           ...(region ? { regionQuery } : null), // Add region query if region exists
                           ...(country ? { countryQuery } : null), // Add country query if country exists
-                         
+                          ...(providerName ? { providerQuery } : null), // Add provider query if provider exists
                           }, 
                 }}
               />

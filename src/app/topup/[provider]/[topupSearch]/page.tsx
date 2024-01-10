@@ -35,8 +35,10 @@ export interface IProductsProps {
 
 export default async function Search({
   params,
+  searchParams,
 }: {
   params: { topupSearch: string; provider: string };
+  searchParams : { selectedCountry : string[] };
 }) {
   const data1: any = await getCountriesData();
   // console.log("Params", params);
@@ -68,6 +70,14 @@ export default async function Search({
       category: "esim_addon",
       provider: params.provider,
     });
+  }
+
+  if ( params.provider  === "ALL"){
+    // Fetch Products based on the country Code
+    getSpecificCountryProduct = await  getDynamicProducts({
+      country : getCountryCode?.cca2,
+      category : "esim_addon",
+    })
   }
 
   const esim_realtimeProducts = getFormattedProductsArray({
@@ -135,6 +145,8 @@ export default async function Search({
           data={esim_realtimeProducts}
           countries={countriesData}
           currentPage={"Top up existing eSIMs"}
+          providerName={params?.provider!}
+          countryCode={searchParams.selectedCountry}
         />
       ) : (
         <ProductFilters
@@ -143,6 +155,8 @@ export default async function Search({
           data={esim_realtimeProducts}
           countries={countriesData}
           currentPage={"Top up existing eSIMs"}
+          providerName={params?.provider!}
+          countryCode={searchParams.selectedCountry}
         />
       )}
     </div>
