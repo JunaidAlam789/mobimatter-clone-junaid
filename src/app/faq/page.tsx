@@ -1,25 +1,29 @@
 import Image from "next/image";
-import { Search } from "lucide-react";
-import FaqDrop from "@/components/FAQ/FaqDrop";
+// import { Search } from "lucide-react";
+// import FaqDrop from "@/components/FAQ/FaqDrop";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
-
-const content =[
+const content = [
   {
-    title:'Introduction',
-    sub:[
+    title: "Introduction",
+    sub: [
       {
-        q:'What is eSIM?',
-        ans:'An eSIM profile contains carrier and network subscription information, just like a normal SIM card. However, instead of coming in the form of a physical chip, the operator profile information is downloaded directly into the eSIM chip in your phone.This means your phone has to support eSIM if you want to use it. '
+        q: "What is eSIM?",
+        ans: "An eSIM profile contains carrier and network subscription information, just like a normal SIM card. However, instead of coming in the form of a physical chip, the operator profile information is downloaded directly into the eSIM chip in your phone.This means your phone has to support eSIM if you want to use it. ",
       },
       {
-        q:'What is QR Code?',
-        ans:'A QR code is simply a representation of a download link plus activation code for your eSIM profile. It is used to easily connect to the eSIM server and download the eSIM profile to your phone. It is easier to scan a QR code than typing a long string of text, but if for some reason you are unable to scan the QR code, you will have the option to activate your eSIM by entering the required information manually.Please note that QR codes can be used only once. Once a QR code is scanned and an eSIM profile is downloaded, it cannot be used to download the same eSIM again, whether it is on the same or another device.'
+        q: "What is QR Code?",
+        ans: "A QR code is simply a representation of a download link plus activation code for your eSIM profile. It is used to easily connect to the eSIM server and download the eSIM profile to your phone. It is easier to scan a QR code than typing a long string of text, but if for some reason you are unable to scan the QR code, you will have the option to activate your eSIM by entering the required information manually.Please note that QR codes can be used only once. Once a QR code is scanned and an eSIM profile is downloaded, it cannot be used to download the same eSIM again, whether it is on the same or another device.",
       },
       {
-        q:'Is my phone eSim capable?',
-        ans:`As the eSIM technology advances, it becomes more prominent and you can find many phone models supporting it. We tried to summarize it and compile a single list that contains most phone models.
-
-The sure way you can verify if your phone is compatible:
+        q: "Is my phone eSim capable?",
+        ans: `As the eSIM technology advances, it becomes more prominent and you can find many phone models supporting it. We tried to summarize it and compile a single list that contains most phone models. \n\n\n
+        The sure way you can verify if your phone is compatible:
 
 iPhone: 
 
@@ -109,24 +113,24 @@ If your device is locked to a specific carrier due to a contract, it needs to be
         Samsung Galaxy Fold
         Samsung Galaxy Z Fold2
         Samsung Galaxy Z Fold3
-        Samsung Note 20+`
-      }
-    ]
+        Samsung Note 20+`,
+      },
+    ],
   },
   {
-    title:'Introduction',
-    sub:[
+    title: "Introduction",
+    sub: [
       {
-        q:'What is eSIM?',
-        ans:'An eSIM profile contains carrier and network subscription information, just like a normal SIM card. However, instead of coming in the form of a physical chip, the operator profile information is downloaded directly into the eSIM chip in your phone.This means your phone has to support eSIM if you want to use it. '
+        q: "What is eSIM?",
+        ans: "An eSIM profile contains carrier and network subscription information, just like a normal SIM card. However, instead of coming in the form of a physical chip, the operator profile information is downloaded directly into the eSIM chip in your phone.This means your phone has to support eSIM if you want to use it. ",
       },
       {
-        q:'What is QR Code?',
-        ans:'A QR code is simply a representation of a download link plus activation code for your eSIM profile. It is used to easily connect to the eSIM server and download the eSIM profile to your phone. It is easier to scan a QR code than typing a long string of text, but if for some reason you are unable to scan the QR code, you will have the option to activate your eSIM by entering the required information manually.Please note that QR codes can be used only once. Once a QR code is scanned and an eSIM profile is downloaded, it cannot be used to download the same eSIM again, whether it is on the same or another device.'
+        q: "What is QR Code?",
+        ans: "A QR code is simply a representation of a download link plus activation code for your eSIM profile. It is used to easily connect to the eSIM server and download the eSIM profile to your phone. It is easier to scan a QR code than typing a long string of text, but if for some reason you are unable to scan the QR code, you will have the option to activate your eSIM by entering the required information manually.Please note that QR codes can be used only once. Once a QR code is scanned and an eSIM profile is downloaded, it cannot be used to download the same eSIM again, whether it is on the same or another device.",
       },
       {
-        q:'Is my phone eSim capable?',
-        ans:`As the eSIM technology advances, it becomes more prominent and you can find many phone models supporting it. We tried to summarize it and compile a single list that contains most phone models.
+        q: "Is my phone eSim capable?",
+        ans: `As the eSIM technology advances, it becomes more prominent and you can find many phone models supporting it. We tried to summarize it and compile a single list that contains most phone models.
 
 The sure way you can verify if your phone is compatible:
 
@@ -218,29 +222,60 @@ If your device is locked to a specific carrier due to a contract, it needs to be
         Samsung Galaxy Fold
         Samsung Galaxy Z Fold2
         Samsung Galaxy Z Fold3
-        Samsung Note 20+`
-      }
-    ]
-  }
-]
+        Samsung Note 20+`,
+      },
+    ],
+  },
+];
 
 export default function Faq() {
   return (
     <div className="w-screen min-h-screen">
       <div className="bg-darkblue h-[12rem] flex flex-col justify-center items-center">
-        <Image alt=""  height={100} width={100} src='/faq/lighthouse.svg'/>
-        <h2 className="text-white font-semibold text-lg">Frequently Asked Questions</h2>
-        <div className="w-[18rem] flex bg-white p-1 rounded-sm">
+        <Image alt="" height={100} width={100} src="/faq/lighthouse.svg" />
+        <h2 className="text-white font-semibold text-3xl mt-2">
+          Frequently Asked Questions
+        </h2>
+        {/* <div className="w-[18rem] flex bg-white p-1 rounded-sm">
           <input className="w-full" placeholder="Search Our Knowledgebase..."/>
             <Search className="text-white bg-btnblue p-1 rounded-full" />
-        </div>
+        </div> */}
       </div>
-      <div className="lg:px-[10rem] px-[2rem] flex flex-col w-full items-center">
-        {
-          content.map((item,idx)=>(
-            <FaqDrop key={idx} title={item.title} sub={item.sub}/>
-          ))
-        }
+      {/* <div className="lg:px-[10rem] px-[2rem] flex flex-col w-full items-center">
+        {content.map((item, idx) => (
+          <FaqDrop key={idx} title={item.title} sub={item.sub} />
+        ))}
+      </div> */}
+      <div className="max-w-6xl mx-auto my-5">
+        {content.map((item, index) => (
+          <Accordion key={index} type="single" collapsible className="mb-3">
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-xl px-3 rounded-md hover:bg-neutral-200 hover:no-underline">
+                {item.title}
+              </AccordionTrigger>
+              <AccordionContent>
+                {/* Sub questions */}
+                {item.sub.map((sub, index) => (
+                  <Accordion
+                    key={index}
+                    type="single"
+                    collapsible
+                    className="mb-3"
+                  >
+                    <AccordionItem value="item-1">
+                      <AccordionTrigger className="bg-white px-5 rounded-md font-normal text-base hover:no-underline">
+                        {sub.q}
+                      </AccordionTrigger>
+                      <AccordionContent className="bg-white px-5 rounded-b-md font-normal text-base">
+                        {sub.ans}
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                ))}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        ))}
       </div>
     </div>
   );
