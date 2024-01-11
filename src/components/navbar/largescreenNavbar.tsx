@@ -6,7 +6,13 @@ import { ChevronDown } from "lucide-react";
 import DropdownMenu from "./dropdownMenu";
 import UserButton from "./userButton";
 
-export default function LargescreenNavbar() {
+interface LargescreenNavbarProps {
+  currentUser : any;
+}
+
+export default function LargescreenNavbar({
+  currentUser
+}: LargescreenNavbarProps) {
   return (
     <div className="flex items-center justify-between max-w-screen-2xl mx-auto px-8 h-16 border-b-4 border-[#F2F6F8] z-[100] relative">
       {/* Logo */}
@@ -43,7 +49,7 @@ export default function LargescreenNavbar() {
           </ul>
         ))}
         {/* Button */}
-        <UserButton isLargeScreen={true} />
+        <UserButton isLargeScreen={true} currentUser={currentUser} />
       </div>
     </div>
   );

@@ -4,12 +4,16 @@ import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function UserButton({
   isLargeScreen,
+  currentUser,
 }: {
   isLargeScreen: boolean;
+  currentUser : any;
 }) {
+  const router = useRouter();
   const [isClicked, setIsClicked] = useState(false);
   const userName = "John Doe";
   const handleButtonClick = () => {
@@ -23,15 +27,21 @@ export default function UserButton({
     return initials.join("");
   }
 
+
   return (
     <div>
-      {isClicked ? (
-        <div className="flex items-center gap-2">
+  
+
+      {/* if we have Current User */}
+      {currentUser ? (
+        <>
+         <div className="flex items-center gap-2">
           <Link href={"/profile"} className="hidden lg:block">
             <Avatar>
-              <AvatarImage src="/user.jpg" alt="user" />
+              <AvatarImage src={currentUser?.image} alt="user" />
               <AvatarFallback className="bg-white border border-[#38BDEF] text-[#38BDEF]">
-                {getInitials(userName)}
+                {/* {getInitials(userName)} */}
+                {currentUser?.name}
               </AvatarFallback>
             </Avatar>
           </Link>
@@ -41,28 +51,70 @@ export default function UserButton({
             <p className="text-[15px] mt-0.5 font-[450] text-black">$0.00</p>
           </Link>
         </div>
+        </>
       ) : (
         <>
-          {isLargeScreen ? (
-            // <Link href="/signup">
-            <Button
-              className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
-              onClick={handleButtonClick}
-            >
-              Join Now
-            </Button>
-          ) : (
-            // </Link></div>)}
-            <Button
-              className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
-              onClick={handleButtonClick}
-            >
-              <LogIn />
-            </Button>
-            // </Link>
-          )}
-        </>
+        {isLargeScreen ? (
+          // <Link href="/signup">
+          <Button
+            className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
+            onClick={() => router.push('/login')}
+          >
+            Join Now
+          </Button>
+        ) : (
+          // </Link></div>)}
+          <Button
+            className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
+            onClick={() => router.push('/login')}
+          >
+            <LogIn />
+          </Button>
+          // </Link>
+        )}
+      </>
       )}
     </div>
   );
 }
+
+
+
+// {isClicked ? (
+//   <div className="flex items-center gap-2">
+//     <Link href={"/profile"} className="hidden lg:block">
+//       <Avatar>
+//         <AvatarImage src="/user.jpg" alt="user" />
+//         <AvatarFallback className="bg-white border border-[#38BDEF] text-[#38BDEF]">
+//           {getInitials(userName)}
+//         </AvatarFallback>
+//       </Avatar>
+//     </Link>
+//     {/* Reward Balance */}
+//     <Link href="/profile/wallet">
+//       <p className="text-[9px] text-black">Reward Balance</p>
+//       <p className="text-[15px] mt-0.5 font-[450] text-black">$0.00</p>
+//     </Link>
+//   </div>
+// ) : (
+//   <>
+//     {isLargeScreen ? (
+//       // <Link href="/signup">
+//       <Button
+//         className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
+//         onClick={() => router.push('/login')}
+//       >
+//         Join Now
+//       </Button>
+//     ) : (
+//       // </Link></div>)}
+//       <Button
+//         className="bg-[#38BDEF] hover:text-[#38BDEF] hover:bg-white border border-[#38BDEF]"
+//         onClick={() => router.push('/login')}
+//       >
+//         <LogIn />
+//       </Button>
+//       // </Link>
+//     )}
+//   </>
+// )}

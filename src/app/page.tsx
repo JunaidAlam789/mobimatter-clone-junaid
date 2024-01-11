@@ -5,7 +5,11 @@ import EsimOffers from "@/views/homepage/esimOffers";
 import HowItWorks from "@/views/homepage/howItWorks";
 import { PopularCountries } from "@/views/homepage/popularCountries";
 import topupIcon from "../../public/navbar/topupColored.svg";
+import getCurrentUser from "@/actions/getCurrentUser";
 export default async function Home() {
+  const currentUser = await getCurrentUser();
+  console.log("Current User -----> ", currentUser);
+  
   return (
     <>
       <HeroSection />

@@ -70,7 +70,7 @@ export function TypedSearch({
           <CommandInput placeholder="Search country ..." />
           <CommandEmpty>No country found</CommandEmpty>
           <CommandGroup className="overflow-y-scroll">
-            {countries.map((country: any) => (
+            {countries?.map((country: any) => (
               <CommandItem
                 key={country.name}
                 value={country.name}

@@ -6,6 +6,7 @@ import search from "/public/navbar/search.svg";
 import send from "/public/navbar/send.svg";
 import usa from "/public/navbar/usa.svg";
 import europe from "/public/navbar/europe.svg";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export const navbarData = [
   {
@@ -67,12 +68,14 @@ export const dropdownMenuData = [
     href: "/destinations",
   },
 ];
-export default function Navbar() {
+export default async function Navbar() {
+  const currentUser = await getCurrentUser();
+
   return (
     <div className="fixed bg-white w-full z-[80]">
       {/* Navbar for Large Screens */}
       <div className="hidden lg:block">
-        <LargescreenNavbar />
+        <LargescreenNavbar currentUser={currentUser} />
       </div>
       {/* Navbar for Small Screens */}
       <div className="block lg:hidden">
