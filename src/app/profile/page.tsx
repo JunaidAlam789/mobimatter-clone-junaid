@@ -5,7 +5,7 @@ import OptionListComponent from "@/components/profilePageComponents/OptionListCo
 
 const Profile = () => {
   return (
-    <div className="flex flex-col w-screen min-h-screen items-center py-2 lg:px-[20rem] px-[1rem] space-y-4">
+    <div className="flex flex-col w-full min-h-screen items-center py-2 lg:px-[20rem] px-[1rem] space-y-4">
       <div className="w-full h-[18rem] flex flex-col justify-center items-center space-y-2 bg-white rounded-md py-4">
         <div className="h-[9rem] w-[9rem] rounded-full relative overflow-hidden object-contain">
           <Image alt="user" src="/user.jpg" fill />
@@ -16,7 +16,7 @@ const Profile = () => {
       <div className="w-full h-[12rem] flex flex-col justify-center items-center space-y-2  rounded-md py-2 relative object-cover overflow-hidden bg-btndark text-white">
         <p className="text-txtgrey ">MobiMatter Rewards members get</p>
         <p>10% cashback on purchases</p>
-        <p className="text-center">
+        <p className="text-center px-2">
           & up to $5 for every friend that get his first eSIM!
         </p>
         <Button className="bg-btnblue hover:bg-btnblue text-white" size="lg">

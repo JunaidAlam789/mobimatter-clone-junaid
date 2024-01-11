@@ -33,10 +33,12 @@ const WalletPageComponent = () => {
       <div className="bg-txtgrey/20 h-[1px] w-full" />
       <div className="py-4 space-y-2">
         <p>Your referral code</p>
-        <div className="w-[18rem] h-[6rem] flex bg-white rounded-md shadow-md justify-center items-center ">
-          <p className="font-bold">Available after first purchase</p>
+        <div className="w-fit p-5 flex bg-white rounded-md shadow-md justify-center items-center">
+          <p className="tracking-widest font-medium sm:text-lg">
+            Available after first purchase
+          </p>
         </div>
-        <div className="flex  space-x-1 text-txtgrey">
+        <div className="flex space-x-1 text-txtgrey">
           <Info />
           <p className="text-lg text-wrap">
             The code should be entered during checkout when prompted.
