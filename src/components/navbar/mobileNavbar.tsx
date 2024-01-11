@@ -4,35 +4,42 @@ import Logo from "@/components/logo";
 import Link from "next/link";
 import Image from "next/image";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { dropdownMenuData } from ".";
+import { User, dropdownMenuData } from ".";
 import { useState } from "react";
 import UserButton from "./userButton";
 import { usePathname } from "next/navigation";
 
-const bottomBarData = [
-  {
-    label: "Home",
-    href: "/",
-    img: "/navbar/home.svg",
-  },
-  {
-    label: "Topups",
-    href: "/topup",
-    img: "/navbar/topup.svg",
-  },
-  {
-    label: "My eSIMs",
-    href: "/profile/history?type=esim",
-    img: "/navbar/esim.svg",
-  },
-  {
-    label: "Profile",
-    href: "/profile",
-    img: "/user.jpg",
-  },
-];
 
-export default function MobileNavbar() {
+
+interface MobileNavbarProps {
+  currentUser : User;
+}
+
+export default function MobileNavbar({
+  currentUser
+}: MobileNavbarProps) {
+  const bottomBarData = [
+    {
+      label: "Home",
+      href: "/",
+      img: "/navbar/home.svg",
+    },
+    {
+      label: "Topups",
+      href: "/topup",
+      img: "/navbar/topup.svg",
+    },
+    {
+      label: "My eSIMs",
+      href: "/profile/history?type=esim",
+      img: "/navbar/esim.svg",
+    },
+    {
+      label: "Profile",
+      href: "/profile",
+      img: currentUser?.image || "/user.jpg",
+    },
+  ];
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   // Function to determine text color based on conditions
@@ -85,7 +92,7 @@ export default function MobileNavbar() {
       {/* Logo */}
       <Logo />
       {/* Login Button */}
-      <UserButton isLargeScreen={false} />
+      <UserButton isLargeScreen={false} currentUser={currentUser}  />
 
       {/* Fixed Bar at the bottom */}
       <div className="fixed bottom-0 left-0 right-0 bg-white flex justify-between border border-l-0 border-r-0 border-b-0 border-t-4 border-t-gray-100 p-3 sm:px-5 md:px-10">

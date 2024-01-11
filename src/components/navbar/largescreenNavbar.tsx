@@ -1,13 +1,13 @@
 import React from "react";
 import Logo from "@/components/logo";
 import Link from "next/link";
-import { navbarData } from ".";
+import { User, navbarData } from ".";
 import { ChevronDown } from "lucide-react";
 import DropdownMenu from "./dropdownMenu";
 import UserButton from "./userButton";
 
 interface LargescreenNavbarProps {
-  currentUser : any;
+  currentUser : User;
 }
 
 export default function LargescreenNavbar({

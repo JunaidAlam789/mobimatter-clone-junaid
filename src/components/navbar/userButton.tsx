@@ -5,13 +5,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { User } from ".";
 
 export default function UserButton({
   isLargeScreen,
   currentUser,
 }: {
   isLargeScreen: boolean;
-  currentUser : any;
+  currentUser : User;
 }) {
   const router = useRouter();
   const [isClicked, setIsClicked] = useState(false);
@@ -40,8 +41,7 @@ export default function UserButton({
             <Avatar>
               <AvatarImage src={currentUser?.image} alt="user" />
               <AvatarFallback className="bg-white border border-[#38BDEF] text-[#38BDEF]">
-                {/* {getInitials(userName)} */}
-                {currentUser?.name}
+                {getInitials(currentUser?.name)}
               </AvatarFallback>
             </Avatar>
           </Link>

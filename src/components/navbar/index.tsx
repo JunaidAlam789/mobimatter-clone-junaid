@@ -68,8 +68,15 @@ export const dropdownMenuData = [
     href: "/destinations",
   },
 ];
+
+ export  interface User {
+  name : string;
+  email : string;
+  image : string;
+}
+
 export default async function Navbar() {
-  const currentUser = await getCurrentUser();
+  const currentUser : any = await getCurrentUser();
 
   return (
     <div className="fixed bg-white w-full z-[80]">
@@ -79,7 +86,7 @@ export default async function Navbar() {
       </div>
       {/* Navbar for Small Screens */}
       <div className="block lg:hidden">
-        <MobileNavbar />
+        <MobileNavbar currentUser={currentUser} />
       </div>
     </div>
   );
