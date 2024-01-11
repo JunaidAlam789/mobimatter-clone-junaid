@@ -8,7 +8,7 @@ import topupIcon from "../../public/navbar/topupColored.svg";
 import getCurrentUser from "@/actions/getCurrentUser";
 export default async function Home() {
   const currentUser = await getCurrentUser();
-  console.log("Current User -----> ", currentUser);
+  // console.log("Current User -----> ", currentUser);
   
   return (
     <>
