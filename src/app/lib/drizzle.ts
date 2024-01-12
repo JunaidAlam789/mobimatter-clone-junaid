@@ -7,7 +7,7 @@ export const orders=pgTable('orders',{
 id: serial("id"),
 userid: varchar("userid",{length: 255}),
 orderid: varchar("orderid",{length: 255}),
-orderstate: varchar("ordrestate",{length: 255}),
+orderstate: varchar("orderstate",{length: 255}),
 merchantid: varchar("merchantid",{length: 255}),
 externalid: varchar("externalid",{length: 255}),
 currencycode: varchar("currencycode",{length: 255}),
