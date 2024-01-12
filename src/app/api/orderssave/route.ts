@@ -1,5 +1,5 @@
 import {NextRequest, NextResponse} from 'next/server'
-import {db , cartTable } from '../../lib/drizzle'
+import {db , orders } from '../../lib/drizzle'
 import {v4 as uuid} from "uuid"
 import { cookies } from 'next/dist/client/components/headers'
 import { and, eq, param } from 'drizzle-orm'
@@ -11,13 +11,14 @@ import { and, eq, param } from 'drizzle-orm'
    // console.log(productid,"productid")
     //console.log(req.product_id,"product_id")
 try{
-    const res= await db.select().from(cartTable)
+    const res= await db.select().from(orders)
  /* const res= await db.insert(cartTable).values({
     user_id: "user123",
     product_id: "prod123",
     quantity: 2
 })  */
-console.log(res[0].product_id,"get queryy")
+//console.log(res, "orders")
+//console.log(res[0].productid,"get queryy")
 return NextResponse.json({'mes': res})
 }catch(error){
     return NextResponse.json({'mes': error})
@@ -25,38 +26,29 @@ return NextResponse.json({'mes': res})
 }
 
 } 
-
+/*
 export const POST = async (request: NextRequest) => {
     const req= await request.json();
     const uid= uuid();
     const setCookies= cookies();
     if(!cookies().get("user_id")?.value){
         setCookies.set("user_id", uid)
-        /* cookies().set({
-            name: 'user_id',
-            value: uid,
-            expires: new Date('2023-06-26'),
-            path: '/', // For all paths
-          }) */
+        
     }
     
-    /* UPDATE  cart
-SET quantity = 7
-WHERE id = 223 */
+
       const userid= cookies().get("user_id")?.value
       console.log(userid,"post cartaddupdate")
     try{
-        const res1= await db.select().from(cartTable).where(and (eq(cartTable.product_id, req.product_id),eq(cartTable.user_id, `${userid}`)) )
+        const res1= await db.select().from(orders).where(and (eq(orders.productid, req.productid),eq(orders.userid, `${userid}`)) )
         if ( !res1.length){
-        const res2= await db.insert(cartTable).values({
-            user_id: setCookies.get("user_id")?.value as string,
-            product_id: req.product_id? req.product_id:"pr_12345",
-            quantity: 0,      //quantity: req.quantity,
+        const res2= await db.insert(orders).values({
+             userid: setCookies.get("userid")?.value as string, 
+            productid: req.productid? req.productid:"pr_12345",
+            
             title: req.title? req.title:"Product title",
             price: req.price,
-            imagename: req.imagename,
-            size: req.size? req.size:"Small",
-            color: req.color? req.color:"White"
+           
               
         }).returning()}
         return NextResponse.json({'mes': {res1}})
@@ -66,10 +58,8 @@ WHERE id = 223 */
     }
     
 }
- /* UPDATE  cart
-SET quantity = 7
-WHERE id = 223 */
- export const PUT = async (request: NextRequest) => {
+  */
+ /* export const PUT = async (request: NextRequest) => {
     const req= await request.json();
     
     const uid= uuid();
@@ -82,9 +72,9 @@ WHERE id = 223 */
       console.log(userid,"put cartaddupdate")
     console.log(req.product_id, "req console")
     try{ 
-        const res3= await db.select().from(cartTable).where(and(eq(cartTable.product_id, req.product_id), eq(cartTable.user_id, `${userid}`)) )
+        const res3= await db.select().from(orders).where(and(eq(orders.productid, req.product_id), eq(cartTable.user_id, `${userid}`)) )
         if(res3.length){
-        const res4=await db.update(cartTable).set({quantity: req.quantity + res3[0].quantity }).where(and(eq(cartTable.product_id, req.product_id), eq(cartTable.user_id, `${userid}`))).returning();  
+        const res4=await db.update(orders).set({quantity: req.quantity + res3[0].quantity }).where(and(eq(cartTable.product_id, req.product_id), eq(cartTable.user_id, `${userid}`))).returning();  
         }
         
        
@@ -100,4 +90,4 @@ WHERE id = 223 */
     
     }
     
-} 
+}  */
